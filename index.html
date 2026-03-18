@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Decision Copilot</title>
+  <title>AI Decision Copilot｜AI决策助手</title>
   <style>
     * {
       margin: 0;
@@ -102,7 +102,6 @@
   </div>
 
 <script>
-// 这里我直接给你一个可用的免费代理 API（不需要你填密钥，直接能用）
 async function run() {
   const q = document.getElementById("question").value;
   const a = document.getElementById("optA").value;
@@ -121,39 +120,36 @@ async function run() {
   result.style.display = "none";
 
   try {
-    // 直接调用一个公共 AI 接口，不需要你自己申请密钥了
-    const response = await fetch("https://api.ai-gaochao.cn/v1/chat/completions", {
+    const resp = await fetch("https://api.miclle.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer sk-22e42294a28e40a88c3cd24515fd5354"
+        "Authorization": "Bearer sk-6666666666666666666666"
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "user",
-            content: `请对以下选项做专业决策分析，严格按格式输出：
+        messages: [{
+          role: "user",
+          content: `你是专业决策助手，请根据用户输入的问题和选项，进行详细、结构化、有逻辑的分析，必须严格按格式输出。
 
-决策问题：${q}
+用户问题：${q}
 选项A：${a}
 选项B：${b}
 
-输出格式：
-【结论】
-【对比分析】
+请输出：
+【决策问题】
+【最终建议】
+【详细对比分析】
 【适合人群】
 【决策依据】`
-          }
-        ]
+        }]
       })
     });
 
-    const data = await response.json();
-    result.innerText = data.choices?.[0]?.message?.content || "AI 分析完成";
+    const data = await resp.json();
+    result.innerText = data.choices[0].message.content;
   } catch (e) {
-    // 如果接口崩了，我们给保底显示（避免白屏）
-    result.innerText = `【决策问题】：${q}\n\n【分析结论】\n基于你的输入，系统建议优先选择 B。\n\n原因：B 包含核心业务，成长空间大。`;
+    result.innerText = "【决策问题】" + q + "\n\n【最终建议】\n无法联网获取AI分析，请检查网络后重试。";
   } finally {
     btn.disabled = false;
     loading.style.display = "none";
