@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Decision Copilot - 真实AI决策助手</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    body {
+      background: #f5f7fa;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+    .page-subtitle {
+      font-size: 16px;
+      color: #6b7280;
+      margin-bottom: 32px;
+    }
+    .project-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .project-title {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .project-desc {
+      color: #4b5563;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: block;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 15px;
+      resize: vertical;
+      outline: none;
+    }
+    textarea:focus {
+      border-color: #3b82f6;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .btn:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 12px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+    .loading {
+      color: #3b82f6;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="page-title">AI Decision Copilot</h1>
+  <p class="page-subtitle">AI产品经理作品集 | 真实AI决策助手</p>
+
+  <div class="project-card">
+    <h2 class="project-title">📌 AI 决策助手</h2>
+    <p class="project-desc">
+      基于大模型实现的智能决策分析工具，可对双选项进行结构化对比分析，输出专业建议。
+    </p>
+
+    <div class="form-group">
+      <label class="form-label">📝 决策问题</label>
+      <textarea id="q" rows="2" placeholder="例如：实习选大厂还是创业公司"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">🅰️ 选项 A</label>
+      <textarea id="a" rows="3" placeholder="描述选项A的优缺点"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">🅱️ 选项 B</label>
+      <textarea id="b" rows="3" placeholder="描述选项B的优缺点"></textarea>
+    </div>
+
+    <button class="btn" onclick="startAnalyze()" id="submitBtn">🚀 开始AI分析</button>
+
+    <div id="loading" class="loading" style="display:none;">AI 正在思考中...</div>
+    <div id="result" class="result" style="display:none;"></div>
+  </div>
+
+<script>
+const API_KEY = "83c99805-4d19-4df9-a9f4-dcec33139f63"; 
+
+async function startAnalyze() {
+  const q = document.getElementById("q").value;
+  const a = document.getElementById("a").value;
+  const b = document.getElementById("b").value;
+  const btn = document.getElementById("submitBtn");
+  const loading = document.getElementById("loading");
+  const result = document.getElementById("result");
+
+  if (!q || !a || !b) {
+    alert("请填写完整内容");
+    return;
+  }
+
+  btn.disabled = true;
+  loading.style.display = "block";
+  result.style.display = "none";
+
+  try {
+    const res = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "doubao-1.5-pro",
+        messages: [
+          {
+            role: "user",
+            content: `
+请帮我做决策分析，严格按以下格式输出：
+
+【决策问题】：${q}
+【选项A】：${a}
+【选项B】：${b}
+
+---
+【分析结论】（直接给建议）
+【对比分析】（优缺点对比）
+【适合人群】
+【决策依据】
+`
+          }
+        ],
+        temperature: 0.7
+      })
+    });
+
+    const data = await res.json();
+    const output = data.choices[0].message.content;
+    result.innerText = output;
+    result.style.display = "block";
+  } catch (e) {
+    result.innerText = "AI 服务暂时不可用，请稍后再试";
+    result.style.display = "block";
+  } finally {
+    btn.disabled = false;
+    loading.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
