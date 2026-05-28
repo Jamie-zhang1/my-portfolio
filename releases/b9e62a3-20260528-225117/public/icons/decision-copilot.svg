@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="#F0EBE3" stroke="#D8D2C8" stroke-width="1.5"/>
+  
+  <!-- Brain/Decision core -->
+  <g transform="translate(32, 28)">
+    <!-- Left hemisphere -->
+    <path d="M32 8C18 8 8 18 8 32C8 46 18 56 32 56" stroke="#5B6E8A" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <!-- Right hemisphere -->
+    <path d="M32 8C46 8 56 18 56 32C56 46 46 56 32 56" stroke="#7A8F7A" stroke-width="3" stroke-linecap="round" fill="none"/>
+    
+    <!-- Neural connections -->
+    <circle cx="22" cy="22" r="3" fill="#5B6E8A" opacity="0.8"/>
+    <circle cx="42" cy="22" r="3" fill="#7A8F7A" opacity="0.8"/>
+    <circle cx="18" cy="36" r="2.5" fill="#5B6E8A" opacity="0.6"/>
+    <circle cx="46" cy="36" r="2.5" fill="#7A8F7A" opacity="0.6"/>
+    <circle cx="32" cy="14" r="2" fill="#8A8A8A" opacity="0.5"/>
+    <circle cx="32" cy="50" r="2" fill="#8A8A8A" opacity="0.5"/>
+    
+    <!-- Decision branches -->
+    <line x1="22" y1="22" x2="32" y2="14" stroke="#5B6E8A" stroke-width="1.2" opacity="0.5"/>
+    <line x1="42" y1="22" x2="32" y2="14" stroke="#7A8F7A" stroke-width="1.2" opacity="0.5"/>
+    <line x1="22" y1="22" x2="18" y2="36" stroke="#5B6E8A" stroke-width="1.2" opacity="0.5"/>
+    <line x1="42" y1="22" x2="46" y2="36" stroke="#7A8F7A" stroke-width="1.2" opacity="0.5"/>
+    <line x1="18" y1="36" x2="32" y2="50" stroke="#5B6E8A" stroke-width="1.2" opacity="0.5"/>
+    <line x1="46" y1="36" x2="32" y2="50" stroke="#7A8F7A" stroke-width="1.2" opacity="0.5"/>
+    
+    <!-- Center decision point -->
+    <circle cx="32" cy="32" r="5" fill="#5B6E8A" opacity="0.15"/>
+    <circle cx="32" cy="32" r="3" fill="#5B6E8A" opacity="0.9"/>
+  </g>
+  
+  <!-- Sparkle accents -->
+  <circle cx="98" cy="30" r="2" fill="#C4A882" opacity="0.6"/>
+  <circle cx="102" cy="34" r="1" fill="#C4A882" opacity="0.4"/>
+  <circle cx="28" cy="98" r="1.5" fill="#7A8F7A" opacity="0.4"/>
+</svg>
