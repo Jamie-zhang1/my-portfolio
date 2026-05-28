@@ -100,7 +100,7 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 | 阶段 3：README/SEO/部署记录最终化 | `cadcfee`, `f9c9bcc`, `b9e62a3` | 已推送 |
 | 阶段 4：合并 `main` | `b9e62a3` | 已快进合并并推送 |
 | 阶段 5-9：生产审计、部署、HTTPS 与线上验收 | 无代码提交 | 已完成 |
-| 阶段 10：生产部署记录 | `docs: record production deployment for heard-sheep cloud portfolio` | 待本次提交 |
+| 阶段 10：生产部署记录 | `docs: record production deployment for heard-sheep cloud portfolio` | 已提交并推送到 `main` |
 
 ---
 

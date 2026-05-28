@@ -110,7 +110,8 @@ https://heard-sheep.cloud/sheep -> heard-sheep 真实产品服务
 ## 当前状态
 
 - 功能分支：`feat/portfolio-interactive-showcase`，已快进合并到 `main`
-- `main` 上线基线：`b9e62a3 docs: update portfolio validation commit records`
+- 生产应用部署基线：`b9e62a3 docs: update portfolio validation commit records`
+- 最新 `main` 已包含生产部署记录与线上验收截图
 - 作品集页面、两个交互 Demo 与 heard-sheep 同域入口已完成线上验收
 - 生产域名：`heard-sheep.cloud`
 - HTTPS 与回滚记录见 `docs/上线执行记录_作品集网站_heard-sheep-cloud.md`
