@@ -92,9 +92,9 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 
 | 阶段 | Commit | 状态 |
 | --- | --- | --- |
-| 阶段 1：内容、入口、文档与 SEO 基础修复 | 待提交 | 本地验证通过，待提交 |
-| 阶段 2：截图替换与视觉复核 | 待提交 | 本地复核通过，待提交 |
-| 阶段 3：README/SEO/部署记录最终化 | 待提交 | 未开始 |
+| 阶段 1：内容、入口、文档与 SEO 基础修复 | `dbf7ede` | 已推送 |
+| 阶段 2：截图替换与视觉复核 | `77a5295` | 已推送 |
+| 阶段 3：README/SEO/部署记录最终化 | 待提交 | 进行中 |
 | 阶段 4：合并 `main` | 待提交 | 未开始 |
 | 阶段 10：生产部署记录 | 待提交 | 未开始 |
 
@@ -165,6 +165,27 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 - 未发现浏览器插件、调试工具或密钥信息
 - 移动端顶部导航已做小范围响应式修复，避免 375px 下挤压重叠
 - 作品集截图脚本已滚动触发懒加载，避免详情页下方产品图空白
+
+---
+
+## 5.3 README、SEO 与质量检查
+
+已完成：
+
+- README 已改为公开作品集仓库说明，包含在线地址、页面结构、体验入口、技术栈、部署结构、截图与安全说明
+- `.env.example` 已说明本地、生产和 Vercel 预览的 heard-sheep 入口配置
+- `src/data/site-config.ts` 使用正式域名 `https://heard-sheep.cloud`
+- `src/app/sitemap.ts` 覆盖项目页与 `/try` 页面
+- `public/robots.txt` 指向 `https://heard-sheep.cloud/sitemap.xml`
+- `public/manifest.json` 使用存在的公开图片资源
+- 移除了 lint 中的未使用变量警告
+
+检查结果：
+
+- `npx tsc --noEmit`：通过
+- `npm run lint`：通过，0 warning
+- `npm run build`：通过，生成 11 个静态页面
+- 占位域名/邮箱扫描：未发现 `hello@example.com`、`example.com` 或旧域名；旧断点文档中仅保留“已移除不存在 favicon 引用”的历史说明
 
 ---
 

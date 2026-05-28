@@ -34,7 +34,6 @@ export function generateDocument(data: ProddocFormData): string {
     .map((m) => m.trim())
     .filter(Boolean);
 
-  const moduleList = modules.map((m, i) => `${i + 1}. ${m}`).join("\n");
   const moduleDescriptions = modules
     .map((m) => `- **${m}**：支持该模块的独立操作与数据管理，可根据业务需要灵活配置。`)
     .join("\n");
