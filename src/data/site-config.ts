@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Jamie Zhang",
   title: "Jamie Zhang — AI 产品实践者",
-  description: "个人作品集：展示 AI 产品从需求到原型的完整实践过程。ProdDoc AI、听到了咩、AI Decision Copilot。",
+  description: "个人 AI 产品作品集：展示听到了咩、ProdDoc AI 与 AI Decision Copilot 从需求到可运行原型的实践过程。",
   url: "https://heard-sheep.cloud",
   ogImage: "/screenshots/portfolio/home-desktop.png",
   author: "Jamie Zhang",

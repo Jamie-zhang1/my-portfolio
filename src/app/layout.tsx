@@ -72,8 +72,7 @@ export default function RootLayout({
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href="/images/sheep-mascot-main.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="min-h-full flex flex-col">
