@@ -93,7 +93,7 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 | 阶段 | Commit | 状态 |
 | --- | --- | --- |
 | 阶段 1：内容、入口、文档与 SEO 基础修复 | 待提交 | 本地验证通过，待提交 |
-| 阶段 2：截图替换与视觉复核 | 待提交 | 未开始 |
+| 阶段 2：截图替换与视觉复核 | 待提交 | 本地复核通过，待提交 |
 | 阶段 3：README/SEO/部署记录最终化 | 待提交 | 未开始 |
 | 阶段 4：合并 `main` | 待提交 | 未开始 |
 | 阶段 10：生产部署记录 | 待提交 | 未开始 |
@@ -122,6 +122,49 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 | `/projects/heard-sheep` | `立即体验` | `http://localhost:3001/sheep` | 200 |
 
 说明：三处入口均来自 `src/data/site-config.ts` 的 `heardSheepLiveUrl`；本地开发环境自动指向 `localhost:3001/sheep`，生产默认仍为 `/sheep`。
+
+---
+
+## 5.2 截图替换记录
+
+截图来源：
+
+- heard-sheep：`http://127.0.0.1:3001/sheep` production preview
+- my-portfolio：`http://127.0.0.1:3456` production preview
+- 浏览器环境：Playwright Chromium 独立 headless context，不复用用户 Chrome
+
+已重新生成 heard-sheep 产品截图：
+
+- `public/projects/heard-sheep/home-mobile.png`
+- `public/projects/heard-sheep/input-mobile.png`
+- `public/projects/heard-sheep/analysis-result-mobile.png`
+- `public/projects/heard-sheep/candidate-tasks-mobile.png`
+- `public/projects/heard-sheep/tasks-mobile.png`
+- `public/projects/heard-sheep/tasks-with-data-mobile.png`
+- `public/projects/heard-sheep/task-detail-mobile.png`
+- `public/projects/heard-sheep/history-mobile.png`
+- `public/projects/heard-sheep/me-mobile.png`
+
+已重新生成作品集截图：
+
+- `public/screenshots/portfolio/home-desktop.png`
+- `public/screenshots/portfolio/home-mobile.png`
+- `public/screenshots/portfolio/sheep-desktop.png`
+- `public/screenshots/portfolio/sheep-mobile.png`
+- `public/screenshots/portfolio/try-desktop.png`
+- `public/screenshots/portfolio/try-mobile.png`
+- `public/screenshots/portfolio/proddoc-desktop.png`
+- `public/screenshots/portfolio/proddoc-mobile.png`
+- `public/screenshots/portfolio/copilot-desktop.png`
+- `public/screenshots/portfolio/copilot-mobile.png`
+
+视觉复核结论：
+
+- 未发现右侧粉色悬浮控件
+- 未发现左下角黑色 Next.js 开发标记
+- 未发现浏览器插件、调试工具或密钥信息
+- 移动端顶部导航已做小范围响应式修复，避免 375px 下挤压重叠
+- 作品集截图脚本已滚动触发懒加载，避免详情页下方产品图空白
 
 ---
 

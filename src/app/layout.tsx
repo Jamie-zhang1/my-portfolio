@@ -78,7 +78,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {/* Header */}
         <header className="w-full border-b border-line-light bg-paper/80 backdrop-blur-sm sticky top-0 z-50">
-          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="max-w-6xl mx-auto px-6 py-3 sm:py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <Link href="/" className="flex items-center gap-3">
               <span
                 className="font-serif text-xl font-bold text-ink tracking-tight"
@@ -90,7 +90,7 @@ export default function RootLayout({
                 Portfolio
               </span>
             </Link>
-            <nav className="flex items-center gap-6 text-sm text-ink-light">
+            <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:gap-6 sm:text-sm text-ink-light">
               {navigation.main.map((item) => (
                 <Link
                   key={item.href}
