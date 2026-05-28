@@ -94,7 +94,7 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 | --- | --- | --- |
 | 阶段 1：内容、入口、文档与 SEO 基础修复 | `dbf7ede` | 已推送 |
 | 阶段 2：截图替换与视觉复核 | `77a5295` | 已推送 |
-| 阶段 3：README/SEO/部署记录最终化 | 待提交 | 进行中 |
+| 阶段 3：README/SEO/部署记录最终化 | `cadcfee`, `f9c9bcc` | 已推送 |
 | 阶段 4：合并 `main` | 待提交 | 未开始 |
 | 阶段 10：生产部署记录 | 待提交 | 未开始 |
 
