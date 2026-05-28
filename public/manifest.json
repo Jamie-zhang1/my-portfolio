@@ -1,0 +1,16 @@
+{
+  "name": "Jamie Zhang — AI 产品实践者",
+  "short_name": "Jamie Zhang",
+  "description": "个人作品集：展示 AI 产品从需求到原型的完整实践过程。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F3EE",
+  "theme_color": "#2C2C2C",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
