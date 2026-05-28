@@ -76,15 +76,18 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 
 ---
 
-## 4. 待解决问题
+## 4. 已处理问题
 
-- 清理并复核最终展示截图，避免粉色悬浮控件、黑色开发标记或浏览器插件污染
-- 完成 README、SEO、环境变量说明与上线记录
-- 完成 TypeScript、build、lint 和页面验收
-- 合并功能分支到 `main`
-- 审计服务器并部署作品集到根路径
-- 保持 `/sheep` 真实产品不受影响
-- 完成 HTTPS 与线上体验入口验收
+- heard-sheep 三处体验入口已统一读取 `src/data/site-config.ts`
+- 本地开发默认指向 `http://localhost:3001/sheep`
+- 生产环境默认指向 `/sheep`
+- README 和 `.env.example` 已说明 Vercel 预览需设置 `NEXT_PUBLIC_HEARD_SHEEP_URL`
+- 最终展示截图已使用 Playwright 独立 Chromium 环境重新截取
+- README、SEO、环境变量说明与上线记录已更新
+- TypeScript、build、lint、本地页面、线上页面和 Demo 验收已通过
+- 功能分支已快进合并到 `main`
+- 作品集已部署到生产根路径，`/sheep` 保持真实产品服务
+- HTTPS、`www` 跳转和线上体验入口已验证
 
 ---
 
@@ -94,9 +97,10 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 | --- | --- | --- |
 | 阶段 1：内容、入口、文档与 SEO 基础修复 | `dbf7ede` | 已推送 |
 | 阶段 2：截图替换与视觉复核 | `77a5295` | 已推送 |
-| 阶段 3：README/SEO/部署记录最终化 | `cadcfee`, `f9c9bcc` | 已推送 |
-| 阶段 4：合并 `main` | 待提交 | 未开始 |
-| 阶段 10：生产部署记录 | 待提交 | 未开始 |
+| 阶段 3：README/SEO/部署记录最终化 | `cadcfee`, `f9c9bcc`, `b9e62a3` | 已推送 |
+| 阶段 4：合并 `main` | `b9e62a3` | 已快进合并并推送 |
+| 阶段 5-9：生产审计、部署、HTTPS 与线上验收 | 无代码提交 | 已完成 |
+| 阶段 10：生产部署记录 | `docs: record production deployment for heard-sheep cloud portfolio` | 待本次提交 |
 
 ---
 
@@ -189,7 +193,7 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 
 ---
 
-## 6. 部署计划
+## 6. 生产部署结构
 
 服务器：
 
@@ -197,77 +201,206 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 ubuntu@62.234.90.78
 ```
 
-部署原则：
+实际部署结构：
 
-- 不覆盖 heard-sheep 目录或进程
-- 作品集使用独立部署目录，例如 `~/apps/my-portfolio`
-- 作品集使用独立本地端口，例如未占用的 `3002`
-- Nginx 最高优先级保留 `/sheep` 转发到原 heard-sheep 服务
-- 根路径 `/` 转发到新作品集服务
-- 修改 Nginx 前备份当前启用配置
+```text
+Nginx 80/443
+├── heard-sheep.cloud/       -> http://127.0.0.1:3004  my-portfolio
+├── heard-sheep.cloud/sheep  -> http://127.0.0.1:3003  heard-sheep
+└── www.heard-sheep.cloud/*  -> https://heard-sheep.cloud/*
+```
+
+作品集部署目录：
+
+```text
+/home/ubuntu/apps/my-portfolio
+/home/ubuntu/apps/my-portfolio/releases/b9e62a3-20260528-225117
+/home/ubuntu/apps/my-portfolio/current
+```
+
+部署代码来源：
+
+- `main` 已推送到 GitHub，最新上线基线为 `b9e62a31c28b425c4681605e0d59214785002794`
+- 服务器直连 GitHub `git clone/fetch` 出现 TLS 中断，因此使用本地已合并并已推送的 `main` commit 生成 Git archive
+- 上传包：`/tmp/my-portfolio-b9e62a3.tar`
+- 服务器 release 内记录：`DEPLOY_COMMIT=b9e62a31c28b425c4681605e0d59214785002794`
+
+作品集进程：
+
+- 管理方式：systemd
+- 服务名：`my-portfolio.service`
+- 监听地址：`127.0.0.1:3004`
+- 启动目录：`/home/ubuntu/apps/my-portfolio/current`
+
+heard-sheep 原服务：
+
+- 管理方式：Docker
+- 容器名：`heard-sheep`
+- 公网监听映射：`0.0.0.0:3003->3000/tcp`
+- Nginx 保留 `/sheep` 前缀转发，不剥离路径
 
 ---
 
 ## 7. 服务器审计结果
 
-待执行。
+服务器状态：
 
-需要记录：
+- 主机名：`VM-0-4-ubuntu`
+- 系统：Ubuntu 22.04.5 LTS
+- Node：`v24.15.0`
+- npm：`11.12.1`
+- PM2：未安装
+- Nginx：运行中
+- 80/443：Nginx 已监听
 
-- 主机名、系统版本、Node/npm/PM2 版本
-- 当前 Nginx 配置文件路径
-- 当前 `/sheep` 服务名称与端口
-- 当前 80/443 监听状态
-- 当前证书状态
-- 上线前 `http` 与 `https` 访问结果
+上线前状态：
+
+- `https://heard-sheep.cloud/sheep`：200，真实产品可访问
+- `https://heard-sheep.cloud/`：302 到 `/sheep`
+- `http://heard-sheep.cloud/` 与 `/sheep`：跳转 HTTPS
+- DNS：
+  - `heard-sheep.cloud A 62.234.90.78`
+  - `www.heard-sheep.cloud A 62.234.90.78`
+
+证书状态：
+
+- Certbot 证书名：`www.heard-sheep.cloud`
+- 覆盖域名：`www.heard-sheep.cloud`、`heard-sheep.cloud`
+- 到期时间：`2026-08-13 14:28:44+00:00`
+- 上线时状态：有效
+
+Nginx 配置：
+
+- 启用站点：`/etc/nginx/sites-enabled/heard-sheep-domain`
+- 实际配置文件：`/etc/nginx/sites-available/heard-sheep-domain`
+- 上线前完整快照：`/home/ubuntu/nginx-before-portfolio-deploy-20260528-151238.txt`
 
 ---
 
-## 8. Nginx 配置备份
+## 8. Nginx 配置备份与变更
 
-待执行。
+修改前备份：
 
-需要记录：
+- `/etc/nginx/sites-available/heard-sheep-domain.bak.20260528-225408`
+- `/etc/nginx/sites-available/heard-sheep-domain.bak.20260528-225440`
+- `/etc/nginx/sites-available/heard-sheep-domain.bak.20260528-225544`
 
-- 备份文件路径
-- 修改后的站点配置路径
-- `sudo nginx -t` 结果
-- `sudo systemctl reload nginx` 时间
+最终生效备份：
 
-不得在本文档中粘贴证书私钥、服务器私钥、Token 或完整敏感配置。
+```text
+/etc/nginx/sites-available/heard-sheep-domain.bak.20260528-225544
+```
+
+最终变更：
+
+- `server_name heard-sheep.cloud` 的 HTTPS server block 中：
+  - `location ^~ /sheep` 转发到 `http://127.0.0.1:3003`
+  - `location /` 转发到 `http://127.0.0.1:3004`
+- `server_name www.heard-sheep.cloud` 的 HTTPS server block 中：
+  - 301 跳转到 `https://heard-sheep.cloud$request_uri`
+- HTTP server block：
+  - 301 跳转到 `https://heard-sheep.cloud$request_uri`
+
+应用结果：
+
+- `sudo nginx -t`：通过
+- `sudo systemctl reload nginx`：成功
+
+本文档不保存证书私钥、服务器私钥、Token 或完整敏感配置。
 
 ---
 
 ## 9. 线上验证结果
 
-待执行。
+验证方式：
+
+- `curl.exe --noproxy "*"` 验证 HTTP/HTTPS 状态码与跳转
+- Playwright Chromium headless 独立上下文验证页面、按钮、Demo、控制台错误和关键资源请求
 
 | URL | 预期 | 结果 |
 | --- | --- | --- |
-| `https://heard-sheep.cloud/` | 作品集首页 | 待验证 |
-| `https://heard-sheep.cloud/try` | 体验汇总页 | 待验证 |
-| `https://heard-sheep.cloud/try/proddoc-ai` | ProdDoc AI Demo | 待验证 |
-| `https://heard-sheep.cloud/try/decision-copilot` | Decision Copilot Demo | 待验证 |
-| `https://heard-sheep.cloud/projects/heard-sheep` | heard-sheep 案例页 | 待验证 |
-| `https://heard-sheep.cloud/projects/proddoc-ai` | ProdDoc AI 案例页 | 待验证 |
-| `https://heard-sheep.cloud/projects/decision-copilot` | Decision Copilot 案例页 | 待验证 |
-| `https://heard-sheep.cloud/sheep` | heard-sheep 真实产品 | 待验证 |
+| `https://heard-sheep.cloud/` | 作品集首页 | 200，通过 |
+| `https://heard-sheep.cloud/try` | 体验汇总页 | 200，通过 |
+| `https://heard-sheep.cloud/try/proddoc-ai` | ProdDoc AI Demo | 200，通过，交互生成结果正常 |
+| `https://heard-sheep.cloud/try/decision-copilot` | Decision Copilot Demo | 200，通过，交互结果正常 |
+| `https://heard-sheep.cloud/projects/heard-sheep` | heard-sheep 案例页 | 200，通过 |
+| `https://heard-sheep.cloud/projects/proddoc-ai` | ProdDoc AI 案例页 | 200，通过 |
+| `https://heard-sheep.cloud/projects/decision-copilot` | Decision Copilot 案例页 | 200，通过 |
+| `https://heard-sheep.cloud/sheep` | heard-sheep 真实产品 | 200，通过 |
+| `https://www.heard-sheep.cloud/` | 跳转主域名 | 301 到 `https://heard-sheep.cloud/` |
+| `http://heard-sheep.cloud/` | 跳转 HTTPS | 301 到 `https://heard-sheep.cloud/` |
+| `http://heard-sheep.cloud/sheep` | 跳转 HTTPS 且保留路径 | 301 到 `https://heard-sheep.cloud/sheep` |
+
+体验入口验证：
+
+| 来源页面 | 按钮文本 | href | 最终 URL | 结果 |
+| --- | --- | --- | --- | --- |
+| `/` | `立即体验` | `/sheep` | `https://heard-sheep.cloud/sheep` | 200 |
+| `/try` | `进入听到了咩` | `/sheep` | `https://heard-sheep.cloud/sheep` | 200 |
+| `/projects/heard-sheep` | `立即体验` | `/sheep` | `https://heard-sheep.cloud/sheep` | 200 |
+
+线上浏览器验收：
+
+- 关键资源请求失败数：0
+- 控制台 error 数：0
+- 首页、项目页、体验页、两个 Demo、heard-sheep 产品页均可访问
+- 未发现占位邮箱、示例域名或错误文案
+- 未发现粉色悬浮控件、黑色 Next.js 开发标记、浏览器插件污染或隐私信息
 
 ---
 
-## 10. 回滚方式
+## 10. 线上验收截图
 
-待服务器审计后补齐具体路径。
+保存目录：
 
-通用回滚原则：
+```text
+public/screenshots/production/
+```
 
-1. 如 `/sheep` 在 Nginx 切流后异常，立即恢复站点配置备份并 reload Nginx
-2. 停止或下线新作品集服务，不触碰 heard-sheep 原服务
-3. 重新验证 `https://heard-sheep.cloud/sheep`
+截图清单：
 
-需要补齐：
+- `public/screenshots/production/home-desktop.png`
+- `public/screenshots/production/home-mobile.png`
+- `public/screenshots/production/try-desktop.png`
+- `public/screenshots/production/heard-sheep-detail-desktop.png`
+- `public/screenshots/production/heard-sheep-live-mobile.png`
 
-- Nginx 配置备份路径
-- 作品集服务名和停止命令
-- 作品集本地端口
-- heard-sheep 原服务名和端口
+复核结论：
+
+- 截图来自正式 HTTPS 域名
+- 截图不包含私人信息、密钥、调试工具或浏览器扩展
+- heard-sheep 产品截图保留真实产品界面
+
+---
+
+## 11. 回滚方式
+
+如根路径作品集异常但 `/sheep` 正常：
+
+```bash
+sudo systemctl status my-portfolio
+sudo systemctl restart my-portfolio
+```
+
+如 Nginx 切流导致 `/sheep` 异常，优先恢复 Nginx 备份：
+
+```bash
+sudo cp /etc/nginx/sites-available/heard-sheep-domain.bak.20260528-225544 /etc/nginx/sites-available/heard-sheep-domain
+sudo nginx -t
+sudo systemctl reload nginx
+curl -Ik https://heard-sheep.cloud/sheep
+```
+
+如需停止作品集服务：
+
+```bash
+sudo systemctl stop my-portfolio
+sudo systemctl disable my-portfolio
+```
+
+保护 `/sheep` 的原则：
+
+- 不停止 Docker 容器 `heard-sheep`
+- 不修改 `heard-sheep` 容器端口 `3003`
+- 不剥离 `/sheep` 路径前缀
+- 回滚后优先验证 `https://heard-sheep.cloud/sheep`

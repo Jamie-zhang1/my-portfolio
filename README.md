@@ -6,8 +6,9 @@
 
 - 作品集首页：<https://heard-sheep.cloud/>
 - 听到了咩真实产品：<https://heard-sheep.cloud/sheep>
+- `www` 访问：<https://www.heard-sheep.cloud/> 会跳转到主域名
 
-生产部署目标是同一域名下分流：根路径 `/` 承载作品集，`/sheep` 保留真实 heard-sheep 产品。
+生产部署采用同一域名下分流：根路径 `/` 承载作品集，`/sheep` 保留真实 heard-sheep 产品。
 
 ## 核心展示项目
 
@@ -104,14 +105,15 @@ https://heard-sheep.cloud/sheep -> heard-sheep 真实产品服务
 - heard-sheep 详情页：`public/screenshots/portfolio/sheep-desktop.png`
 - 体验入口页：`public/screenshots/portfolio/try-desktop.png`
 - heard-sheep 产品截图：`public/projects/heard-sheep/`
+- 线上验收截图：`public/screenshots/production/`
 
 ## 当前状态
 
-- 功能分支：`feat/portfolio-interactive-showcase`
-- 当前基线提交：`11c0eb7 feat: build editorial portfolio with interactive project showcase`
-- 作品集页面与 Demo 已实现
-- 生产目标域名：`heard-sheep.cloud`
-- 最终生产部署与 HTTPS 验收记录见 `docs/上线执行记录_作品集网站_heard-sheep-cloud.md`
+- 功能分支：`feat/portfolio-interactive-showcase`，已快进合并到 `main`
+- `main` 上线基线：`b9e62a3 docs: update portfolio validation commit records`
+- 作品集页面、两个交互 Demo 与 heard-sheep 同域入口已完成线上验收
+- 生产域名：`heard-sheep.cloud`
+- HTTPS 与回滚记录见 `docs/上线执行记录_作品集网站_heard-sheep-cloud.md`
 
 ## 安全说明
 
