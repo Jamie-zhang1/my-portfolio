@@ -185,7 +185,7 @@ C:\Users\ZHANGJIANGMIN0902\heard-sheep\heard-sheep
 - `npx tsc --noEmit`：通过
 - `npm run lint`：通过，0 warning
 - `npm run build`：通过，生成 11 个静态页面
-- 占位域名/邮箱扫描：未发现 `hello@example.com`、`example.com` 或旧域名；旧断点文档中仅保留“已移除不存在 favicon 引用”的历史说明
+- 占位域名/邮箱扫描：未发现占位邮箱、示例域名或旧域名；旧断点文档中仅保留“已移除不存在 favicon 引用”的历史说明
 
 ---
 
