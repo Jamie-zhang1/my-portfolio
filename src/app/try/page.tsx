@@ -2,119 +2,90 @@ import Link from "next/link";
 import { projects } from "@/data/projects";
 import { siteConfig } from "@/data/site-config";
 
-/* ── /try 汇总页 ──────────────────────────────────
- * 修改体验说明：编辑 src/data/projects.ts 中各项目的 experienceTag / experienceDescription
- * 修改听到了咩真实入口：编辑 src/data/site-config.ts 中 heardSheepLiveUrl
- * ─────────────────────────────────────────────── */
-
 export default function TryPage() {
   return (
     <div className="min-h-screen">
-      {/* Back */}
-      <div className="max-w-6xl mx-auto px-6 pt-8">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L3 12m0 0l4-5m-4 5h18" />
-          </svg>
+      <div className="site-shell pt-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-ink-muted transition-colors hover:text-ink">
+          <span aria-hidden="true">←</span>
           返回作品集
         </Link>
       </div>
 
-      {/* Header */}
-      <section className="max-w-6xl mx-auto px-6 pt-8 pb-12">
-        <p className="label-caps mb-4">Interactive Playground</p>
-        <h1
-          className="text-3xl sm:text-4xl font-bold text-ink"
-          style={{ fontFamily: "var(--font-noto-serif-sc)" }}
-        >
-          体验我的项目
-        </h1>
-        <p className="text-body text-base sm:text-lg leading-relaxed mt-4 max-w-2xl">
-          从真实产品入口与轻量交互演示中，快速了解这些 AI 应用如何回应具体问题。
-        </p>
+      <section className="site-shell py-8 sm:py-12">
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+          <div className="surface-panel p-6 sm:p-8 lg:p-10">
+            <p className="eyebrow mb-6">Interactive Playground</p>
+            <h1 className="heading-serif text-5xl text-ink sm:text-6xl">体验我的项目</h1>
+            <p className="text-body mt-6 max-w-2xl text-base sm:text-lg">
+              从真实产品入口与轻量交互演示中，快速了解这些 AI 应用如何回应具体问题。
+            </p>
+          </div>
+          <div className="dark-panel matrix-bg grid gap-4 p-6 sm:grid-cols-3 sm:p-8">
+            {[
+              ["01", "Live Product", "/sheep"],
+              ["02", "Template Demo", "/try/proddoc-ai"],
+              ["03", "Decision Lab", "/try/decision-copilot"],
+            ].map(([number, label, route]) => (
+              <div key={route} className="rounded-[6px] border border-white/12 bg-white/[0.06] p-5">
+                <p className="font-mono text-4xl font-black text-white/14">{number}</p>
+                <p className="mt-4 text-sm font-bold text-paper-clean">{label}</p>
+                <p className="mt-2 font-mono text-xs text-paper/50">{route}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      <hr className="line-editorial max-w-6xl mx-auto" />
-
-      {/* Experience Entries */}
-      <section className="max-w-6xl mx-auto px-6 py-12 sm:py-16">
-        <div className="space-y-16">
+      <section className="site-shell pb-16">
+        <div className="grid gap-5">
           {projects.map((project, index) => {
-            // 听到了咩使用真实产品入口
             const liveUrl = project.tryPath === null ? siteConfig.heardSheepLiveUrl : null;
             const mainHref = liveUrl || project.tryPath || project.href;
+            const isLive = Boolean(liveUrl);
 
             return (
-              <div key={project.number}>
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  {/* 左侧 */}
-                  <div className="lg:col-span-5">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span
-                        className="text-4xl font-bold text-ink-faint/25 leading-none"
-                        style={{ fontFamily: "var(--font-noto-serif-sc)" }}
-                      >
-                        {project.number}
-                      </span>
+              <article key={project.number} className="surface-panel artifact-link overflow-hidden">
+                <div className="grid gap-0 lg:grid-cols-[0.8fr_1.2fr]">
+                  <div className="border-b border-line p-6 sm:p-8 lg:border-b-0 lg:border-r">
+                    <div className="mb-5 flex items-center gap-4">
+                      <span className="font-mono text-6xl font-black text-ink/10">{project.number}</span>
                       <div>
-                        <span className="inline-block px-2 py-0.5 text-xs font-medium text-accent bg-surface border border-line-light rounded-sm mb-1">
+                        <span className={`status-pill ${index === 0 ? "" : index === 1 ? "blue" : "coral"}`}>
                           {project.experienceTag}
                         </span>
-                        <h2
-                          className="text-xl font-bold text-ink"
-                          style={{ fontFamily: "var(--font-noto-serif-sc)" }}
-                        >
-                          {project.title}
-                        </h2>
+                        <h2 className="heading-serif mt-3 text-3xl text-ink">{project.title}</h2>
                       </div>
                     </div>
-                    <p className="text-sm text-ink-light leading-relaxed mb-6">
-                      {project.experienceDescription}
-                    </p>
-                    <div className="flex flex-wrap gap-3">
+                    <p className="text-sm leading-7 text-ink-light">{project.experienceDescription}</p>
+                    <div className="mt-6 flex flex-wrap gap-3">
                       {mainHref && (
                         <a
                           href={mainHref}
-                          target={liveUrl ? "_blank" : undefined}
-                          rel={liveUrl ? "noopener noreferrer" : undefined}
-                          className="inline-flex items-center gap-2 px-4 py-2 bg-ink text-paper text-sm font-medium rounded-sm hover:bg-ink-light transition-colors"
+                          target={isLive ? "_blank" : undefined}
+                          rel={isLive ? "noopener noreferrer" : undefined}
+                          className="action-primary"
                         >
-                          {liveUrl ? "进入听到了咩" : project.tryLabel}
+                          {isLive ? "进入听到了咩" : project.tryLabel}
+                          <span aria-hidden="true">{isLive ? "↗" : "→"}</span>
                         </a>
                       )}
-                      <Link
-                        href={project.href}
-                        className="inline-flex items-center gap-2 px-4 py-2 border border-line-light text-sm font-medium text-ink rounded-sm hover:bg-surface transition-colors"
-                      >
+                      <Link href={project.href} className="action-secondary">
                         查看项目案例
                       </Link>
                     </div>
                   </div>
 
-                  {/* 右侧：项目摘要 */}
-                  <div className="lg:col-span-7">
-                    <div className="bg-surface border border-line-light rounded-sm p-6">
-                      <p className="text-sm text-ink-light leading-relaxed mb-4">
-                        {project.homepageSummary}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.tags.slice(0, 5).map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2 py-0.5 text-xs font-medium text-ink-muted bg-paper-warm border border-line-light rounded-sm"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                  <div className="bg-paper-clean/80 p-6 sm:p-8">
+                    <p className="text-sm leading-7 text-ink-light">{project.homepageSummary}</p>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {project.tags.slice(0, 6).map((tag) => (
+                        <span key={tag} className="chip">{tag}</span>
+                      ))}
                     </div>
                   </div>
                 </div>
-                {index < projects.length - 1 && <hr className="line-editorial mt-16" />}
-              </div>
+              </article>
             );
           })}
         </div>
