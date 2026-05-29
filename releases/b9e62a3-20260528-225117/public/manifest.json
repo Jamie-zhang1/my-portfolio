@@ -1,0 +1,16 @@
+{
+  "name": "Jamie Zhang — AI 产品实践者",
+  "short_name": "Jamie Zhang",
+  "description": "个人 AI 产品作品集：展示听到了咩、ProdDoc AI 与 AI Decision Copilot 的可运行原型。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F3EE",
+  "theme_color": "#2C2C2C",
+  "icons": [
+    {
+      "src": "/images/sheep-mascot-main.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
