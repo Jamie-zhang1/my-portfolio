@@ -17,11 +17,11 @@
 
 ### 02 / ProdDoc AI
 
-通用型软件产品说明书与操作文档生成工作台。作品集中提供本地交互 Demo，用模板生成结构化文档预览，不在该 Demo 中调用在线 AI 服务。
+通用型软件产品说明书与操作文档生成工作台。作品集中提供本地交互 Demo，采用分组表单 + 实时预览布局，支持产品类型/文档用途按钮式选择、生成 loading 动画、Markdown 风格文档预览。不在该 Demo 中调用在线 AI 服务。
 
 ### 03 / AI Decision Copilot
 
-早期 AI 决策分析交互原型。作品集中保留为弱化展示的实验 Demo，采用预设案例展示结构化决策分析流程，不调用外部 AI 服务。
+AI 决策分析交互原型。作品集 Demo 采用步骤式流程（选择问题 → 查看分析），包含卡片式案例选择、A/B 方案对比布局、多维度分析交互、深色推荐结论卡片。采用预设案例展示，不调用外部 AI 服务。
 
 ## 页面结构
 
@@ -99,17 +99,19 @@ https://heard-sheep.cloud/sheep -> heard-sheep 真实产品服务
 
 ## 代表性截图
 
-- 首页：`public/screenshots/portfolio/home-desktop.png`
-- 首页移动端：`public/screenshots/portfolio/home-mobile.png`
-- heard-sheep 详情页：`public/screenshots/portfolio/sheep-desktop.png`
-- 体验入口页：`public/screenshots/portfolio/try-desktop.png`
+- 首页：`public/screenshots/homepage.png`
+- AI Decision Copilot Demo：`public/screenshots/decision-copilot-demo.png`
+- ProdDoc AI Demo：`public/screenshots/proddoc-ai-demo.png`
+- AI Decision Copilot 详情页：`public/screenshots/decision-copilot-project.png`
+- ProdDoc AI 详情页：`public/screenshots/proddoc-ai-project.png`
 - heard-sheep 产品截图：`public/projects/heard-sheep/`
 
 ## 当前状态
 
-- 功能分支：`feat/portfolio-interactive-showcase`
-- 当前基线提交：`11c0eb7 feat: build editorial portfolio with interactive project showcase`
-- 作品集页面与 Demo 已实现
+- 分支：`main`
+- 最近提交：`e877bc5 feat: add favicons, screenshots, and per-page metadata`
+- 作品集页面与 Demo 已实现，UI 已升级为现代 SaaS 风格
+- 每个子项目拥有独立 favicon
 - 生产目标域名：`heard-sheep.cloud`
 - 最终生产部署与 HTTPS 验收记录见 `docs/上线执行记录_作品集网站_heard-sheep-cloud.md`
 
