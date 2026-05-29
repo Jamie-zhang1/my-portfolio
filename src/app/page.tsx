@@ -4,18 +4,18 @@ import { projects } from "@/data/projects";
 import { profile } from "@/data/profile";
 
 const workingMethod = [
-  { step: "01", title: "发现问题", description: "从真实业务场景和用户痛点出发，识别值得用 AI 产品解决的问题。" },
-  { step: "02", title: "设计流程", description: "梳理产品流程、交互逻辑和信息架构，形成可验证的产品假设。" },
-  { step: "03", title: "AI 辅助构建", description: "使用 Vibe Coding 方式快速构建可体验的产品原型，验证核心交互。" },
-  { step: "04", title: "验证迭代", description: "通过实际使用和反馈迭代产品，优化体验和功能。" },
-  { step: "05", title: "部署展示", description: "完成部署、文档和展示，形成完整的产品实践案例。" },
+  { step: "01", title: "看见场景", description: "先回到真实工作流，找到信息混乱、流程断点或判断成本高的地方。" },
+  { step: "02", title: "拆出结构", description: "用逻辑训练做需求拆解，把模糊表达整理成输入、规则、状态和结果。" },
+  { step: "03", title: "做成原型", description: "用 Vibe Coding 快速搭出可交互版本，让想法尽早进入可使用状态。" },
+  { step: "04", title: "反复校正", description: "通过真实页面、示例数据和使用反馈，调整流程、文案与交互细节。" },
+  { step: "05", title: "交付成品", description: "补齐部署、截图、说明文档和回滚记录，让作品能被稳定访问和复盘。" },
 ];
 
 const capabilities = [
-  { number: "01", title: "AI 产品设计", description: "从需求洞察到产品原型，将 AI 能力转化为可体验的交互产品。" },
-  { number: "02", title: "Vibe Coding", description: "快速原型构建，用最短时间验证产品假设和交互设计。" },
-  { number: "03", title: "多模态能力接入", description: "集成语音、图像、文本等多种 AI 能力，构建完整的交互体验。" },
-  { number: "04", title: "产品文档与交付", description: "从产品说明书到操作文档，构建可复用的文档生成工作流。" },
+  { number: "01", title: "需求结构化", description: "把零散需求、客户反馈和业务流程整理成清晰的问题、边界与优先级。" },
+  { number: "02", title: "逻辑建模", description: "用规则、条件和推理链路约束 AI 输出，让结果更可解释、更容易验证。" },
+  { number: "03", title: "AI 原型构建", description: "用 Next.js 与 AI API 快速完成可体验原型，验证产品流程而不只停留在想法。" },
+  { number: "04", title: "交付表达", description: "把产品截图、说明文档、体验入口和部署记录组织成可以被复盘的作品。" },
 ];
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
         <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-stretch">
           <div className="flex flex-col justify-between gap-10 rounded-[8px] border border-line bg-paper-clean/82 p-6 shadow-sm sm:p-8 lg:p-10">
             <div className="animate-fade-in">
-              <p className="eyebrow mb-8">AI Product · Vibe Coding · Live Demos</p>
+              <p className="eyebrow mb-8">Logic · AI Product · Working Prototypes</p>
               <h1 className="display-title text-ink">{profile.name}</h1>
               <p className="mt-5 max-w-xl text-xl font-semibold text-ink-light">
                 {profile.role}
@@ -70,17 +70,17 @@ export default function Home() {
             <div className="mb-8 flex items-center justify-between gap-3">
               <span className="status-pill">Project Icons</span>
               <span className="font-mono text-xs font-bold uppercase text-ink-muted">
-                Detail pages hold the product story
+                Open a project, then read the product story
               </span>
             </div>
 
             <div className="mb-7">
               <p className="label-caps">Portfolio entry</p>
               <h2 className="heading-serif mt-3 max-w-md text-4xl text-ink sm:text-5xl">
-                首页只做项目入口
+                从图标进入作品现场
               </h2>
               <p className="mt-4 max-w-lg text-sm leading-7 text-ink-light">
-                每个项目以独立图标呈现；截图、功能流程和真实体验入口全部进入详情页后展开。
+                先留下一个清晰的第一印象；点进项目后，再看完整的产品截图、使用路径和真实体验。
               </p>
             </div>
 
@@ -122,11 +122,11 @@ export default function Home() {
       <section className="site-shell page-pad">
         <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="eyebrow mb-3">Project Icons</p>
-            <h2 className="heading-serif text-4xl text-ink sm:text-5xl">项目入口</h2>
+            <p className="eyebrow mb-3">Project map</p>
+            <h2 className="heading-serif text-4xl text-ink sm:text-5xl">作品地图</h2>
           </div>
           <p className="max-w-md text-sm leading-7 text-ink-muted">
-            主界面只保留项目图标和入口，详细截图、功能结构、技术栈和体验按钮放到各自详情页中。
+            每个入口都对应一段完整的产品练习：问题从哪里来，流程怎么设计，最终如何被做成可访问的页面。
           </p>
         </div>
 
@@ -170,7 +170,7 @@ export default function Home() {
                 <div className="mt-5 flex items-center justify-between border-t border-white/70 pt-4">
                   <span className="text-xs font-bold text-ink-muted">{project.experienceTag}</span>
                   <span className="font-mono text-xs font-black uppercase text-accent transition group-hover:translate-x-1">
-                    Detail →
+                    View →
                   </span>
                 </div>
               </div>
@@ -185,7 +185,7 @@ export default function Home() {
             <p className="eyebrow mb-3">Working Method</p>
             <h2 className="heading-serif text-4xl text-ink">工作方式</h2>
             <p className="text-body mt-5 max-w-md text-sm">
-              我把作品集当成真实产品交付：从问题发现到部署记录，每一步都能回到可验证的界面和代码。
+              我更习惯从具体场景开始：先理解人真正卡在哪里，再把问题拆成流程、界面和可以验证的 AI 输出。
             </p>
           </div>
           <div className="grid gap-3">
