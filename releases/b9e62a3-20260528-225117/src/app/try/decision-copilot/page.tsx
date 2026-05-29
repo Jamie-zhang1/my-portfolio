@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 /* ── AI Decision Copilot — 跳转入口 ──────────────
- * Demo 已迁移到独立站：https://ai-decision-assistant.vercel.app
+ * Demo 已迁移到独立站：/decision-copilot/
  * 此页面提供介绍 + 跳转入口
  * ─────────────────────────────────────────────── */
 
@@ -51,7 +51,7 @@ export default function DecisionCopilotPage() {
         </p>
 
         <a
-          href="https://ai-decision-assistant.vercel.app"
+          href="/decision-copilot/"
           target="_blank"
           rel="noopener noreferrer"
           onMouseEnter={() => setHovering(true)}
