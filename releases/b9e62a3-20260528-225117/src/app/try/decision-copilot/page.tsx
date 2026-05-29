@@ -2,48 +2,123 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { presetCases, type DecisionCase } from "@/data/demos/decision-copilot";
+import { marked } from "marked";
 
-/* ── AI Decision Copilot — 优化版 Demo ─────────────
- * 设计理念：
- * - 步骤式流程：选择问题 → 查看分析
- * - 信息层级清晰：目标 → 方案 → 维度 → 推荐 → 风险
- * - 视觉丰富：渐变强调、卡片阴影、微动效
- * - 保持与作品集 editorial 风格的一致性
+/* ── AI Decision Copilot — Interactive Tool ────────
+ * 功能：输入问题 + 选项 → 调用 MiMo API → 展示结构化分析
+ * 保留预设案例作为快速体验入口
  * ─────────────────────────────────────────────── */
 
-const dimensionIcons: Record<string, string> = {
-  "部署难度": "⚙️",
-  "访问速度": "🚀",
-  "成本": "💰",
-  "可控性": "🎛️",
-  "开发周期": "📅",
-  "用户反馈质量": "💬",
-  "资源消耗": "📦",
-  "风险": "⚠️",
-  "使用场景": "🎯",
-  "输入效率": "⚡",
-  "技术复杂度": "🔧",
-  "用户接受度": "👥",
-};
+type Style = "normal" | "simple" | "funny";
 
-const caseColors = [
-  { from: "#5B6E8A", to: "#7A8F7A" },
-  { from: "#8B6F5C", to: "#C4A882" },
-  { from: "#6B7B8D", to: "#5B6E8A" },
+interface AnalysisResult {
+  content: string;
+}
+
+const STYLE_OPTIONS: { value: Style; label: string; icon: string }[] = [
+  { value: "normal", label: "理性分析", icon: "🧠" },
+  { value: "simple", label: "简洁直接", icon: "⚡" },
+  { value: "funny", label: "幽默轻松", icon: "😄" },
+];
+
+const PRESET_CASES = [
+  {
+    id: 1,
+    question: "该不该从现在的公司跳槽去创业公司？",
+    options: ["留在现公司", "去创业公司"],
+    style: "normal" as Style,
+  },
+  {
+    id: 2,
+    question: "产品该先做 Web 端还是移动端？",
+    options: ["先做 Web 端", "先做移动端"],
+    style: "normal" as Style,
+  },
+  {
+    id: 3,
+    question: "技术方案选 React 还是 Vue？",
+    options: ["React", "Vue"],
+    style: "simple" as Style,
+  },
 ];
 
 export default function DecisionCopilotDemoPage() {
-  const [selected, setSelected] = useState<DecisionCase | null>(null);
-  const [hoveredDim, setHoveredDim] = useState<string | null>(null);
+  const [question, setQuestion] = useState("");
+  const [options, setOptions] = useState(["", ""]);
+  const [style, setStyle] = useState<Style>("normal");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const addOption = () => {
+    if (options.length >= 6) return;
+    setOptions([...options, ""]);
+  };
+
+  const removeOption = (idx: number) => {
+    if (options.length <= 2) return;
+    setOptions(options.filter((_, i) => i !== idx));
+  };
+
+  const updateOption = (idx: number, val: string) => {
+    const next = [...options];
+    next[idx] = val;
+    setOptions(next);
+  };
+
+  const loadPreset = (preset: (typeof PRESET_CASES)[number]) => {
+    setQuestion(preset.question);
+    setOptions([...preset.options]);
+    setStyle(preset.style);
+    setResult(null);
+    setError(null);
+  };
+
+  const runAnalysis = async () => {
+    const filled = options.filter((o) => o.trim());
+    if (!question.trim() || filled.length < 2) {
+      setError("请填写问题和至少两个选项");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setResult(null);
+
+    try {
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: question.trim(),
+          options: filled,
+          style,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "分析失败");
+      }
+
+      const content =
+        data.choices?.[0]?.message?.content || "未获取到分析结果";
+      setResult(content);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "网络异常，请稍后重试");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-paper via-surface-alt to-paper">
+    <div className="min-h-screen bg-gradient-to-b from-[#FAF8F5] via-[#F5F1EC] to-[#FAF8F5]">
       {/* Back */}
-      <div className="max-w-6xl mx-auto px-6 pt-6">
+      <div className="max-w-4xl mx-auto px-6 pt-6">
         <Link
           href="/try"
-          className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors group"
+          className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#1a1a1a] transition-colors group"
         >
           <svg
             className="w-4 h-4 transition-transform group-hover:-translate-x-1"
@@ -62,345 +137,193 @@ export default function DecisionCopilotDemoPage() {
         </Link>
       </div>
 
-      {/* Header */}
-      <section className="max-w-6xl mx-auto px-6 pt-8 pb-6">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-accent bg-accent/5 border border-accent/15 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            实验演示
-          </span>
-          <span className="text-xs text-ink-faint">预设案例 · 不调用外部 AI</span>
-        </div>
-        <h1
-          className="text-3xl sm:text-4xl font-bold text-ink tracking-tight"
-          style={{ fontFamily: "var(--font-noto-serif-sc)" }}
-        >
+      {/* Hero */}
+      <div className="max-w-4xl mx-auto px-6 pt-8 pb-6 text-center">
+        <h1 className="font-['Playfair_Display',serif] text-4xl font-bold tracking-tight text-[#1a1a1a] mb-2">
           AI Decision Copilot
         </h1>
-        <p className="text-ink-light text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
-          选择一个决策问题，查看结构化的多维度分析与推荐结论。探索 AI 如何辅助复杂决策。
+        <p className="text-[#6b7280] text-[15px]">
+          输入你的问题，AI 帮你做结构化决策分析
         </p>
-      </section>
+      </div>
 
-      {/* Step Indicator */}
-      <div className="max-w-6xl mx-auto px-6 pb-4">
-        <div className="flex items-center gap-3 text-xs">
-          <div
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors ${
-              !selected
-                ? "bg-ink text-paper font-medium"
-                : "bg-surface border border-line-light text-ink-muted"
-            }`}
-          >
-            <span className="w-4 h-4 rounded-full bg-current/10 flex items-center justify-center text-[10px] font-bold">
-              1
-            </span>
-            选择问题
-          </div>
-          <div className="w-8 h-px bg-line-light" />
-          <div
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors ${
-              selected
-                ? "bg-ink text-paper font-medium"
-                : "bg-surface border border-line-light text-ink-faint"
-            }`}
-          >
-            <span className="w-4 h-4 rounded-full bg-current/10 flex items-center justify-center text-[10px] font-bold">
-              2
-            </span>
-            查看分析
-          </div>
+      {/* Quick presets */}
+      <div className="max-w-4xl mx-auto px-6 mb-8">
+        <p className="text-xs font-semibold uppercase tracking-wider text-[#6b7280] mb-3">
+          快速体验
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {PRESET_CASES.map((preset) => (
+            <button
+              key={preset.id}
+              onClick={() => loadPreset(preset)}
+              className="text-left p-4 rounded-2xl border border-[#e8e4df] bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+            >
+              <div className="text-[13px] font-medium text-[#1a1a1a] line-clamp-2">
+                {preset.question}
+              </div>
+              <div className="mt-2 text-xs text-[#6b7280]">
+                {preset.options.join(" vs ")}
+              </div>
+            </button>
+          ))}
         </div>
       </div>
 
-      <hr className="line-editorial max-w-6xl mx-auto" />
+      {/* Main form */}
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="bg-white border border-[#e8e4df] rounded-3xl p-8 shadow-sm">
+          {/* Question */}
+          <div className="mb-6">
+            <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#6b7280] mb-3">
+              <span className="w-[22px] h-[22px] bg-[#F5F1EC] rounded-md flex items-center justify-center text-[11px] font-bold text-[#1a1a1a]">
+                1
+              </span>
+              你在纠结什么？
+            </label>
+            <textarea
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              placeholder="例如：该不该从现在的工作跳槽去创业公司？"
+              className="w-full p-4 border-[1.5px] border-[#e8e4df] rounded-2xl text-[15px] bg-[#F5F1EC] text-[#1a1a1a] outline-none focus:border-[#5B6E8A] focus:ring-2 focus:ring-[#5B6E8A]/10 resize-none transition-all"
+              rows={3}
+            />
+          </div>
 
-      {/* Content */}
-      <section className="max-w-6xl mx-auto px-6 py-8 sm:py-12">
-        {!selected ? (
-          /* ── 问题选择 ── */
-          <div>
-            <h2
-              className="text-lg font-bold text-ink mb-2"
-              style={{ fontFamily: "var(--font-noto-serif-sc)" }}
-            >
-              选择一个决策问题
-            </h2>
-            <p className="text-sm text-ink-muted mb-8">
-              每个问题包含两个对比方案，AI 会从多个维度进行结构化分析。
-            </p>
+          {/* Options */}
+          <div className="mb-6">
+            <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#6b7280] mb-3">
+              <span className="w-[22px] h-[22px] bg-[#F5F1EC] rounded-md flex items-center justify-center text-[11px] font-bold text-[#1a1a1a]">
+                2
+              </span>
+              选项对比
+            </label>
+            <div className="flex flex-col gap-2">
+              {options.map((opt, i) => (
+                <div key={i} className="flex gap-2 items-center">
+                  <span className="w-8 h-8 bg-[#F0EBE3] rounded-lg flex items-center justify-center text-xs font-bold text-[#5B6E8A] flex-shrink-0">
+                    {String.fromCharCode(65 + i)}
+                  </span>
+                  <input
+                    type="text"
+                    value={opt}
+                    onChange={(e) => updateOption(i, e.target.value)}
+                    placeholder={`选项 ${String.fromCharCode(65 + i)}`}
+                    className="flex-1 p-3 border-[1.5px] border-[#e8e4df] rounded-xl text-[15px] bg-[#F5F1EC] text-[#1a1a1a] outline-none focus:border-[#5B6E8A] focus:ring-2 focus:ring-[#5B6E8A]/10 transition-all"
+                  />
+                  {options.length > 2 && (
+                    <button
+                      onClick={() => removeOption(i)}
+                      className="w-9 h-9 rounded-lg border border-[#e8e4df] bg-white text-[#6b7280] flex items-center justify-center hover:border-red-400 hover:text-red-500 transition-colors flex-shrink-0"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            {options.length < 6 && (
+              <button
+                onClick={addOption}
+                className="mt-2 w-full py-2.5 border-[1.5px] border-dashed border-[#e8e4df] rounded-xl text-[13px] font-medium text-[#6b7280] hover:border-[#5B6E8A] hover:text-[#5B6E8A] transition-colors"
+              >
+                + 添加选项
+              </button>
+            )}
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl">
-              {presetCases.map((c, index) => {
-                const color = caseColors[index % caseColors.length];
-                return (
-                  <button
-                    key={c.id}
-                    onClick={() => setSelected(c)}
-                    className="group relative text-left bg-surface border border-line-light rounded-xl p-5 hover:border-ink-muted/30 transition-all duration-300 hover:shadow-lg hover:shadow-ink/5 hover:-translate-y-0.5 overflow-hidden"
-                  >
-                    {/* Accent bar */}
-                    <div
-                      className="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                      style={{
-                        background: `linear-gradient(90deg, ${color.from}, ${color.to})`,
-                      }}
-                    />
-
-                    <div className="flex items-start justify-between mb-3">
-                      <span
-                        className="text-3xl font-bold text-ink-faint/20 leading-none"
-                        style={{ fontFamily: "var(--font-noto-serif-sc)" }}
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <svg
-                        className="w-4 h-4 text-ink-faint group-hover:text-accent transition-colors"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                        />
-                      </svg>
-                    </div>
-
-                    <p className="text-sm font-medium text-ink group-hover:text-accent transition-colors leading-relaxed line-clamp-3">
-                      {c.question}
-                    </p>
-
-                    <div className="mt-4 flex items-center gap-2 text-xs text-ink-faint">
-                      <span className="px-1.5 py-0.5 bg-paper-warm rounded text-ink-muted font-medium">
-                        A: {c.optionA.slice(0, 8)}…
-                      </span>
-                      <span className="text-ink-faint">vs</span>
-                      <span className="px-1.5 py-0.5 bg-paper-warm rounded text-ink-muted font-medium">
-                        B: {c.optionB.slice(0, 8)}…
-                      </span>
-                    </div>
-                  </button>
-                );
-              })}
+          {/* Style */}
+          <div className="mb-8">
+            <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#6b7280] mb-3">
+              <span className="w-[22px] h-[22px] bg-[#F5F1EC] rounded-md flex items-center justify-center text-[11px] font-bold text-[#1a1a1a]">
+                3
+              </span>
+              分析风格
+            </label>
+            <div className="flex gap-2">
+              {STYLE_OPTIONS.map((s) => (
+                <button
+                  key={s.value}
+                  onClick={() => setStyle(s.value)}
+                  className={`flex-1 py-3 rounded-xl text-[14px] font-medium border-[1.5px] transition-all duration-200 ${
+                    style === s.value
+                      ? "bg-[#1a1a1a] text-white border-[#1a1a1a]"
+                      : "bg-white text-[#1a1a1a] border-[#e8e4df] hover:border-[#5B6E8A]"
+                  }`}
+                >
+                  <span className="text-[18px] mr-1">{s.icon}</span>
+                  {s.label}
+                </button>
+              ))}
             </div>
           </div>
-        ) : (
-          /* ── 分析结果 ── */
-          <div className="max-w-4xl">
-            <button
-              onClick={() => setSelected(null)}
-              className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors mb-8 group"
-            >
-              <svg
-                className="w-4 h-4 transition-transform group-hover:-translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M7 17L3 12m0 0l4-5m-4 5h18"
-                />
-              </svg>
-              选择其他问题
-            </button>
 
-            {/* 问题标题 */}
-            <div className="mb-8">
-              <h2
-                className="text-2xl sm:text-3xl font-bold text-ink mb-2 tracking-tight"
-                style={{ fontFamily: "var(--font-noto-serif-sc)" }}
-              >
-                {selected.question}
-              </h2>
-              <div className="flex items-center gap-2 mt-3">
-                <span className="px-2.5 py-1 text-xs font-medium text-accent bg-accent/5 border border-accent/15 rounded-full">
-                  决策目标
-                </span>
-                <span className="text-sm text-ink-light">
-                  {selected.goal}
-                </span>
-              </div>
-            </div>
+          {/* Submit */}
+          <button
+            onClick={runAnalysis}
+            disabled={loading}
+            className="w-full py-4 bg-[#1a1a1a] text-white rounded-2xl text-[15px] font-semibold hover:bg-[#333] disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+          >
+            {loading ? "分析中…" : "开始分析"}
+          </button>
+        </div>
 
-            {/* 方案对比 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-              <div className="relative bg-gradient-to-br from-surface to-surface-alt border border-line-light rounded-xl p-5 overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#5B6E8A] to-[#7A8F7A]" />
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="w-6 h-6 rounded-full bg-[#5B6E8A]/10 flex items-center justify-center text-xs font-bold text-[#5B6E8A]">
-                    A
-                  </span>
-                  <span className="label-caps text-[10px]">方案 A</span>
-                </div>
-                <p className="text-sm font-semibold text-ink leading-relaxed">
-                  {selected.optionA}
-                </p>
-              </div>
-              <div className="relative bg-gradient-to-br from-surface to-surface-alt border border-line-light rounded-xl p-5 overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#C4A882] to-[#8B6F5C]" />
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="w-6 h-6 rounded-full bg-[#C4A882]/15 flex items-center justify-center text-xs font-bold text-[#8B6F5C]">
-                    B
-                  </span>
-                  <span className="label-caps text-[10px]">方案 B</span>
-                </div>
-                <p className="text-sm font-semibold text-ink leading-relaxed">
-                  {selected.optionB}
-                </p>
-              </div>
-            </div>
-
-            {/* 评估维度 */}
-            <div className="mb-10">
-              <div className="flex items-baseline gap-3 mb-5">
-                <h3
-                  className="text-lg font-bold text-ink"
-                  style={{ fontFamily: "var(--font-noto-serif-sc)" }}
-                >
-                  多维度评估
-                </h3>
-                <span className="label-caps text-[10px]">Dimensions</span>
-              </div>
-
-              <div className="space-y-3">
-                {selected.dimensions.map((dim, i) => {
-                  const icon = dimensionIcons[dim.name] || "📊";
-                  const isHovered = hoveredDim === dim.name;
-                  return (
-                    <div
-                      key={dim.name}
-                      className={`bg-surface border rounded-xl p-5 transition-all duration-300 ${
-                        isHovered
-                          ? "border-accent/30 shadow-md shadow-accent/5"
-                          : "border-line-light"
-                      }`}
-                      onMouseEnter={() => setHoveredDim(dim.name)}
-                      onMouseLeave={() => setHoveredDim(null)}
-                      style={{ animationDelay: `${i * 80}ms` }}
-                    >
-                      <div className="flex items-center gap-2.5 mb-3">
-                        <span className="text-base">{icon}</span>
-                        <p className="text-sm font-semibold text-ink">
-                          {dim.name}
-                        </p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="bg-gradient-to-r from-[#5B6E8A]/[0.03] to-transparent rounded-lg p-3 border border-[#5B6E8A]/[0.06]">
-                          <div className="flex items-center gap-1.5 mb-1.5">
-                            <span className="w-4 h-4 rounded-full bg-[#5B6E8A]/10 flex items-center justify-center text-[9px] font-bold text-[#5B6E8A]">
-                              A
-                            </span>
-                            <span className="text-[10px] font-medium text-[#5B6E8A] uppercase tracking-wider">
-                              方案 A
-                            </span>
-                          </div>
-                          <p className="text-xs text-ink-light leading-relaxed">
-                            {dim.analysisA}
-                          </p>
-                        </div>
-                        <div className="bg-gradient-to-r from-[#C4A882]/[0.04] to-transparent rounded-lg p-3 border border-[#C4A882]/[0.08]">
-                          <div className="flex items-center gap-1.5 mb-1.5">
-                            <span className="w-4 h-4 rounded-full bg-[#C4A882]/15 flex items-center justify-center text-[9px] font-bold text-[#8B6F5C]">
-                              B
-                            </span>
-                            <span className="text-[10px] font-medium text-[#8B6F5C] uppercase tracking-wider">
-                              方案 B
-                            </span>
-                          </div>
-                          <p className="text-xs text-ink-light leading-relaxed">
-                            {dim.analysisB}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 推荐结论 */}
-            <div className="relative bg-gradient-to-br from-ink to-ink-light rounded-xl p-6 sm:p-8 mb-4 text-paper overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/[0.03] rounded-full -translate-y-16 translate-x-16" />
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/[0.02] rounded-full translate-y-12 -translate-x-12" />
-              <div className="relative">
-                <div className="flex items-center gap-2 mb-3">
-                  <svg
-                    className="w-5 h-5 text-accent-warm"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <p className="label-caps text-[10px] text-paper/60">
-                    推荐结论
-                  </p>
-                </div>
-                <p className="text-sm sm:text-base leading-relaxed text-paper/90">
-                  {selected.recommendation}
-                </p>
-              </div>
-            </div>
-
-            {/* 风险提示 */}
-            <div className="bg-surface border border-line-light rounded-xl p-5 mb-8">
-              <div className="flex items-center gap-2 mb-2">
-                <svg
-                  className="w-4 h-4 text-ink-muted"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-                  />
-                </svg>
-                <p className="text-sm font-semibold text-ink">风险提示</p>
-              </div>
-              <p className="text-sm text-ink-light leading-relaxed">
-                {selected.riskNote}
-              </p>
-            </div>
-
-            <p className="text-xs text-ink-faint mb-6">
-              实验 Demo：采用预设案例展示交互方式，不调用外部 AI 服务。
+        {/* Loading */}
+        {loading && (
+          <div className="mt-6 text-center py-12">
+            <div className="w-12 h-12 border-3 border-[#e8e4df] border-t-[#5B6E8A] rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-[#6b7280] text-[14px]">
+              AI 正在深度分析你的决策问题…
             </p>
-            <Link
-              href="/projects/decision-copilot"
-              className="inline-flex items-center gap-2 text-sm text-accent hover:text-ink transition-colors group"
-            >
-              查看实验说明
-              <svg
-                className="w-4 h-4 transition-transform group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </Link>
           </div>
         )}
-      </section>
+
+        {/* Error */}
+        {error && (
+          <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-2xl text-red-600 text-[14px] text-center">
+            {error}
+          </div>
+        )}
+
+        {/* Result */}
+        {result && (
+          <div className="mt-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#6b7280]">
+                📝 分析结果
+              </span>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    document.querySelector(".result-body")?.textContent || ""
+                  );
+                }}
+                className="px-3 py-1.5 rounded-lg bg-[#F5F1EC] border border-[#e8e4df] text-[12px] font-medium text-[#6b7280] hover:bg-white hover:shadow-sm transition-all"
+              >
+                复制
+              </button>
+            </div>
+            <div
+              className="result-body bg-[#F5F1EC] border border-[#e8e4df] rounded-3xl p-8 text-[15px] leading-[1.8] prose prose-slate max-w-none
+                [&_h2]:font-['Playfair_Display',serif] [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-[#1a1a1a]
+                [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-6 [&_h3]:mb-2
+                [&_p]:mb-3 [&_ul]:my-2 [&_ul]:ml-5 [&_ol]:my-2 [&_ol]:ml-5
+                [&_li]:mb-1.5 [&_strong]:text-[#5B6E8A]
+                [&_code]:bg-[#F0EBE3] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-[13px]"
+              dangerouslySetInnerHTML={{ __html: marked.parse(result) }}
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <div className="max-w-4xl mx-auto px-6 py-12 text-center">
+        <p className="text-xs text-[#9ca3af]">
+          Powered by{" "}
+          <span className="font-medium text-[#6b7280]">Xiaomi MiMo</span>{" "}
+          · 决策分析仅供参考
+        </p>
+      </div>
     </div>
   );
 }
