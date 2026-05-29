@@ -76,28 +76,30 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="min-h-full flex flex-col">
-        {/* Header */}
-        <header className="w-full border-b border-line-light bg-paper/80 backdrop-blur-sm sticky top-0 z-50">
-          <div className="max-w-6xl mx-auto px-6 py-3 sm:py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <Link href="/" className="flex items-center gap-3">
+        <header className="sticky top-0 z-50 border-b border-line bg-paper-clean/88 backdrop-blur-xl">
+          <div className="site-shell py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <Link href="/" className="group flex items-center gap-3">
+              <span className="flex size-8 items-center justify-center rounded-[6px] bg-ink text-paper-clean font-mono text-xs font-black transition-colors group-hover:bg-accent-sage group-hover:text-ink">
+                JZ
+              </span>
               <span
-                className="font-serif text-xl font-bold text-ink tracking-tight"
+                className="font-serif text-xl font-bold text-ink"
                 style={{ fontFamily: "var(--font-noto-serif-sc)" }}
               >
                 {siteConfig.name}
               </span>
-              <span className="hidden sm:inline text-xs text-ink-muted tracking-widest uppercase">
-                Portfolio
+              <span className="hidden sm:inline-flex items-center rounded-full border border-line-light px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-ink-muted">
+                Live Portfolio
               </span>
             </Link>
-            <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:gap-6 sm:text-sm text-ink-light">
+            <nav className="flex flex-wrap items-center gap-x-2 gap-y-2 text-xs sm:gap-x-3 sm:text-sm text-ink-light">
               {navigation.main.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noopener noreferrer" : undefined}
-                  className="hover:text-ink transition-colors"
+                  className="rounded-full border border-transparent px-3 py-1.5 font-medium transition-colors hover:border-line hover:bg-surface hover:text-ink"
                 >
                   {item.label}
                 </Link>
@@ -106,33 +108,32 @@ export default function RootLayout({
           </div>
         </header>
 
-        {/* Main */}
         <main className="flex-1">{children}</main>
 
-        {/* Footer */}
-        <footer className="border-t border-line-light bg-paper">
-          <div className="max-w-6xl mx-auto px-6 py-12">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <footer className="border-t border-line bg-ink text-paper-clean">
+          <div className="site-shell py-12">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div>
+                <p className="eyebrow mb-3 text-ink-faint">AI Product Field Lab</p>
                 <p
-                  className="font-serif text-lg font-bold text-ink"
+                  className="font-serif text-2xl font-bold"
                   style={{ fontFamily: "var(--font-noto-serif-sc)" }}
                 >
                   {siteConfig.name}
                 </p>
-                <p className="text-sm text-ink-muted mt-1">
+                <p className="mt-2 text-sm text-paper/70">
                   AI 产品实践者 · 从需求到原型
                 </p>
               </div>
-              <div className="flex items-center gap-6 text-sm text-ink-muted">
+              <div className="flex flex-wrap items-center gap-3 text-sm text-paper/70">
                 {navigation.footer.map((item, index) => (
-                  <span key={item.href} className="flex items-center gap-6">
-                    {index > 0 && <span className="text-ink-faint">·</span>}
+                  <span key={item.href} className="flex items-center gap-3">
+                    {index > 0 && <span className="text-paper/25">/</span>}
                     <a
                       href={item.href}
                       target={item.external ? "_blank" : undefined}
                       rel={item.external ? "noopener noreferrer" : undefined}
-                      className="hover:text-ink transition-colors"
+                      className="rounded-full border border-white/10 px-3 py-1.5 transition-colors hover:border-accent-sage hover:text-accent-sage"
                     >
                       {item.label}
                     </a>
@@ -140,11 +141,13 @@ export default function RootLayout({
                 ))}
               </div>
             </div>
-            <hr className="line-editorial mt-8 mb-4" />
-            <p className="text-xs text-ink-faint">
+            <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 text-xs text-paper/45 sm:flex-row sm:items-center sm:justify-between">
+              <p>
               © {new Date().getFullYear()} {siteConfig.name}. Built with Next.js &
               Tailwind CSS.
-            </p>
+              </p>
+              <p className="font-mono">/ → portfolio · /sheep → live product</p>
+            </div>
           </div>
         </footer>
       </body>

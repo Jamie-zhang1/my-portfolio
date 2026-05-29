@@ -6,128 +6,91 @@ const project = getProjectBySlug("decision-copilot")!;
 export default function DecisionCopilotPage() {
   return (
     <div className="min-h-screen">
-      {/* Back Navigation */}
-      <div className="max-w-6xl mx-auto px-6 pt-8">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L3 12m0 0l4-5m-4 5h18" />
-          </svg>
+      <div className="site-shell pt-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-ink-muted transition-colors hover:text-ink">
+          <span aria-hidden="true">←</span>
           返回作品集
         </Link>
       </div>
 
-      {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 pt-8 pb-12">
-        <div className="animate-fade-in">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-5xl font-bold text-ink-faint/30" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-              {project.number}
-            </span>
-            <div>
-              <p className="label-caps">{project.englishSubtitle}</p>
-              <h1 className="text-3xl sm:text-4xl font-bold text-ink" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-                {project.title}
-              </h1>
+      <section className="site-shell py-8 sm:py-12">
+        <div className="dark-panel matrix-bg grid gap-8 p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
+          <div>
+            <span className="status-pill coral mb-6">{project.experienceTag}</span>
+            <p className="font-mono text-7xl font-black text-white/12">{project.number}</p>
+            <p className="label-caps mt-4 text-paper/55">{project.englishSubtitle}</p>
+            <h1 className="heading-serif mt-2 text-5xl text-paper-clean sm:text-6xl">{project.title}</h1>
+            <p className="mt-6 max-w-xl text-base leading-8 text-paper/75">
+              {project.description}
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              {project.tryPath && (
+                <Link href={project.tryPath} className="action-primary">
+                  {project.tryLabel}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              )}
+              <Link href="/" className="action-secondary border-white/20 bg-white/5 text-paper-clean hover:bg-white/10 hover:text-paper-clean">
+                返回作品集
+              </Link>
             </div>
           </div>
-          <p className="text-lg text-ink-light max-w-3xl leading-relaxed mt-4">
-            {project.description}
-          </p>
-        </div>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mt-6 animate-fade-in-delay-1">
-          {project.tags.map((tag) => (
-            <span key={tag} className="px-3 py-1.5 text-sm font-medium text-ink-muted bg-paper-warm border border-line-light rounded-sm">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      <hr className="line-editorial max-w-6xl mx-auto" />
-
-      {/* Project Overview */}
-      <section className="max-w-6xl mx-auto px-6 py-12 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4">
-            <h2 className="text-xl font-bold text-ink" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-              项目说明
-            </h2>
-            <p className="label-caps mt-1">About</p>
-          </div>
-          <div className="lg:col-span-8 space-y-4">
-            {project.longDescription.map((paragraph, index) => (
-              <p key={index} className="text-body text-base leading-relaxed">
-                {paragraph}
-              </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {project.features.map((feature, index) => (
+              <div key={feature.title} className="rounded-[6px] border border-white/12 bg-white/[0.06] p-5 backdrop-blur">
+                <span className="font-mono text-xs font-black text-accent-warm">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="mt-4 font-bold text-paper-clean">{feature.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-paper/70">{feature.description}</p>
+              </div>
             ))}
-            <div className="bg-surface-alt border border-line-light rounded-sm p-6 mt-6">
-              <p className="text-sm text-ink-muted italic">
-                注：此项目为早期实验探索，展示 AI 决策分析的交互思路。前端曾包含明文 API 调用，已移除。如需运行，需自行配置服务端 API 代理。
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      <hr className="line-editorial max-w-6xl mx-auto" />
-
-      {/* Features */}
-      <section className="max-w-6xl mx-auto px-6 py-12 sm:py-16">
-        <div className="flex items-baseline gap-4 mb-10">
-          <h2 className="text-xl font-bold text-ink" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-            交互设计
-          </h2>
-          <span className="label-caps">Interaction</span>
+      <section className="site-shell grid gap-10 border-y border-line bg-paper-clean/70 py-14 lg:grid-cols-[0.75fr_1.25fr]">
+        <div>
+          <p className="eyebrow mb-3">About</p>
+          <h2 className="heading-serif text-4xl text-ink">项目说明</h2>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {project.features.map((feature, index) => (
-            <div key={feature.title} className="bg-surface border border-line-light rounded-sm p-6">
-              <span className="number-label mb-3 block">{String(index + 1).padStart(2, "0")}</span>
-              <h3 className="font-semibold text-ink mb-2">{feature.title}</h3>
-              <p className="text-sm text-ink-light leading-relaxed">{feature.description}</p>
-            </div>
+        <div className="space-y-5">
+          {project.longDescription.map((paragraph) => (
+            <p key={paragraph} className="text-body text-base">{paragraph}</p>
           ))}
+          <div className="surface-panel border-accent-warm p-5">
+            <p className="text-sm leading-7 text-ink-muted">
+              注：此项目为早期实验探索，展示 AI 决策分析的交互思路。前端曾包含明文 API 调用，已移除。如需运行，需自行配置服务端 API 代理。
+            </p>
+          </div>
         </div>
       </section>
 
-      <hr className="line-editorial max-w-6xl mx-auto" />
-
-      {/* Reflection */}
-      <section className="max-w-6xl mx-auto px-6 py-12 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4">
-            <h2 className="text-xl font-bold text-ink" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-              实验收获
-            </h2>
-            <p className="label-caps mt-1">Reflection</p>
-          </div>
-          <div className="lg:col-span-8 space-y-4">
-            <p className="text-body text-base leading-relaxed">
+      <section className="site-shell grid gap-10 py-14 lg:grid-cols-[0.75fr_1.25fr]">
+        <div>
+          <p className="eyebrow mb-3">Reflection</p>
+          <h2 className="heading-serif text-4xl text-ink">实验收获</h2>
+        </div>
+        <div className="grid gap-4">
+          <div className="surface-panel p-6">
+            <p className="text-body text-base">
               这个原型帮助验证了几个关键假设：大模型能否进行结构化的多维度决策分析；用户是否接受 AI 给出的决策建议；以及如何设计输入界面让用户准确描述决策场景。
             </p>
-            <p className="text-body text-base leading-relaxed">
+          </div>
+          <div className="surface-panel p-6">
+            <p className="text-body text-base">
               实验过程中也发现了局限性：AI 缺乏用户个人背景和价值观信息，分析结果可能过于通用；决策问题的描述质量直接影响分析效果。这些发现为后续的 AI 产品设计提供了重要参考。
             </p>
           </div>
         </div>
       </section>
 
-      {/* Navigation */}
-      <section className="max-w-6xl mx-auto px-6 py-12 border-t border-line-light">
-        <div className="flex justify-between items-center">
-          <Link href="/projects/proddoc-ai" className="text-sm text-ink-muted hover:text-ink transition-colors">
-            ← ProdDoc AI
-          </Link>
-          <Link href="/" className="text-sm text-accent hover:text-ink transition-colors">
-            返回作品集 →
-          </Link>
-        </div>
+      <section className="site-shell flex items-center justify-between border-t border-line py-10">
+        <Link href="/projects/proddoc-ai" className="text-sm font-bold text-ink-muted hover:text-ink">
+          ← ProdDoc AI
+        </Link>
+        <Link href="/" className="text-sm font-bold text-accent hover:text-ink">
+          返回作品集 →
+        </Link>
       </section>
     </div>
   );

@@ -29,6 +29,7 @@ export interface Project {
   displayMode: "featured" | "secondary" | "experiment"; // 首页展示模式
   homepageSummary: string; // 首页简短摘要（1-2 句）
   homepageImages: { src: string; alt: string }[]; // 首页展示图片（featured 模式 2-3 张，secondary 1 张）
+  icon: { src: string; alt: string }; // 首页项目图标
 
   /* ── 体验入口配置 ── */
   tryPath: string | null; // 体验 Demo 路径，如 "/try/proddoc-ai"，为空则不显示体验按钮
@@ -99,6 +100,7 @@ export const projects: Project[] = [
       { src: "/projects/heard-sheep/analysis-result-mobile.png", alt: "AI 分析结果" },
       { src: "/projects/heard-sheep/tasks-with-data-mobile.png", alt: "任务列表" },
     ],
+    icon: { src: "/project-icons/heard-sheep.png", alt: "听到了咩小羊图标" },
     tryPath: null, // 听到了咩使用真实产品入口，由 site-config heardSheepLiveUrl 控制
     tryLabel: "立即体验",
     experienceTag: "真实产品体验",
@@ -158,6 +160,7 @@ export const projects: Project[] = [
     homepageImages: [
       { src: "/screenshots/proddoc-ai/dashboard.png", alt: "ProdDoc AI Dashboard" },
     ],
+    icon: { src: "/project-icons/proddoc-ai.png", alt: "ProdDoc AI 文档图标" },
     tryPath: "/try/proddoc-ai",
     tryLabel: "体验 Demo",
     experienceTag: "交互演示",
@@ -196,6 +199,7 @@ export const projects: Project[] = [
     displayMode: "experiment",
     homepageSummary: "早期 AI 决策分析交互原型，用于探索结构化输入与模型输出呈现方式。",
     homepageImages: [],
+    icon: { src: "/project-icons/decision-copilot.png", alt: "AI Decision Copilot 决策图标" },
     tryPath: "/try/decision-copilot",
     tryLabel: "体验实验",
     experienceTag: "实验演示",
