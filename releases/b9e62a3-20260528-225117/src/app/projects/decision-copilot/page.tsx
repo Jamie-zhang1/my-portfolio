@@ -1,8 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getProjectBySlug } from "@/data/projects";
 
 const project = getProjectBySlug("decision-copilot")!;
+
+export const metadata: Metadata = {
+  title: "AI Decision Copilot",
+  icons: {
+    icon: "/icons/favicon.ico",
+    apple: "/icons/apple-touch-icon.png",
+  },
+};
 
 export default function DecisionCopilotPage() {
   return (

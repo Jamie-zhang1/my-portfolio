@@ -1,8 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getProjectBySlug } from "@/data/projects";
 
 const project = getProjectBySlug("proddoc-ai")!;
+
+export const metadata: Metadata = {
+  title: "ProdDoc AI",
+  icons: {
+    icon: "/icons/proddoc-favicon.ico",
+    apple: "/icons/proddoc-apple-touch-icon.png",
+  },
+};
 
 export default function ProddocAiPage() {
   return (
