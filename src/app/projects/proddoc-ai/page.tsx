@@ -7,100 +7,103 @@ const project = getProjectBySlug("proddoc-ai")!;
 export default function ProddocAiPage() {
   return (
     <div className="min-h-screen">
-      {/* Back Navigation */}
-      <div className="max-w-6xl mx-auto px-6 pt-8">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L3 12m0 0l4-5m-4 5h18" />
-          </svg>
+      <div className="site-shell pt-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-ink-muted transition-colors hover:text-ink">
+          <span aria-hidden="true">←</span>
           返回作品集
         </Link>
       </div>
 
-      {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 pt-8 pb-12">
-        <div className="animate-fade-in">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-5xl font-bold text-ink-faint/30" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-              {project.number}
-            </span>
+      <section className="site-shell py-8 sm:py-12">
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+          <div className="surface-panel flex flex-col justify-between p-6 sm:p-8 lg:p-10">
             <div>
-              <p className="label-caps">{project.englishSubtitle}</p>
-              <h1 className="text-3xl sm:text-4xl font-bold text-ink" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-                {project.title}
-              </h1>
+              <span className="status-pill blue mb-6">{project.experienceTag}</span>
+              <p className="font-mono text-7xl font-black text-ink/10">{project.number}</p>
+              <p className="label-caps mt-4">{project.englishSubtitle}</p>
+              <h1 className="heading-serif mt-2 text-5xl text-ink sm:text-6xl">{project.title}</h1>
+              <p className="text-body mt-6 max-w-xl text-base">{project.description}</p>
+            </div>
+            <div className="mt-8">
+              <div className="mb-6 flex flex-wrap gap-2">
+                {project.tags.slice(0, 7).map((tag) => (
+                  <span key={tag} className="chip">{tag}</span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {project.tryPath && (
+                  <Link href={project.tryPath} className="action-primary">
+                    {project.tryLabel}
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                )}
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="action-secondary"
+                  >
+                    源码
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
-          <p className="text-lg text-ink-light max-w-3xl leading-relaxed mt-4">
-            {project.description}
-          </p>
-        </div>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mt-6 animate-fade-in-delay-1">
-          {project.tags.map((tag) => (
-            <span key={tag} className="px-3 py-1.5 text-sm font-medium text-ink-muted bg-paper-warm border border-line-light rounded-sm">
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Links */}
-        <div className="flex items-center gap-4 mt-6 animate-fade-in-delay-2">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-ink text-paper text-sm font-medium rounded-sm hover:bg-ink-light transition-colors"
-          >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-            </svg>
-            源码
-          </a>
+          <Link href="/try/proddoc-ai" className="artifact-link visual-stage block p-4 sm:p-6">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <span className="status-pill">Demo Workbench</span>
+              <span className="font-mono text-xs font-bold text-paper/55">local template generation</span>
+            </div>
+            <div className="screenshot-frame overflow-hidden rounded-[6px] bg-white">
+              <Image
+                src={project.homepageImages[0]?.src || project.screenshot || ""}
+                alt={project.homepageImages[0]?.alt || project.screenshotAlt}
+                width={1200}
+                height={800}
+                className="h-auto w-full"
+                priority
+                sizes="(max-width: 1024px) 100vw, 58vw"
+              />
+            </div>
+          </Link>
         </div>
       </section>
 
-      <hr className="line-editorial max-w-6xl mx-auto" />
-
-      {/* Project Overview */}
-      <section className="max-w-6xl mx-auto px-6 py-12 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4">
-            <h2 className="text-xl font-bold text-ink" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-              项目定位
-            </h2>
-            <p className="label-caps mt-1">Positioning</p>
+      <section className="border-y border-line bg-paper-clean/78">
+        <div className="site-shell grid gap-10 py-14 lg:grid-cols-[0.72fr_1.28fr]">
+          <div>
+            <p className="eyebrow mb-3">Positioning</p>
+            <h2 className="heading-serif text-4xl text-ink">项目定位</h2>
           </div>
-          <div className="lg:col-span-8 space-y-4">
-            {project.longDescription.map((paragraph, index) => (
-              <p key={index} className="text-body text-base leading-relaxed">
-                {paragraph}
-              </p>
+          <div className="grid gap-5">
+            {project.longDescription.map((paragraph) => (
+              <p key={paragraph} className="text-body text-base">{paragraph}</p>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Screenshots */}
       {project.screenshots && (
-        <section className="max-w-6xl mx-auto px-6 py-12 sm:py-16">
-          <div className="flex items-baseline gap-4 mb-10">
-            <h2 className="text-xl font-bold text-ink" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-              界面展示
-            </h2>
-            <span className="label-caps">Screenshots</span>
+        <section className="site-shell page-pad">
+          <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="eyebrow mb-3">Screenshots</p>
+              <h2 className="heading-serif text-4xl text-ink">界面展示</h2>
+            </div>
+            <p className="max-w-md text-sm leading-7 text-ink-muted">
+              以桌面工作台为主，展示文档生成、模板管理、历史记录和配置流程。
+            </p>
           </div>
 
-          <div className="space-y-10">
+          <div className="grid gap-8">
             {project.screenshots.map((screenshot, index) => (
-              <div key={screenshot.src} className="animate-fade-in">
-                <div className="flex items-center gap-3 mb-3">
+              <div key={screenshot.src}>
+                <div className="mb-3 flex items-center gap-3">
                   <span className="number-label">{String(index + 1).padStart(2, "0")}</span>
-                  <p className="text-sm text-ink-muted">{screenshot.caption}</p>
+                  <p className="text-sm font-bold text-ink-muted">{screenshot.caption}</p>
                 </div>
                 <div className="screenshot-frame">
                   <Image
@@ -108,7 +111,7 @@ export default function ProddocAiPage() {
                     alt={screenshot.alt}
                     width={1200}
                     height={800}
-                    className="w-full h-auto"
+                    className="h-auto w-full"
                     sizes="(max-width: 1024px) 100vw, 1024px"
                   />
                 </div>
@@ -118,82 +121,58 @@ export default function ProddocAiPage() {
         </section>
       )}
 
-      <hr className="line-editorial max-w-6xl mx-auto" />
-
-      {/* Features */}
-      <section className="max-w-6xl mx-auto px-6 py-12 sm:py-16">
-        <div className="flex items-baseline gap-4 mb-10">
-          <h2 className="text-xl font-bold text-ink" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-            核心功能
-          </h2>
-          <span className="label-caps">Features</span>
+      <section className="site-shell grid gap-10 border-t border-line py-14 lg:grid-cols-[0.72fr_1.28fr]">
+        <div>
+          <p className="eyebrow mb-3">Features</p>
+          <h2 className="heading-serif text-4xl text-ink">核心功能</h2>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-4 sm:grid-cols-2">
           {project.features.map((feature, index) => (
-            <div key={feature.title} className="bg-surface border border-line-light rounded-sm p-6 hover:shadow-md transition-shadow">
-              <span className="number-label mb-3 block">{String(index + 1).padStart(2, "0")}</span>
-              <h3 className="font-semibold text-ink mb-2">{feature.title}</h3>
-              <p className="text-sm text-ink-light leading-relaxed">{feature.description}</p>
+            <div key={feature.title} className="surface-panel p-5">
+              <span className="number-label">{String(index + 1).padStart(2, "0")}</span>
+              <h3 className="mt-4 font-bold text-ink">{feature.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-ink-light">{feature.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <hr className="line-editorial max-w-6xl mx-auto" />
-
-      {/* Technical Details */}
-      <section className="max-w-6xl mx-auto px-6 py-12 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4">
-            <h2 className="text-xl font-bold text-ink" style={{ fontFamily: "var(--font-noto-serif-sc)" }}>
-              技术实现
-            </h2>
-            <p className="label-caps mt-1">Technical</p>
+      <section className="site-shell grid gap-10 border-t border-line py-14 lg:grid-cols-[0.72fr_1.28fr]">
+        <div>
+          <p className="eyebrow mb-3">Technical</p>
+          <h2 className="heading-serif text-4xl text-ink">技术实现</h2>
+        </div>
+        <div className="grid gap-6">
+          <div className="surface-panel p-5">
+            <h3 className="mb-4 font-bold text-ink">页面结构</h3>
+            <div className="flex flex-wrap gap-2">
+              {project.pages.map((page) => (
+                <span key={page.path} className="route-pill">{page.path}</span>
+              ))}
+            </div>
           </div>
-          <div className="lg:col-span-8 space-y-6">
-            {/* Page Structure */}
-            <div>
-              <h3 className="font-semibold text-ink mb-2">页面结构</h3>
-              <div className="bg-surface border border-line-light rounded-sm p-4 font-mono text-sm text-ink-light">
-                {project.pages.map((page) => (
-                  <p key={page.path}>{page.path} — {page.description}</p>
-                ))}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {project.techStack.map((category) => (
+              <div key={category.category} className="surface-panel p-5">
+                <h3 className="font-bold text-ink">{category.category}</h3>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {category.items.map((item) => (
+                    <span key={item} className="chip">{item}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            {/* Tech Stack */}
-            <div>
-              <h3 className="font-semibold text-ink mb-2">技术栈</h3>
-              <div className="space-y-4">
-                {project.techStack.map((category) => (
-                  <div key={category.category}>
-                    <p className="text-sm font-medium text-ink mb-1">{category.category}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {category.items.map((item) => (
-                        <span key={item} className="px-2.5 py-1 text-xs font-medium text-ink-muted bg-paper-warm border border-line-light rounded-sm">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Navigation */}
-      <section className="max-w-6xl mx-auto px-6 py-12 border-t border-line-light">
-        <div className="flex justify-between items-center">
-          <Link href="/projects/heard-sheep" className="text-sm text-ink-muted hover:text-ink transition-colors">
-            ← 听到了咩
-          </Link>
-          <Link href="/projects/decision-copilot" className="text-sm text-accent hover:text-ink transition-colors">
-            下一个：AI Decision Copilot →
-          </Link>
-        </div>
+      <section className="site-shell flex items-center justify-between border-t border-line py-10">
+        <Link href="/projects/heard-sheep" className="text-sm font-bold text-ink-muted hover:text-ink">
+          ← 听到了咩
+        </Link>
+        <Link href="/projects/decision-copilot" className="text-sm font-bold text-accent hover:text-ink">
+          下一个：AI Decision Copilot →
+        </Link>
       </section>
     </div>
   );
