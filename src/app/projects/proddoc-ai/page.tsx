@@ -65,6 +65,7 @@ export default function ProddocAiPage() {
                 height={800}
                 className="h-auto w-full"
                 priority
+                unoptimized
                 sizes="(max-width: 1024px) 100vw, 58vw"
               />
             </div>
@@ -112,6 +113,7 @@ export default function ProddocAiPage() {
                     width={1200}
                     height={800}
                     className="h-auto w-full"
+                    unoptimized
                     sizes="(max-width: 1024px) 100vw, 1024px"
                   />
                 </div>

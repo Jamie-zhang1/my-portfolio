@@ -18,7 +18,7 @@
 
 ### 02 / ProdDoc AI
 
-通用型软件产品说明书与操作文档生成工作台。GitHub main 已升级到 AI 流式生成、模板复用、批量模块管理、活动日志、多格式导出、IndexedDB 双存储、深色模式、离线支持和测试覆盖；作品集中保留本地交互 Demo，不在该 Demo 中调用在线 AI 服务。
+通用型软件产品说明书与操作文档生成工作台。当前仓库已同步为本地优先的 Next.js 16 工作台，支持提示词辅助、API 自动生成、Mock 文档、自定义模板提取、TXT / Markdown / Word / PDF / 图片 OCR 参考资料解析、历史保存、全文编辑和 Word 导出；作品集中使用 2026-05-30 重新生成的无乱码截图。
 
 ### 03 / AI Decision Copilot
 
@@ -107,6 +107,7 @@ https://heard-sheep.cloud/sheep -> heard-sheep 真实产品服务
 - heard-sheep 详情页：`public/screenshots/portfolio/sheep-desktop.png`
 - 体验入口页：`public/screenshots/portfolio/try-desktop.png`
 - heard-sheep 产品截图：`public/projects/heard-sheep/`
+- ProdDoc AI 2026-05-30 截图：`public/screenshots/proddoc-ai/*-20260530.png`
 - 线上验收截图：`public/screenshots/production/`
 
 ## 当前状态
