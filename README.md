@@ -22,7 +22,7 @@
 
 ### 03 / AI Decision Copilot
 
-AI 决策分析交互原型。项目方向围绕一个问题输入、方案对比、多维度分析、SWOT / 逻辑推理、风险提示和图片辅助理解；作品集中保留为稳定实验 Demo，采用预设案例展示结构化决策分析流程，不调用外部 AI 服务。
+基于小米 MiMo V2.5 大模型的智能决策分析工具。GitHub 仓库为 <https://github.com/Jamie-zhang1/ai-decision-assistant>，项目本体采用纯 HTML / CSS / JavaScript + Express.js，支持有选项时的 SWOT / 逻辑三段论对比分析、无选项时自动推荐 2-4 个方案、图片识别、三种分析风格、暗色模式和预设案例；作品集中保留稳定实验 Demo，不在前端暴露外部 AI 密钥。
 
 ## 页面结构
 
@@ -31,6 +31,8 @@ AI 决策分析交互原型。项目方向围绕一个问题输入、方案对�
 /projects/heard-sheep
 /projects/proddoc-ai
 /projects/decision-copilot
+/proddoc-ai                  -> /projects/proddoc-ai
+/decision-copilot            -> /projects/decision-copilot
 /try
 /try/proddoc-ai
 /try/decision-copilot

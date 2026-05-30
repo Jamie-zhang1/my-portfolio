@@ -30,6 +30,17 @@ export default function DecisionCopilotPage() {
                   <span aria-hidden="true">→</span>
                 </Link>
               )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="action-secondary border-white/20 bg-white/5 text-paper-clean hover:bg-white/10 hover:text-paper-clean"
+                >
+                  源码
+                  <span aria-hidden="true">↗</span>
+                </a>
+              )}
               <Link href="/" className="action-secondary border-white/20 bg-white/5 text-paper-clean hover:bg-white/10 hover:text-paper-clean">
                 返回作品集
               </Link>
@@ -59,7 +70,7 @@ export default function DecisionCopilotPage() {
           ))}
           <div className="surface-panel border-accent-warm p-5">
             <p className="text-sm leading-7 text-ink-muted">
-              注：此项目为早期实验探索，展示 AI 决策分析的交互思路。前端曾包含明文 API 调用，已移除。如需运行，需自行配置服务端 API 代理。
+              注：项目本体通过 Express 服务端读取 MiMo API 环境变量；作品集内演示版采用预设案例，不调用外部 AI 服务。
             </p>
           </div>
         </div>

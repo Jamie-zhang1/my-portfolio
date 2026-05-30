@@ -14,6 +14,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/decision-copilot/:path*",
+        destination: "/projects/decision-copilot/:path*",
+        permanent: false,
+      },
+      {
+        source: "/proddoc-ai/:path*",
+        destination: "/projects/proddoc-ai/:path*",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
