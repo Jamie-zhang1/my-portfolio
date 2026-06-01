@@ -15,7 +15,7 @@ export const problemScenarios = [
 export const productFlow = [
   { step: "01", text: "录音 / 上传音频 / 粘贴转写稿 / 上传图片" },
   { step: "02", text: "转写确认（浏览器 Web Speech API 或服务端 ASR）" },
-  { step: "03", text: "AI 分析（DeepSeek 语义理解）" },
+  { step: "03", text: "AI 分析（Xiaomi MiMo 语义理解）" },
   { step: "04", text: "整理文本 / 候选任务 / 执行方案" },
   { step: "05", text: "选择、编辑并确认加入任务清单" },
   { step: "06", text: "任务详情、编辑、历史回看" },

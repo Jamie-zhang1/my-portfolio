@@ -49,10 +49,10 @@ export const projects: Project[] = [
       "以录音、音频、图片和文本为入口的 AI 任务助手，将零散交代转化为可确认、可编辑、可追踪的任务计划。",
     longDescription: [
       "听到了咩面向职场个人，帮助用户把领导、同事、会议中的口头交代，以及图片、音频或文本中的零散信息，转化为可执行、可确认、可追踪的任务计划。",
-      "核心流程：录音 / 上传音频 / 粘贴转写稿 / 上传图片 → 转写或文字确认 → DeepSeek V4 分析 → 整理文本 / 候选任务 / 执行方案 → 多选、编辑并确认加入任务清单 → 任务详情与编辑 → 历史回看。",
+      "核心流程：录音 / 上传音频 / 粘贴转写稿 / 上传图片 → 转写或文字确认 → Xiaomi MiMo 分析 → 整理文本 / 候选任务 / 执行方案 → 多选、编辑并确认加入任务清单 → 任务详情与编辑 → 历史回看。",
       "项目采用移动端优先设计，375px 手机容器，小羊品牌视觉，奶油紫 + 黑白轻工具风，支持 PWA 安装到手机桌面。当前为可运行 Web MVP，采用本地 JSON 存储，单用户模式。",
     ],
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "DeepSeek", "PWA", "Zod", "多模态"],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Xiaomi MiMo", "PWA", "Zod", "多模态"],
     href: "/projects/heard-sheep",
     github: "https://github.com/Jamie-zhang1/heard-sheep",
     demoUrl: null, // 如有线上演示地址可填写，为空则隐藏
@@ -68,8 +68,8 @@ export const projects: Project[] = [
     ],
     features: [
       { title: "录音与多模态输入", description: "支持录音、暂停/继续、录音重点标记；上传 mp3 / wav / m4a / webm 音频；上传多张图片并提取文字；也可直接粘贴转写稿。" },
-      { title: "转写与确认", description: "浏览器端优先尝试 Web Speech API，服务端保留 Xiaomi MiMo 音频理解、OpenAI-compatible ASR 和 mock fallback；进入分析前可校对文本。" },
-      { title: "DeepSeek V4 任务分析", description: "默认通过 DeepSeek V4 OpenAI-compatible Chat Completions 输出整理文本、候选任务、执行方案、缺失信息和风险提示。" },
+      { title: "转写与确认", description: "浏览器端优先尝试 Web Speech API，服务端通过 Xiaomi MiMo 音频理解转写，保留 mock fallback；进入分析前可校对文本。" },
+      { title: "MiMo 任务分析", description: "默认通过 Xiaomi MiMo OpenAI-compatible Chat Completions 输出整理文本、候选任务、执行方案、缺失信息和风险提示；文本分析使用 mimo-v2.5-pro。" },
       { title: "候选任务确认", description: "AI 生成内容先作为候选任务保留，用户可编辑、多选、全选、批量加入或单条加入任务清单，避免自动写入正式任务。" },
       { title: "任务管理闭环", description: "支持任务详情、任务编辑、状态更新、优先级筛选、历史搜索，以及在选择模式下批量删除任务。" },
       { title: "图片文字提取", description: "通过 Xiaomi MiMo 图片理解提取图片文字，预填确认页；识别失败时仍可手动粘贴，保证流程不中断。" },
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     techStack: [
       { category: "前端框架", items: ["Next.js App Router", "React", "TypeScript"] },
       { category: "UI 组件", items: ["Tailwind CSS", "PWA", "lucide-react"] },
-      { category: "AI 能力", items: ["DeepSeek V4", "Xiaomi MiMo 图片理解", "Xiaomi MiMo 音频理解", "Web Speech API"] },
+      { category: "AI 能力", items: ["Xiaomi MiMo mimo-v2.5-pro", "Xiaomi MiMo 图片理解", "Xiaomi MiMo 音频理解", "Web Speech API"] },
       { category: "数据校验", items: ["Zod"] },
       { category: "存储", items: ["本地 JSON 文件（单用户 MVP）"] },
       { category: "部署", items: ["Docker", "Nginx", "basePath=/sheep"] },
@@ -92,7 +92,7 @@ export const projects: Project[] = [
       { path: "/history", description: "历史记录" },
       { path: "/me", description: "个人中心" },
     ],
-    status: "可运行 Web MVP，移动端优先设计，已支持 /sheep 路径部署；当前默认 DeepSeek V4 分析，保留 MiMo 多模态能力和 Mock 降级。",
+    status: "可运行 Web MVP，移动端优先设计，已支持 /sheep 路径部署；当前模型调用统一切到 Xiaomi MiMo：文本分析使用 mimo-v2.5-pro，图片和音频理解使用 mimo-v2.5，真实后端需配置按量付费 MiMo API key。",
     displayMode: "featured",
     homepageSummary: "以录音、音频、图片和文本为入口的 AI 任务助手，将零散交代转化为可确认、可编辑、可追踪的任务计划。",
     homepageImages: [
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     tryPath: null, // 听到了咩使用真实产品入口，由 site-config heardSheepLiveUrl 控制
     tryLabel: "立即体验",
     experienceTag: "真实产品体验",
-    experienceDescription: "通过录音、图片、音频或文本输入，体验从信息接收、DeepSeek V4 分析到任务确认和任务管理的流程。",
+    experienceDescription: "通过录音、图片、音频或文本输入，体验从信息接收、Xiaomi MiMo 分析到任务确认和任务管理的流程。",
   },
 
   /* ─────────────── 02 / ProdDoc AI ─────────────── */
