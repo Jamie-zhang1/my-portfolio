@@ -404,3 +404,32 @@ sudo systemctl disable my-portfolio
 - 不修改 `heard-sheep` 容器端口 `3003`
 - 不剥离 `/sheep` 路径前缀
 - 回滚后优先验证 `https://heard-sheep.cloud/sheep`
+
+---
+
+## 12. 2026-06-24 双语交互版正式发布
+
+- Git commit：`c469ed651334e2d32bb2c129a73c4fb81cd1d90`
+- Release：`/home/ubuntu/apps/my-portfolio/releases/c469ed6-20260624-210023`
+- 上一版本（保留回滚）：`/home/ubuntu/apps/my-portfolio/releases/b9e62a3-20260528-225117`
+- 服务：`my-portfolio.service`，状态 `active`
+- 正式域名：`https://heard-sheep.cloud/`
+
+发布前验证：
+
+- `npm ci`、`npm run build` 通过，Next.js 生成 20 个静态页面
+- 独立端口预检通过：`/zh`、`/en`、6 个项目详情路由、双语体验页、sitemap、PDF 简历
+- 根路径返回 307 并默认跳转 `/zh`
+- `html lang`、`hreflang`（`zh-CN`、`en`、`x-default`）与双语 Open Graph 验证通过
+
+正式环境验证：
+
+- `/zh`、`/en`、6 个项目详情页、双语体验页均返回 200
+- 旧 Decision Copilot 路径正确跳转到 `ai-decision-copilot`
+- `sitemap.xml` 与 `resume-jamie-zhang.pdf` 返回 200
+- `www` 正确跳转主域名；`/sheep` 保持 200
+- 正式域名端到端浏览器测试通过，包含桌面端、移动端、语言切换、项目展开与 Product Lab
+- 新版本启动耗时 148ms；切换后日志无新错误
+- 生产依赖无 high/critical 漏洞；存在 2 个 moderate PostCSS 公告，自动修复会破坏性降级 Next.js，未执行
+
+本次切换使用 release 软链接原子更新，并在健康检查失败时自动回滚；未修改 Nginx `/sheep` 路由、Docker 容器或 3003 端口。
