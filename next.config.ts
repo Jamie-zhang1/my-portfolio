@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   images: {
@@ -18,16 +21,21 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/decision-copilot/:path*",
-        destination: "/projects/decision-copilot/:path*",
+        destination: "/zh/projects/ai-decision-copilot/:path*",
         permanent: false,
       },
       {
         source: "/proddoc-ai/:path*",
-        destination: "/projects/proddoc-ai/:path*",
+        destination: "/zh/projects/proddoc-ai/:path*",
+        permanent: false,
+      },
+      {
+        source: "/projects/decision-copilot/:path*",
+        destination: "/zh/projects/ai-decision-copilot/:path*",
         permanent: false,
       },
     ];
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

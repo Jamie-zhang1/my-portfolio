@@ -5,8 +5,9 @@ export const siteConfig = {
   url: "https://heard-sheep.cloud",
   ogImage: "/screenshots/portfolio/home-desktop.png",
   author: "Jamie Zhang",
-  email: null as string | null,
+  email: "zhangjiangmin0902@gmail.com",
   github: "https://github.com/Jamie-zhang1",
+  resume: "/resume-jamie-zhang.pdf",
   keywords: ["AI 产品", "Vibe Coding", "产品原型", "Next.js", "TypeScript"] as string[],
 
   /* ── 体验入口配置 ── */

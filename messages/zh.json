@@ -1,0 +1,214 @@
+{
+  "Metadata": {
+    "home": {
+      "title": "Jamie Zhang — AI 产品实践者",
+      "description": "Jamie Zhang 的 AI 产品作品集：用 Vibe Coding 把 AI 产品想法做成可体验原型。"
+    },
+    "projects": {
+      "heard-sheep": {"title": "Heard Sheep 项目案例", "description": "多模态 AI 任务助手的产品设计、交互流程与实现案例。"},
+      "proddoc-ai": {"title": "ProdDoc AI 项目案例", "description": "AI 产品文档工作台的产品设计、交互流程与实现案例。"},
+      "ai-decision-copilot": {"title": "AI Decision Copilot 项目案例", "description": "结构化 AI 决策助手的产品设计、交互流程与实现案例。"}
+    }
+  },
+  "Header": {
+    "brandRole": "AI 产品实践者",
+    "work": "作品",
+    "lab": "实验室",
+    "process": "方法",
+    "about": "关于",
+    "githubLabel": "GitHub 主页"
+  },
+  "Language": {
+    "zh": "中文",
+    "en": "EN",
+    "switchToZh": "切换为中文",
+    "switchToEn": "Switch to English",
+    "groupLabel": "选择语言"
+  },
+  "Command": {
+    "open": "打开快捷导航",
+    "navigate": "导航",
+    "dialog": "快捷导航",
+    "placeholder": "想去哪里？",
+    "work": "精选作品",
+    "workDetail": "三个完整产品案例",
+    "lab": "交互实验室",
+    "labDetail": "体验 AI 产品流程",
+    "email": "给 Jamie 发邮件",
+    "github": "GitHub",
+    "resume": "下载简历",
+    "resumeDetail": "一页 PDF 简历",
+    "switchEnglish": "切换到 English",
+    "switchChinese": "切换到中文",
+    "languageDetail": "保持当前页面路径"
+  },
+  "Home": {
+    "hero": {
+      "availability": "正在寻找 AI 产品相关机会",
+      "year": "2026",
+      "overline": "JAMIE ZHANG · AI 产品实践者",
+      "title1": "把混乱的",
+      "titleAccent": "人类信号",
+      "title3": "做成真正有用的 AI 产品。",
+      "currently": "我正在构建",
+      "roles": ["AI 产品设计", "Vibe Coding", "多模态原型", "产品文档工作台"],
+      "description": "用 Vibe Coding 把 AI 产品想法做成可体验原型。从真实问题到可运行产品，我关注的不只是模型能做什么，更是用户如何理解、确认并完成任务。",
+      "viewWork": "查看作品",
+      "tryDemo": "体验 Demo",
+      "github": "GitHub",
+      "proofs": [
+        {"value": "03", "label": "完整产品案例"},
+        {"value": "02", "label": "交互式 Demo"},
+        {"value": "01", "label": "在线多模态 MVP"}
+      ]
+    },
+    "scene": {
+      "live": "产品信号已接入",
+      "understanding": "AI 正在理解",
+      "quote": "“明天下午把访谈结论整理出来，先给我三个优先级建议。”",
+      "deadline": "识别到截止时间",
+      "outputs": "3 项输出",
+      "caption": "捕捉 → 理解 → 确认",
+      "recordAria": "Heard Sheep 录音交互预览"
+    },
+    "work": {
+      "kicker": "01 / 精选产品",
+      "title1": "围绕真实阻力",
+      "title2": "构建产品。",
+      "description": "先点击项目卡片展开产品信息，再进入完整案例。每个项目都说明问题、方案、我的角色、技术栈和可体验入口。",
+      "problem": "问题",
+      "role": "我的角色",
+      "stack": "技术栈",
+      "viewCase": "查看完整案例",
+      "tryProduct": "体验产品",
+      "opened": "已展开",
+      "explore": "展开"
+    },
+    "lab": {
+      "kicker": "02 / AI 产品交互实验室",
+      "title1": "看见 AI 能力",
+      "title2": "如何成为产品流程。",
+      "description": "输入一句模糊需求，观察它如何被理解、结构化，并生成任务、文档或决策卡片。这是产品逻辑模拟，不伪装成真实在线模型。",
+      "request": "产品需求",
+      "localDemo": "本地交互演示",
+      "inputLabel": "描述一个模糊的产品需求",
+      "examplesLabel": "载入示例",
+      "examples": ["把今天的用户访谈整理成下一轮产品迭代任务", "为新上线的 AI 文档功能生成一页交付说明", "比较先做语音输入还是图片识别，给出决策建议"],
+      "run": "运行产品流程",
+      "runAgain": "再次运行",
+      "processing": "处理中",
+      "disclaimer": "此 Demo 用于呈现产品逻辑，不会调用外部 AI 模型。",
+      "pipeline": ["理解", "结构化", "交付"],
+      "emptyTitle": "一句需求，生成三类产品产物。",
+      "emptyBody": "运行流程，观察模糊表达如何变成意图、行动和可交付内容。",
+      "thinking": "正在识别意图与限制条件…",
+      "structuring": "正在匹配可用的产品产物…",
+      "aiUnderstanding": "AI 理解",
+      "intentHint": "从需求中提取目标、受众和预期结果。",
+      "nextTask": "下一步任务",
+      "owner": "负责人：Jamie · 优先级：P0",
+      "artifact": "交付产物",
+      "confirmHint": "已准备好进入人工确认。",
+      "clear": "清除结果",
+      "outputs": {
+        "decisionIntent": "方案比较与优先级判断",
+        "documentIntent": "产品文档快速交付",
+        "taskIntent": "研究发现转化为迭代任务",
+        "decisionTask": "建立价值 / 成本 / 风险三维比较表",
+        "documentTask": "整理功能范围、操作步骤与验收口径",
+        "taskTask": "聚类用户痛点并拆分 P0 / P1 行动",
+        "decisionArtifact": "决策简报",
+        "documentArtifact": "交付说明",
+        "taskArtifact": "迭代任务池"
+      }
+    },
+    "process": {
+      "kicker": "03 / 我的构建方式",
+      "title1": "从混乱信号",
+      "title2": "到上线产品。",
+      "description": "我的角色不是让 AI 生成更多内容，而是把能力组织成用户能完成任务的产品流程。",
+      "active": "当前步骤",
+      "steps": [
+        {"number":"01","title":"发现真实阻力","cn":"发现问题","description":"从真实场景与用户语言开始，找到信息混乱、流程断点或判断成本高的地方。","signal":"观察"},
+        {"number":"02","title":"设计产品流程","cn":"设计流程","description":"把模糊表达拆成输入、状态、决策点和结果，让 AI 能力嵌入可理解的路径。","signal":"定义"},
+        {"number":"03","title":"借助 AI 构建","cn":"AI 辅助构建","description":"用 Vibe Coding 快速搭出真实可点的版本，同时保留边界、回退和人工确认。","signal":"原型"},
+        {"number":"04","title":"验证关键细节","cn":"验证迭代","description":"用真实页面、示例数据和失败状态校正流程、文案、响应式布局与性能。","signal":"迭代"},
+        {"number":"05","title":"交付产品故事","cn":"部署展示","description":"补齐部署、截图、说明与体验入口，让产品价值能被快速理解，也能被稳定验证。","signal":"交付"}
+      ]
+    },
+    "capabilities": {
+      "kicker": "04 / 核心能力",
+      "title1": "把模型能力",
+      "title2": "变成产品行为。",
+      "description": "四项能力围绕同一个目标：让 AI 从“能生成”走向“能被用户可靠地使用”。",
+      "items": [
+        {"number":"01","title":"AI Product Design","cn":"AI 产品设计","description":"把需求、AI 能力和人工确认组织成清晰可用的端到端流程。","signal":"FLOW"},
+        {"number":"02","title":"Vibe Coding","cn":"快速原型构建","description":"用 Next.js 与 TypeScript 快速验证产品假设，并保留工程边界。","signal":"SHIP"},
+        {"number":"03","title":"Multimodal Systems","cn":"多模态能力接入","description":"围绕语音、图片与文本输入设计理解、确认和失败降级。","signal":"INPUT"},
+        {"number":"04","title":"Product Delivery","cn":"产品文档与交付","description":"让原型配套可读的案例、文档、体验入口与部署记录。","signal":"HANDOFF"}
+      ]
+    },
+    "about": {
+      "kicker": "05 / 关于 JAMIE",
+      "title1": "逻辑训练背景。",
+      "title2": "产品思维。",
+      "title3": "持续做原型。",
+      "bio1": "中国政法大学逻辑学硕士在读，训练背景来自法律逻辑、数理逻辑与规则建模。我关注如何把真实场景中的混乱需求，拆成 AI 能理解、人能确认、最终也能跑起来的产品流程。",
+      "bio2": "目前主要使用 Next.js、TypeScript、Tailwind CSS 与 AI API 构建交互原型，关注语音、图片、文本输入后的结构化分析，以及轻量但完整的产品交付。",
+      "github": "GitHub",
+      "email": "邮箱",
+      "resume": "简历 PDF"
+      ,"orbitLogic": "逻辑", "orbitProduct": "产品", "orbitAi": "AI"
+    }
+  },
+  "Case": {
+    "allWork": "全部作品",
+    "role": "角色",
+    "status": "状态",
+    "tryProduct": "体验产品",
+    "github": "GitHub",
+    "overview": "项目概览",
+    "overviewHeading": "这是一套产品系统，而不只是一次 AI 输出。",
+    "problem": "问题背景",
+    "solution": "解决方案",
+    "problemHeading": "用户真正被什么阻碍？",
+    "solutionHeading": "产品如何改变原有工作流？",
+    "myRole": "我的角色",
+    "roleHeading": "从产品思考到上线交付。",
+    "coreFlow": "核心流程",
+    "keyInteraction": "关键交互",
+    "screens": "产品界面",
+    "aiCapability": "AI 能力",
+    "aiLayer": "AI 能力层",
+    "aiHeading": "让能力始终带着约束。",
+    "structured": "结构化输出",
+    "human": "人工确认",
+    "fallback": "安全降级",
+    "techStack": "技术栈",
+    "whatBuilt": "我完成的工作",
+    "builtHeading": "从交互模型到可运行产品。",
+    "reflection": "复盘",
+    "demoGithub": "DEMO 与 GITHUB",
+    "finalHeading1": "先体验产品，",
+    "finalHeading2": "再查看实现。",
+    "openDemo": "打开 Demo",
+    "viewGithub": "查看 GitHub",
+    "productDesign": "产品设计 · 原型构建 · 上线交付"
+  },
+  "Footer": {
+    "kicker": "一起做点真正有用的产品",
+    "title1": "正在寻找 AI 产品",
+    "title2": "与原型构建相关机会。",
+    "email": "联系 Jamie",
+    "github": "GitHub",
+    "resume": "下载简历",
+    "role": "AI 产品 · Vibe Coding",
+    "built": "使用 Next.js、TypeScript 与产品思维构建。"
+  },
+  "Try": {
+    "index": {"kicker":"交互体验","title":"亲自走一遍产品流程","description":"这些 Demo 用稳定的本地数据呈现核心交互，不会在浏览器中暴露模型密钥。","proddoc":"体验 ProdDoc AI","decision":"体验 AI Decision Copilot","back":"返回首页"},
+    "common": {"back":"返回体验入口","local":"本地 Demo · 不调用外部模型","input":"输入","output":"输出","viewCase":"查看完整项目案例","reset":"重新开始"},
+    "proddoc": {"title":"ProdDoc AI · 文档生成体验","description":"填写产品信息，生成一份可继续编辑的结构化文档预览。","productName":"产品名称","productType":"产品类型","targetUsers":"目标用户","modules":"核心模块","docType":"文档用途","generate":"生成示例文档","modify":"修改输入","regenerate":"重新生成","preview":"文档预览","copy":"复制内容","empty":"填写产品信息后，点击生成按钮查看结构化文档预览。","types":["SaaS 工具","企业服务","AI 产品"],"docs":["产品说明书","操作手册","交付说明"]},
+    "decision": {"title":"AI Decision Copilot · 决策分析实验","description":"选择一个决策问题，查看结构化对比、推荐结论与风险提示。","choose":"选择一个决策问题","note":"所有结果均来自稳定预设案例，用于展示产品结构。","analyze":"开始分析","other":"选择其他问题","brief":"决策简报","analysis":"多维度评估","recommendation":"推荐结论","risk":"风险提示","optionA":"方案 A","optionB":"方案 B"}
+  }
+}
