@@ -97,7 +97,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       ],
       whatIBuilt: ["文档生成工作台", "模板提取", "多格式资料解析", "全文编辑与改写", "本地草稿和历史", "Word 导出"],
       reflection: "AI 生成只是文档生产的中间一步。真正影响使用价值的是生成前能否整理输入，生成后能否继续修改和交付。下一步会验证复杂模板下的结构保持能力和多人协作需求。",
-      screenCaptions: ["Dashboard：项目与模板入口", "Workspace：资料配置和生成结果", "Templates：系统模板与旧文件提取", "History：本地文档与继续编辑"],
+      screenCaptions: ["Home：项目与模板入口", "Workspace：资料配置和生成结果", "Templates：系统模板与旧文件提取", "History：本地文档与继续编辑"],
     },
     {
       projectNumber: "03",
@@ -201,7 +201,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       ],
       whatIBuilt: ["Documentation workspace", "Template extraction", "Multi-format source parsing", "Editing and rewriting", "Local drafts and history", "Word export"],
       reflection: "Generation is only the middle of the job. The product becomes useful by organizing inputs before generation and keeping the result editable afterward. The next test is preserving more complex document structures and supporting collaboration.",
-      screenCaptions: ["Dashboard: projects and template entry", "Workspace: sources and generated output", "Templates: system and extracted templates", "History: local documents and continued editing"],
+      screenCaptions: ["Home: projects and template entry", "Workspace: sources and generated output", "Templates: system and extracted templates", "History: local documents and continued editing"],
     },
     {
       projectNumber: "03",

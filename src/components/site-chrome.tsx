@@ -12,7 +12,6 @@ import { Link } from "@/i18n/navigation";
 export function SiteHeader() {
   const t = useTranslations("Header");
   const navigation = [
-    { label: t("workspace"), href: "/#workspace" },
     { label: t("work"), href: "/#work" },
     { label: t("method"), href: "/#method" },
     { label: t("about"), href: "/#about" },
@@ -30,7 +29,6 @@ export function SiteHeader() {
           {navigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
         </nav>
         <div className="header-tools">
-          <a className="header-open-lab" href="#workspace">{t("openWorkspace")}</a>
           <CommandMenu />
           <ThemeSwitcher compact />
           <LanguageSwitcher compact />

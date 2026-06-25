@@ -14,12 +14,10 @@ export async function WorksCanvas({ locale }: { locale: AppLocale }) {
         <article className="work-card" key={study.slug}>
           <div className="work-card-copy">
             <div className="work-card-heading">
-              <span>{study.project.number}</span>
-              <span className="status-marker" data-state={study.slug === "heard-sheep" ? "ready" : "standby"}>
-                <i aria-hidden="true" />{study.slug === "heard-sheep" ? t("live") : t("prototype")}
-              </span>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <span>{study.subtitle}</span>
             </div>
-            <p className="console-label">{study.eyebrow}</p>
+            <p className="eyebrow-label">{study.eyebrow}</p>
             <h3>{study.title}</h3>
             <p className="work-positioning">{study.homepagePositioning}</p>
             <dl className="work-facts">
@@ -32,11 +30,6 @@ export async function WorksCanvas({ locale }: { locale: AppLocale }) {
             <div className="work-actions">
               <Link href={`/projects/${study.slug}`} className="button button-secondary">{t("viewCase")}<ArrowUpRight size={15} /></Link>
             </div>
-          </div>
-          <div className="work-card-rail" aria-hidden="true">
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <i />
-            <p>{study.subtitle}</p>
           </div>
         </article>
       ))}

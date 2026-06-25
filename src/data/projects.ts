@@ -125,9 +125,9 @@ export const projects: Project[] = [
     github: "https://github.com/Jamie-zhang1/proddoc-ai",
     demoUrl: null,
     screenshot: "/screenshots/proddoc-ai/dashboard-20260530.png",
-    screenshotAlt: "ProdDoc AI Dashboard",
+    screenshotAlt: "ProdDoc AI Home",
     screenshots: [
-      { src: "/screenshots/proddoc-ai/dashboard-20260530.png", alt: "ProdDoc AI Dashboard", caption: "Dashboard 首页 — 产品定位、模板入口与 Demo 项目" },
+      { src: "/screenshots/proddoc-ai/dashboard-20260530.png", alt: "ProdDoc AI Home", caption: "项目首页 — 产品定位、模板入口与 Demo 项目" },
       { src: "/screenshots/proddoc-ai/workspace-20260530.png", alt: "ProdDoc AI Workspace", caption: "Workspace 工作台 — 模块选择、内容配置与生成结果" },
       { src: "/screenshots/proddoc-ai/templates-20260530.png", alt: "ProdDoc AI Templates", caption: "Templates 模板页 — 系统模板与旧文件模板提取" },
       { src: "/screenshots/proddoc-ai/history-20260530.png", alt: "ProdDoc AI History", caption: "History 历史记录 — 本地文档管理与继续编辑" },
@@ -141,7 +141,7 @@ export const projects: Project[] = [
       { title: "参考资料解析", description: "支持 TXT、Markdown、Word、PDF 和图片；Word 通过 mammoth 提取文本，PDF 通过 pdfjs-dist 提取文本，图片通过 tesseract.js OCR。" },
       { title: "预览、编辑与导出", description: "生成后展示摘要卡片，可复制全文、保存历史、导出 Word，或进入 /editor 做全文编辑和局部改写。" },
       { title: "本地持久化", description: "草稿、历史记录、启用模板、自定义模板和默认偏好均保存在浏览器 localStorage，适合轻量演示和作品集呈现。" },
-      { title: "截图与验收", description: "提供 Playwright smoke test 和截图脚本，可重新运行项目并生成 Dashboard、Workspace、Templates、History、Settings 五张截图。" },
+      { title: "截图与验收", description: "提供 Playwright smoke test 和截图脚本，可重新运行项目并生成 Home、Workspace、Templates、History、Settings 五张截图。" },
     ],
     techStack: [
       { category: "前端框架", items: ["Next.js 16 App Router", "React 19", "TypeScript"] },
@@ -152,7 +152,7 @@ export const projects: Project[] = [
       { category: "测试", items: ["Playwright", "截图脚本", "Smoke Test"] },
     ],
     pages: [
-      { path: "/", description: "Dashboard 首页" },
+      { path: "/", description: "项目首页" },
       { path: "/workspace", description: "文档生成工作台" },
       { path: "/templates", description: "系统模板与自定义模板" },
       { path: "/history", description: "历史记录" },
@@ -164,7 +164,7 @@ export const projects: Project[] = [
     displayMode: "secondary",
     homepageSummary: "通用型产品说明书与操作文档生成工作台，支持提示词辅助、API 生成、Mock 文档、自定义模板提取、参考资料解析和 Word 导出。",
     homepageImages: [
-      { src: "/screenshots/proddoc-ai/dashboard-20260530.png", alt: "ProdDoc AI Dashboard" },
+      { src: "/screenshots/proddoc-ai/dashboard-20260530.png", alt: "ProdDoc AI Home" },
     ],
     icon: { src: "/project-icons/proddoc-ai.png", alt: "ProdDoc AI 文档图标" },
     tryPath: "/try/proddoc-ai",

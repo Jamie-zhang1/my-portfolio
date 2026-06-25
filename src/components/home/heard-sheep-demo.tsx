@@ -48,7 +48,7 @@ export function HeardSheepDemo() {
     <div className="heard-demo prototype-window">
       <div className="prototype-window-bar heard-demo-bar">
         <span>HEARD SHEEP / LIVE WORKFLOW</span>
-        <span className="status-marker" data-state={state === "tasks" ? "ready" : state === "idle" ? "standby" : "processing"}>
+        <span className="status-marker" data-state={state === "tasks" ? "ready" : state === "idle" ? "idle" : "processing"}>
           <i aria-hidden="true" />{status}
         </span>
       </div>
@@ -64,7 +64,7 @@ export function HeardSheepDemo() {
 
       <div className="heard-demo-body">
         <div className="record-panel">
-          <p className="console-label">VOICE INPUT</p>
+          <p className="eyebrow-label">VOICE INPUT</p>
           <button
             type="button"
             className={`record-button ${state === "recording" ? "is-recording" : ""}`}
@@ -85,9 +85,9 @@ export function HeardSheepDemo() {
         <div className="demo-output" aria-live="polite">
           <AnimatePresence mode="wait" initial={false}>
             {(state === "idle" || state === "recording") && (
-              <motion.div className="demo-signal-view" key="signal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <div className={`signal-line demo-signal ${state === "recording" ? "is-running" : ""}`} aria-hidden="true">
-                  {Array.from({ length: 44 }, (_, index) => <i key={index} style={{ "--signal-index": index } as React.CSSProperties} />)}
+              <motion.div className="demo-wave-view" key="signal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <div className={`waveform-line demo-wave ${state === "recording" ? "is-running" : ""}`} aria-hidden="true">
+                  {Array.from({ length: 44 }, (_, index) => <i key={index} style={{ "--wave-index": index } as React.CSSProperties} />)}
                 </div>
                 <p>{t("guided")}</p>
               </motion.div>
@@ -95,7 +95,7 @@ export function HeardSheepDemo() {
 
             {state === "transcript" && (
               <motion.div className="transcript-sheet task-sheet" key="transcript" initial={reduceMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                <p className="console-label">{t("transcriptLabel")}</p>
+                <p className="eyebrow-label">{t("transcriptLabel")}</p>
                 <blockquote>{t("transcript")}</blockquote>
                 <button className="button button-primary" type="button" onClick={() => setState("analyzing")}>{t("confirm")}</button>
               </motion.div>
@@ -103,7 +103,7 @@ export function HeardSheepDemo() {
 
             {state === "analyzing" && (
               <motion.div className="analysis-view" key="analysis" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <p className="console-label">{t("analysisLabel")}</p>
+                <p className="eyebrow-label">{t("analysisLabel")}</p>
                 <div className="analysis-rail">
                   {analysisLines.map((line, index) => (
                     <div key={line} style={{ "--analysis-index": index } as React.CSSProperties}>
@@ -117,7 +117,7 @@ export function HeardSheepDemo() {
             {state === "tasks" && (
               <motion.div className="task-result" key="tasks" initial={reduceMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
                 <div className="task-result-heading">
-                  <div><p className="console-label">{t("tasksLabel")}</p><strong>{t("readyStatus")}</strong></div>
+                  <div><p className="eyebrow-label">{t("tasksLabel")}</p><strong>{t("readyStatus")}</strong></div>
                   <span className="status-marker" data-state="review"><i aria-hidden="true" />REVIEW</span>
                 </div>
                 <div className="task-list">

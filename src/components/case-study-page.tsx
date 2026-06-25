@@ -27,7 +27,7 @@ export function CaseStudyPage({ study }: { study: LocalizedCaseStudy }) {
         <Link href="/#work" className="case-back"><ArrowLeft size={15} />{t("allWork")}</Link>
         <div className="case-header-grid">
           <div className="case-header-copy">
-            <div className="case-header-status"><span>{project.number} / {study.eyebrow}</span><span className="status-marker" data-state={study.slug === "heard-sheep" ? "ready" : "standby"}><i aria-hidden="true" />{study.experienceTag}</span></div>
+            <div className="case-header-status"><span>{project.number} / {study.eyebrow}</span><span className="status-marker" data-state={study.slug === "heard-sheep" ? "ready" : "idle"}><i aria-hidden="true" />{study.experienceTag}</span></div>
             <h1>{study.title}</h1>
             <p className="case-outcome">{study.outcome}</p>
             <dl className="case-header-meta">

@@ -5,19 +5,26 @@
       "description": "Jamie Zhang's AI product portfolio: product thinking, frontend prototypes, documentation workflows, and deployed case studies."
     },
     "projects": {
-      "heard-sheep": {"title": "Heard Sheep — Case Study", "description": "A voice-first task organizer that turns spoken requests into editable task cards."},
-      "proddoc-ai": {"title": "ProdDoc AI — Case Study", "description": "A documentation workspace for source organization, template extraction, editing, and export."},
-      "ai-decision-copilot": {"title": "AI Decision Copilot — Case Study", "description": "A structured decision workflow that keeps options, reasoning, recommendation, and risk visible."}
+      "heard-sheep": {
+        "title": "Heard Sheep — Case Study",
+        "description": "A voice-first task organizer that turns spoken requests into editable task cards."
+      },
+      "proddoc-ai": {
+        "title": "ProdDoc AI — Case Study",
+        "description": "A documentation workspace for source organization, template extraction, editing, and export."
+      },
+      "ai-decision-copilot": {
+        "title": "AI Decision Copilot — Case Study",
+        "description": "A structured decision workflow that keeps options, reasoning, recommendation, and risk visible."
+      }
     }
   },
   "Header": {
-    "brandRole": "Personal AI Workspace",
-    "workspace": "Workspace",
+    "brandRole": "AI Product Portfolio",
     "work": "Work",
     "method": "Method",
     "about": "About",
     "contact": "Contact",
-    "openWorkspace": "Open Workspace",
     "appearance": "Appearance",
     "menu": "Open menu",
     "closeMenu": "Close menu",
@@ -48,7 +55,7 @@
     "close": "Close command menu",
     "placeholder": "Search pages or actions",
     "workspace": "Open workspace",
-    "workspaceDetail": "Notes, windows, and product practice areas",
+    "workspaceDetail": "Notes, flows, and product practice areas",
     "work": "View work",
     "workDetail": "Three product case studies",
     "method": "How I work",
@@ -69,38 +76,64 @@
   },
   "Home": {
     "hero": {
-      "labId": "PORTFOLIO / 2026",
       "kicker": "JAMIE WORKSPACE",
       "title": "Jamie Zhang",
       "role": "AI Product Builder",
       "headline": "I turn fuzzy product concepts into clear flows and testable prototypes.",
-      "description": "I focus on shaping AI capabilities into product experiences people can actually use: clear inputs, visible states, editable outputs, and working interfaces.",
+      "description": "I focus on shaping AI capabilities into product experiences people can actually use: clear inputs, understandable steps, and editable results.",
       "availability": "Open to AI Product Intern, LLM Application Product Intern, and AI Product Operations Intern roles",
-      "openWorkspace": "Open Workspace",
-      "workspaceOpen": "Workspace opened",
+      "openWorkspace": "Enter Workspace",
       "viewWork": "View Work",
       "github": "GitHub",
-      "standby": "READY",
-      "ready": "WORKSPACE OPEN",
-      "visualLabel": "Workspace Map",
-      "stages": ["Structure", "Prototype", "Ship"],
-      "notes": ["Logic", "Flow", "Prototype", "Docs"]
+      "visualLabel": "Jamie Workspace",
+      "stages": [
+        "Clarify",
+        "Map",
+        "Prototype"
+      ],
+      "notes": [
+        "Logic training",
+        "Product flow",
+        "Frontend prototype",
+        "Case study"
+      ],
+      "previewTitle": "From fuzzy problem to testable prototype",
+      "previewDescription": "Put the judgment into the interface and test it through use."
     },
     "workspace": {
       "kicker": "01 / PERSONAL WORKSPACE",
-      "title": "A personal AI product desk, not a product dashboard.",
-      "description": "This workspace shows how I move from structured thinking to product flows, frontend prototypes, documentation, and deployment.",
-      "status": "Workspace notes",
+      "title": "A light workspace for how I build AI product prototypes.",
+      "description": "This space connects structured analysis, product flow, frontend prototype, documentation, and deployment.",
       "areas": [
-        {"title": "AI Product Design", "description": "Define the user problem, AI role, review points, and product states before building."},
-        {"title": "Frontend Prototype", "description": "Turn the flow into clickable interfaces with Next.js, TypeScript, and careful mobile behavior."},
-        {"title": "Product Documentation", "description": "Translate decisions into case studies, specs, handoff notes, and demo instructions."},
-        {"title": "Structured Thinking", "description": "Use logic training to separate assumptions, rules, decisions, and conclusions."},
-        {"title": "Vibe Coding", "description": "Use AI coding tools to move faster while keeping product judgment and QA visible."}
+        {
+          "title": "Structured Thinking",
+          "description": "Logic training helps me separate assumptions, rules, decisions, and conclusions."
+        },
+        {
+          "title": "AI Product Design",
+          "description": "Define the user problem, AI role, review points, and fallback paths before building."
+        },
+        {
+          "title": "Frontend Prototype",
+          "description": "Turn product flows into clickable interfaces with Next.js and TypeScript."
+        },
+        {
+          "title": "Product Documentation",
+          "description": "Translate decisions into case studies, specs, handoff notes, and reusable delivery materials."
+        },
+        {
+          "title": "Independent Deployment",
+          "description": "Handle build, testing, deployment, and a stable entry point so the work can be tried directly."
+        }
       ],
       "desk": {
-        "title": "Current desk",
-        "items": ["Case study shelf", "Product notes", "Prototype windows", "Flow rails"]
+        "title": "What lives here",
+        "items": [
+          "Case study shelf",
+          "Flow lines",
+          "Product notes",
+          "Project reflection"
+        ]
       }
     },
     "work": {
@@ -111,21 +144,44 @@
       "problem": "Problem",
       "built": "What I built",
       "stack": "Tech tags",
-      "viewCase": "View Case Study",
-      "live": "Live",
-      "prototype": "Prototype"
+      "viewCase": "View Case Study"
     },
     "process": {
       "kicker": "03 / HOW I WORK",
-      "title": "I use structure before speed.",
-      "description": "My logic background shows up in how I define a product: clarify the premises, map the rules, test the flow, and keep the final output reviewable.",
+      "title": "My method starts by making the problem clear.",
+      "description": "Logic training shapes how I define premises, rules, and decisions. Prototypes then test whether those decisions work in use.",
       "active": "Active step",
       "steps": [
-        {"number":"01", "title":"Find the real problem", "label":"PROBLEM", "description":"Start from a concrete workflow, repeated task, or decision that is difficult to handle today."},
-        {"number":"02", "title":"Map the user flow", "label":"FLOW", "description":"Define inputs, system states, review points, outputs, and fallback paths before building UI."},
-        {"number":"03", "title":"Build a clickable version", "label":"PROTOTYPE", "description":"Use AI-assisted coding to create a working interface that can be tested, not just described."},
-        {"number":"04", "title":"Test the judgment", "label":"TEST", "description":"Use realistic data, mobile interactions, and edge cases to see whether the flow holds up."},
-        {"number":"05", "title":"Turn it into a case", "label":"DELIVER", "description":"Package the product, documentation, deployment, and reflection so the work can be evaluated."}
+        {
+          "number": "01",
+          "title": "Clarify the problem",
+          "label": "Clarify",
+          "description": "Start from a concrete workflow, repeated task, or decision that is difficult to handle today."
+        },
+        {
+          "number": "02",
+          "title": "Map the user flow",
+          "label": "Map",
+          "description": "Define inputs, states, review points, outputs, and fallback paths before building UI."
+        },
+        {
+          "number": "03",
+          "title": "Build a clickable prototype",
+          "label": "Build",
+          "description": "Use AI-assisted coding to create an interface that can be tested, not just described."
+        },
+        {
+          "number": "04",
+          "title": "Test with realistic scenarios",
+          "label": "Test",
+          "description": "Use realistic data, mobile behavior, and edge cases to see whether the flow holds up."
+        },
+        {
+          "number": "05",
+          "title": "Turn it into a case study",
+          "label": "Deliver",
+          "description": "Package the product, documentation, deployment, and reflection so the work can be evaluated."
+        }
       ]
     },
     "about": {
@@ -136,7 +192,13 @@
       "bio2": "I bring that habit into AI product work: defining the problem, mapping the flow, shaping AI output, building frontend prototypes, writing documentation, and deploying the result independently.",
       "opportunity": "I’m looking for AI product and LLM application roles where product thinking, structured analysis, and hands-on prototyping matter.",
       "focusLabel": "Combined practice",
-      "focus": ["Logic training", "Structured product analysis", "AI product flow design", "Frontend prototyping", "Independent deployment"],
+      "focus": [
+        "Logic training",
+        "Structured product analysis",
+        "AI product flow design",
+        "Frontend prototyping",
+        "Independent deployment"
+      ],
       "github": "GitHub",
       "email": "Email",
       "resume": "Resume PDF"
@@ -186,9 +248,60 @@
     "built": "Designed, built, and deployed by Jamie Zhang."
   },
   "Try": {
-    "index": {"kicker":"INTERACTIVE DEMOS", "title":"Walk through the product flows", "description":"These demos use stable local data to show the core interaction without exposing model credentials in the browser.", "proddoc":"Try ProdDoc AI", "decision":"Try AI Decision Copilot", "back":"Back Home"},
-    "common": {"back":"Back to Demos", "local":"Local demo · No external model call", "input":"Input", "output":"Output", "viewCase":"View Full Case Study", "reset":"Start Over"},
-    "proddoc": {"title":"ProdDoc AI · Documentation Demo", "description":"Enter product context and generate an editable structured-document preview.", "productName":"Product name", "productType":"Product type", "targetUsers":"Target users", "modules":"Core modules", "docType":"Document purpose", "generate":"Generate Sample", "modify":"Edit Inputs", "regenerate":"Generate Again", "preview":"Document Preview", "copy":"Copy Content", "empty":"Complete the product details, then generate a structured preview.", "types":["SaaS tool", "Enterprise service", "AI product"], "docs":["Product guide", "Operating manual", "Delivery note"]},
-    "decision": {"title":"AI Decision Copilot · Decision Demo", "description":"Choose a question and review a structured comparison, recommendation, and risk note.", "choose":"Choose a Decision", "note":"Results use stable preset cases to demonstrate the product structure.", "analyze":"Analyze", "other":"Choose Another Question", "brief":"Decision Brief", "analysis":"Comparison", "recommendation":"Recommendation", "risk":"Risk Note", "optionA":"Option A", "optionB":"Option B"}
+    "index": {
+      "kicker": "INTERACTIVE DEMOS",
+      "title": "Walk through the product flows",
+      "description": "These demos use stable local data to show the core interaction without exposing model credentials in the browser.",
+      "proddoc": "Try ProdDoc AI",
+      "decision": "Try AI Decision Copilot",
+      "back": "Back Home"
+    },
+    "common": {
+      "back": "Back to Demos",
+      "local": "Local demo · No external model call",
+      "input": "Input",
+      "output": "Output",
+      "viewCase": "View Full Case Study",
+      "reset": "Start Over"
+    },
+    "proddoc": {
+      "title": "ProdDoc AI · Documentation Demo",
+      "description": "Enter product context and generate an editable structured-document preview.",
+      "productName": "Product name",
+      "productType": "Product type",
+      "targetUsers": "Target users",
+      "modules": "Core modules",
+      "docType": "Document purpose",
+      "generate": "Generate Sample",
+      "modify": "Edit Inputs",
+      "regenerate": "Generate Again",
+      "preview": "Document Preview",
+      "copy": "Copy Content",
+      "empty": "Complete the product details, then generate a structured preview.",
+      "types": [
+        "SaaS tool",
+        "Enterprise service",
+        "AI product"
+      ],
+      "docs": [
+        "Product guide",
+        "Operating manual",
+        "Delivery note"
+      ]
+    },
+    "decision": {
+      "title": "AI Decision Copilot · Decision Demo",
+      "description": "Choose a question and review a structured comparison, recommendation, and risk note.",
+      "choose": "Choose a Decision",
+      "note": "Results use stable preset cases to demonstrate the product structure.",
+      "analyze": "Analyze",
+      "other": "Choose Another Question",
+      "brief": "Decision Brief",
+      "analysis": "Comparison",
+      "recommendation": "Recommendation",
+      "risk": "Risk Note",
+      "optionA": "Option A",
+      "optionB": "Option B"
+    }
   }
 }

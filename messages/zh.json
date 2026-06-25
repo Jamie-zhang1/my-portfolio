@@ -11,13 +11,11 @@
     }
   },
   "Header": {
-    "brandRole": "个人 AI 工作台",
-    "workspace": "工作台",
+    "brandRole": "AI 产品作品集",
     "work": "作品",
     "method": "方法",
     "about": "关于",
     "contact": "联系",
-    "openWorkspace": "打开工作台",
     "appearance": "外观",
     "menu": "打开菜单",
     "closeMenu": "关闭菜单",
@@ -48,7 +46,7 @@
     "close": "关闭快捷导航",
     "placeholder": "搜索页面或操作",
     "workspace": "打开工作台",
-    "workspaceDetail": "笔记、窗口和产品实践区域",
+    "workspaceDetail": "笔记、流程和产品实践区域",
     "work": "查看作品",
     "workDetail": "三个产品案例",
     "method": "查看方法",
@@ -69,39 +67,33 @@
   },
   "Home": {
     "hero": {
-      "labId": "PORTFOLIO / 2026",
       "kicker": "JAMIE WORKSPACE",
       "title": "Jamie Zhang",
       "role": "AI 产品实践者",
       "headline": "把复杂想法整理成清楚流程，再做成能体验、能验证的原型。",
-      "description": "我关注 AI 能力如何进入真实的产品流程，而不是停留在生成结果本身：输入要清楚，状态要可见，结果要能确认和修改。",
+      "description": "我关注 AI 能力如何进入真实的产品流程：输入要清楚，过程要可理解，结果要能确认和修改。",
       "availability": "正在寻找 AI 产品实习、LLM 应用产品实习和 AI 产品运营实习机会",
-      "openWorkspace": "打开工作台",
-      "workspaceOpen": "工作台已打开",
+      "openWorkspace": "进入工作台",
       "viewWork": "查看作品",
       "github": "GitHub",
-      "standby": "READY",
-      "ready": "WORKSPACE OPEN",
-      "visualLabel": "Workspace Map",
-      "stages": ["拆解", "原型", "上线"],
-      "notes": ["逻辑", "流程", "原型", "文档"]
+      "visualLabel": "Jamie Workspace",
+      "stages": ["拆问题", "画流程", "做原型"],
+      "notes": ["逻辑训练", "产品流程", "前端原型", "案例复盘"],
+      "previewTitle": "从模糊问题到可体验原型",
+      "previewDescription": "把判断放进页面，用真实交互检验。"
     },
     "workspace": {
       "kicker": "01 / PERSONAL WORKSPACE",
-      "title": "这是个人 AI 工作台，不是某个产品的数据面板。",
-      "description": "这里展示我如何把结构化分析延伸到产品流程、前端原型、文档交付和独立部署。",
-      "status": "工作台笔记",
+      "title": "一个轻量的个人工作台，整理我如何做 AI 产品原型。",
+      "description": "这里呈现的是我把结构化分析、产品流程、前端实现和独立部署连接起来的方式。",
       "areas": [
-        {"title": "AI 产品设计", "description": "先定义用户问题、AI 负责的环节、确认点和产品状态，再进入开发。"},
-        {"title": "前端原型落地", "description": "用 Next.js、TypeScript 和移动端适配，把流程做成可以点击和验证的页面。"},
-        {"title": "产品文档交付", "description": "把设计判断整理成案例、说明、交付文档和可复用的 Demo 指引。"},
-        {"title": "结构化分析", "description": "逻辑学训练让我习惯拆解前提、规则、判断过程和结论。"},
-        {"title": "Vibe Coding", "description": "用 AI 编程提高搭建速度，同时保留产品判断、测试和修改记录。"}
+        {"title": "Structured Thinking", "description": "逻辑学训练让我习惯拆解前提、规则、判断过程和结论。"},
+        {"title": "AI Product Design", "description": "先定义用户问题、AI 参与的位置、确认点和失败路径，再进入实现。"},
+        {"title": "Frontend Prototype", "description": "用 Next.js 和 TypeScript 把流程做成可以点击、可以验证的页面。"},
+        {"title": "Product Documentation", "description": "把产品判断整理成案例、说明文档和可复用的交付材料。"},
+        {"title": "Independent Deployment", "description": "独立完成构建、测试、部署和正式访问入口，让作品可以直接体验。"}
       ],
-      "desk": {
-        "title": "当前桌面",
-        "items": ["案例陈列", "产品笔记", "原型窗口", "流程轨道"]
-      }
+      "desk": {"title": "工作台里的内容", "items": ["作品卡片架", "流程线", "产品笔记", "案例复盘"]}
     },
     "work": {
       "kicker": "02 / SELECTED WORKS",
@@ -111,21 +103,19 @@
       "problem": "解决的问题",
       "built": "我完成的工作",
       "stack": "技术标签",
-      "viewCase": "查看案例",
-      "live": "已上线",
-      "prototype": "原型"
+      "viewCase": "查看案例"
     },
     "process": {
       "kicker": "03 / HOW I WORK",
-      "title": "先建立结构，再追求速度。",
-      "description": "逻辑学背景会体现在我的产品工作里：先澄清前提，画出规则和路径，再用真实页面验证判断。",
+      "title": "我的方法是先把问题变清楚。",
+      "description": "逻辑训练让我更关注前提、规则和判断路径；原型则用来检查这些判断是否真的能被使用。",
       "active": "当前步骤",
       "steps": [
-        {"number":"01", "title":"先把问题拆清楚", "label":"PROBLEM", "description":"从具体场景、重复任务或难以判断的流程中找到真正需要解决的点。"},
-        {"number":"02", "title":"再画出用户流程", "label":"FLOW", "description":"在写界面前明确输入、状态、确认点、输出和失败路径。"},
-        {"number":"03", "title":"做出可点的版本", "label":"PROTOTYPE", "description":"用 AI 编程快速搭建真实页面，让想法尽早接受操作层面的检验。"},
-        {"number":"04", "title":"通过页面验证判断", "label":"TEST", "description":"用真实输入、移动端操作和异常状态检查流程是否站得住。"},
-        {"number":"05", "title":"整理成案例和交付物", "label":"DELIVER", "description":"补齐产品说明、部署入口、复盘和演示材料，让作品可以被直接评估。"}
+        {"number":"01", "title":"先把问题拆清楚", "label":"Clarify", "description":"从具体场景、重复任务或难以判断的流程中找到真正需要解决的点。"},
+        {"number":"02", "title":"画出用户流程", "label":"Map", "description":"在写界面前明确输入、状态、确认点、输出和失败路径。"},
+        {"number":"03", "title":"做出能点的原型", "label":"Build", "description":"用 AI 编程快速搭建真实页面，让想法尽早接受操作层面的检验。"},
+        {"number":"04", "title":"用真实场景验证", "label":"Test", "description":"通过真实输入、移动端操作和异常状态检查流程是否站得住。"},
+        {"number":"05", "title":"整理成案例和交付物", "label":"Deliver", "description":"补齐说明、部署入口、复盘和演示材料，让作品可以被直接评估。"}
       ]
     },
     "about": {

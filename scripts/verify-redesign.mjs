@@ -12,7 +12,7 @@ const errors = [];
 const routeResults = [];
 const perfResults = [];
 const phraseResults = [];
-const banned = ["human signals", "messy human signals", "product signal", "AI product ideas", "model capability", "AI product concepts", "AI 产品概念"];
+const banned = ["Product Console", "PROTOTYPE SIGNAL", "STANDBY", "Heard Sheep Demo", "Heard Sheep Workflow", "human signals", "messy human signals", "product signal", "AI product ideas", "model capability", "AI product concepts", "AI 产品概念", "JPL / 2026", "Waiting for launch"];
 
 function attachObservers(page, label) {
   page.on("pageerror", (error) => errors.push(`${label}: ${error.message}`));
@@ -85,12 +85,15 @@ await setTheme(page, "light");
 await page.reload({ waitUntil: "networkidle" });
 await page.getByRole("heading", { name: "Jamie Zhang" }).waitFor();
 await page.getByText("把复杂想法整理成清楚流程，再做成能体验、能验证的原型。").waitFor();
-await page.getByRole("button", { name: "打开工作台" }).click();
+await page.getByRole("button", { name: "进入工作台" }).click();
 await page.locator("#workspace").waitFor();
 await checkNoOverlay(page, "zh home light");
 await checkBannedPhrases(page, "zh home light");
 await capturePerf(page, "zh home desktop light");
 await page.screenshot({ path: join(output, "zh-home-light-desktop.png"), fullPage: true });
+await page.locator(".site-header").screenshot({ path: join(output, "navigation-light.png") });
+await page.locator("#work").scrollIntoViewIfNeeded();
+await page.locator("#work").screenshot({ path: join(output, "selected-works-light.png") });
 
 await page.getByRole("button", { name: "切换到夜间模式" }).click();
 await page.waitForFunction(() => document.documentElement.dataset.theme === "dark");
@@ -101,7 +104,7 @@ await gotoChecked(page, "/en", "en home dark");
 await setTheme(page, "dark");
 await page.reload({ waitUntil: "networkidle" });
 await page.getByText("I turn fuzzy product concepts into clear flows and testable prototypes.").waitFor();
-await page.getByText("A personal AI product desk, not a product dashboard.").waitFor();
+await page.getByText("A light workspace for how I build AI product prototypes.").waitFor();
 await checkNoOverlay(page, "en home dark");
 await checkBannedPhrases(page, "en home dark");
 await capturePerf(page, "en home desktop dark");

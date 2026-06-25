@@ -57,7 +57,7 @@ export function BuildStory() {
           <article className={index === active ? "is-active" : ""} data-method-step key={step.number}>
             <div className="method-node"><span>{step.number}</span><i aria-hidden="true" /></div>
             <div>
-              <p className="console-label">{step.label}</p>
+              <p className="eyebrow-label">{step.label}</p>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
             </div>

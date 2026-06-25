@@ -17,7 +17,6 @@ export async function PersonalWorkspace({ locale }: { locale: AppLocale }) {
         </div>
         <div className="section-header-copy">
           <p>{t("description")}</p>
-          <span className="status-marker" data-state="ready"><i aria-hidden="true" />{t("status")}</span>
         </div>
       </div>
       <div className="workspace-layout">
@@ -30,8 +29,8 @@ export async function PersonalWorkspace({ locale }: { locale: AppLocale }) {
             </article>
           ))}
         </div>
-        <aside className="prototype-window workspace-desk" aria-label={t("desk.title")}>
-          <div className="prototype-window-bar"><span>{t("desk.title")}</span><span>JAMIE / DESK</span></div>
+        <aside className="workspace-desk" aria-label={t("desk.title")}>
+          <h3>{t("desk.title")}</h3>
           <div className="workspace-desk-body">
             {desk.map((item, index) => (
               <div className="desk-item" key={item}>
