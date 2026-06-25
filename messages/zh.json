@@ -1,31 +1,44 @@
 {
   "Metadata": {
     "home": {
-      "title": "Jamie Product Lab — AI 产品原型与交互作品集",
-      "description": "Jamie Zhang 的 AI 产品作品集，展示 Heard Sheep、ProdDoc AI 和 AI Decision Copilot 的产品流程、交互原型与上线实践。"
+      "title": "Jamie Zhang — AI 产品作品集",
+      "description": "Jamie Zhang 的 AI 产品作品集，展示产品思考、前端原型、文档流程和已上线项目案例。"
     },
     "projects": {
-      "heard-sheep": {"title": "Heard Sheep — 产品案例", "description": "语音任务整理工具 Heard Sheep 的产品流程、关键交互、AI 能力与上线复盘。"},
+      "heard-sheep": {"title": "Heard Sheep — 产品案例", "description": "以语音输入为入口，把口头交代整理成可编辑任务卡片的产品案例。"},
       "proddoc-ai": {"title": "ProdDoc AI — 产品案例", "description": "AI 产品文档工作台的资料整理、模板提取、编辑和导出流程。"},
-      "ai-decision-copilot": {"title": "AI Decision Copilot — 产品案例", "description": "结构化决策助手的双路径流程、判断依据与风险呈现。"}
+      "ai-decision-copilot": {"title": "AI Decision Copilot — 产品案例", "description": "结构化决策助手的方案比较、判断依据、推荐结论与风险呈现。"}
     }
   },
   "Header": {
-    "brandRole": "AI 产品原型实验室",
+    "brandRole": "个人 AI 工作台",
+    "workspace": "工作台",
     "work": "作品",
-    "demo": "听到了咩 Demo",
-    "method": "构建方法",
+    "method": "方法",
     "about": "关于",
-    "openLab": "打开实验室",
+    "contact": "联系",
+    "openWorkspace": "打开工作台",
+    "appearance": "外观",
     "menu": "打开菜单",
     "closeMenu": "关闭菜单",
     "githubLabel": "GitHub 主页"
+  },
+  "Theme": {
+    "groupLabel": "选择外观",
+    "light": "白天",
+    "dark": "夜间",
+    "system": "系统",
+    "set": {
+      "light": "切换到白天模式",
+      "dark": "切换到夜间模式",
+      "system": "跟随系统外观"
+    }
   },
   "Language": {
     "zh": "中文",
     "en": "EN",
     "switchToZh": "切换到中文",
-    "switchToEn": "切换到英文",
+    "switchToEn": "Switch to English",
     "groupLabel": "选择语言"
   },
   "Command": {
@@ -34,122 +47,106 @@
     "dialog": "快捷导航",
     "close": "关闭快捷导航",
     "placeholder": "搜索页面或操作",
+    "workspace": "打开工作台",
+    "workspaceDetail": "笔记、窗口和产品实践区域",
     "work": "查看作品",
-    "workDetail": "三个已完成的产品案例",
-    "demo": "体验 Heard Sheep",
-    "demoDetail": "从模拟录音到候选任务",
-    "method": "查看构建方法",
-    "methodDetail": "问题、流程、原型、验证与上线",
+    "workDetail": "三个产品案例",
+    "method": "查看方法",
+    "methodDetail": "问题、流程、原型、验证与交付",
     "about": "关于 Jamie",
     "aboutDetail": "逻辑训练与 AI 产品实践",
+    "contact": "联系方式",
+    "contactDetail": "邮箱、GitHub、简历和求职方向",
+    "themeDetail": "切换白天、夜间或跟随系统",
     "email": "发送邮件",
     "github": "GitHub",
     "resume": "下载简历",
     "resumeDetail": "一页 PDF 简历",
-    "switchEnglish": "切换到英文",
+    "switchEnglish": "Switch to English",
     "switchChinese": "切换到中文",
     "languageDetail": "保持当前页面路径",
     "current": "当前页面"
   },
   "Home": {
     "hero": {
-      "labId": "JPL / 2026",
-      "kicker": "AI 产品原型实验室",
-      "title": "Jamie Product Lab",
-      "headline": "把 AI 产品概念，做成能体验、能验证的原型。",
-      "description": "我关注 AI 产品从问题识别、流程设计到原型上线的完整过程。通过真实页面和可操作流程，验证产品判断是否成立。",
-      "availability": "正在寻找 AI 产品、产品原型与前端交互方向的实习及工作机会",
-      "openLab": "打开实验室",
-      "labOpen": "实验室已开启",
+      "labId": "PORTFOLIO / 2026",
+      "kicker": "JAMIE WORKSPACE",
+      "title": "Jamie Zhang",
+      "role": "AI 产品实践者",
+      "headline": "把复杂想法整理成清楚流程，再做成能体验、能验证的原型。",
+      "description": "我关注 AI 能力如何进入真实的产品流程，而不是停留在生成结果本身：输入要清楚，状态要可见，结果要能确认和修改。",
+      "availability": "正在寻找 AI 产品实习、LLM 应用产品实习和 AI 产品运营实习机会",
+      "openWorkspace": "打开工作台",
+      "workspaceOpen": "工作台已打开",
       "viewWork": "查看作品",
       "github": "GitHub",
-      "standby": "STANDBY",
-      "ready": "LAB READY",
-      "railLabel": "PROTOTYPE SIGNAL",
-      "stages": ["Voice Input", "Product Flow", "Working Prototype"]
+      "standby": "READY",
+      "ready": "WORKSPACE OPEN",
+      "visualLabel": "Workspace Map",
+      "stages": ["拆解", "原型", "上线"],
+      "notes": ["逻辑", "流程", "原型", "文档"]
     },
-    "console": {
-      "kicker": "PRODUCT CONSOLE",
-      "title": "产品工作台",
-      "standby": "等待启动",
-      "ready": "运行中",
-      "intro": "我是 Jamie Zhang，一名关注 AI 产品流程与交互原型的实践者。我用代码快速验证产品结构，也会补齐文档、测试和部署。",
-      "focusLabel": "FOCUS AREAS",
-      "areas": ["AI 产品设计", "Vibe Coding", "多模态原型", "产品文档自动化"],
-      "fields": [
-        {"label": "CURRENT PROJECTS", "value": "03"},
-        {"label": "MAIN STACK", "value": "Next.js / TypeScript / Tailwind CSS / AI API"},
-        {"label": "CURRENT FOCUS", "value": "AI 工作流原型"},
-        {"label": "DELIVERY", "value": "可操作原型 / Case Study / 在线 Demo"}
-      ]
-    },
-    "demo": {
-      "kicker": "01 / HEARD SHEEP WORKFLOW",
-      "title": "把一句口头交代，整理成下一步行动。",
-      "description": "Heard Sheep 是一个以语音输入为入口的任务整理工具。这个 Demo 展示从模拟录音、文字确认到候选任务生成的完整过程。",
-      "guided": "引导演示 · 不调用外部模型",
-      "steps": ["模拟录音", "确认文字", "AI 分析", "候选任务"],
-      "idleStatus": "等待录音",
-      "recordingStatus": "正在录音",
-      "transcriptStatus": "文字已生成",
-      "analyzingStatus": "正在识别任务与时间",
-      "readyStatus": "已生成 3 个候选任务",
-      "timerIdle": "00:00",
-      "timerRecording": "00:08",
-      "transcriptLabel": "录音文字",
-      "transcript": "周五前把上周的用户访谈整理一下，列出三个最需要优先解决的问题，下午开会前发我。",
-      "analysisLabel": "ANALYSIS PIPELINE",
-      "analysisLines": ["识别行动项", "提取截止时间", "保留用户确认"],
-      "tasksLabel": "候选任务",
-      "tasks": [
-        {"title": "整理上周用户访谈记录", "meta": "截止时间：周五"},
-        {"title": "提取三个优先问题", "meta": "依据：出现频率与使用影响"},
-        {"title": "准备会议摘要", "meta": "截止时间：下午会议前"}
+    "workspace": {
+      "kicker": "01 / PERSONAL WORKSPACE",
+      "title": "这是个人 AI 工作台，不是某个产品的数据面板。",
+      "description": "这里展示我如何把结构化分析延伸到产品流程、前端原型、文档交付和独立部署。",
+      "status": "工作台笔记",
+      "areas": [
+        {"title": "AI 产品设计", "description": "先定义用户问题、AI 负责的环节、确认点和产品状态，再进入开发。"},
+        {"title": "前端原型落地", "description": "用 Next.js、TypeScript 和移动端适配，把流程做成可以点击和验证的页面。"},
+        {"title": "产品文档交付", "description": "把设计判断整理成案例、说明、交付文档和可复用的 Demo 指引。"},
+        {"title": "结构化分析", "description": "逻辑学训练让我习惯拆解前提、规则、判断过程和结论。"},
+        {"title": "Vibe Coding", "description": "用 AI 编程提高搭建速度，同时保留产品判断、测试和修改记录。"}
       ],
-      "simulate": "模拟录音",
-      "confirm": "确认文字并分析",
-      "reset": "重新开始",
-      "viewCase": "查看完整案例",
-      "openProduct": "进入 Heard Sheep"
+      "desk": {
+        "title": "当前桌面",
+        "items": ["案例陈列", "产品笔记", "原型窗口", "流程轨道"]
+      }
     },
     "work": {
-      "kicker": "02 / WORKS CANVAS",
-      "title": "三个项目，三种 AI 产品流程。",
-      "description": "首页只保留产品定位、问题和已完成结果。设计过程与取舍放在完整 Case Study 中。",
-      "positioning": "定位",
-      "problem": "问题",
-      "outcome": "成果",
-      "stack": "TECH STACK",
+      "kicker": "02 / SELECTED WORKS",
+      "title": "三个作品，三个产品问题。",
+      "description": "首页只保留关键信息。完整案例会展开问题背景、我的角色、交互取舍、AI 能力和项目复盘。",
+      "positioning": "一句话定位",
+      "problem": "解决的问题",
+      "built": "我完成的工作",
+      "stack": "技术标签",
       "viewCase": "查看案例",
-      "tryProduct": "体验 Demo",
-      "openProduct": "进入产品",
-      "live": "LIVE",
-      "prototype": "PROTOTYPE"
+      "live": "已上线",
+      "prototype": "原型"
     },
     "process": {
-      "kicker": "03 / HOW I BUILD",
-      "title": "先把问题拆清楚，再把判断做成页面。",
-      "description": "每一步都对应一个可检查的产物，不把 AI 编程当作跳过产品思考的捷径。",
+      "kicker": "03 / HOW I WORK",
+      "title": "先建立结构，再追求速度。",
+      "description": "逻辑学背景会体现在我的产品工作里：先澄清前提，画出规则和路径，再用真实页面验证判断。",
       "active": "当前步骤",
       "steps": [
-        {"number":"01", "title":"识别真实问题", "label":"PROBLEM", "description":"从具体场景、用户表达和重复工作中找到值得解决的问题。"},
-        {"number":"02", "title":"画出产品流程", "label":"FLOW", "description":"明确输入、处理状态、用户确认点、结果和失败路径。"},
-        {"number":"03", "title":"快速搭建原型", "label":"PROTOTYPE", "description":"用 AI 编程完成可操作页面，尽早检查流程是否合理。"},
-        {"number":"04", "title":"在使用中验证", "label":"TEST", "description":"通过真实输入、移动端操作和异常状态调整交互。"},
-        {"number":"05", "title":"上线并完成交付", "label":"SHIP", "description":"补齐测试、说明、部署和体验入口，让作品可以被直接验证。"}
+        {"number":"01", "title":"先把问题拆清楚", "label":"PROBLEM", "description":"从具体场景、重复任务或难以判断的流程中找到真正需要解决的点。"},
+        {"number":"02", "title":"再画出用户流程", "label":"FLOW", "description":"在写界面前明确输入、状态、确认点、输出和失败路径。"},
+        {"number":"03", "title":"做出可点的版本", "label":"PROTOTYPE", "description":"用 AI 编程快速搭建真实页面，让想法尽早接受操作层面的检验。"},
+        {"number":"04", "title":"通过页面验证判断", "label":"TEST", "description":"用真实输入、移动端操作和异常状态检查流程是否站得住。"},
+        {"number":"05", "title":"整理成案例和交付物", "label":"DELIVER", "description":"补齐产品说明、部署入口、复盘和演示材料，让作品可以被直接评估。"}
       ]
     },
     "about": {
       "kicker": "04 / ABOUT JAMIE",
       "title1": "逻辑训练，让我先把问题拆清楚。",
       "title2": "产品实践，让我把判断做成真实页面。",
-      "bio1": "我是 Jamie Zhang，中国政法大学逻辑学硕士在读。逻辑学训练让我习惯区分前提、规则、判断过程和结论，也让我更关注 AI 输出是否有清晰依据、是否允许用户确认。",
-      "bio2": "我会把这种结构化分析带进产品实践：梳理问题、画出流程、设计 AI 输出，再使用 Next.js 和 TypeScript 搭建前端原型。项目完成后，我也会处理测试、文档、服务器部署和正式访问入口。",
-      "opportunity": "目前我正在寻找 AI 产品、产品原型与前端交互方向的实习及工作机会。",
+      "bio1": "我是 Jamie Zhang，中国政法大学逻辑学硕士在读。逻辑学训练让我习惯区分前提、规则、判断过程和结论，也让我更关注 AI 输出是否可解释、可确认、可修改。",
+      "bio2": "我会把这种结构化分析带进 AI 产品实践：梳理问题、画出流程、设计 AI 输出、搭建前端原型，并独立完成文档、测试和部署上线。",
+      "opportunity": "我正在寻找 AI 产品、LLM 应用产品和 AI 产品运营相关实习机会，尤其适合需要结构化分析和原型落地能力的团队。",
       "focusLabel": "组合优势",
-      "focus": ["逻辑学与结构化分析", "AI 产品流程设计", "前端交互原型", "产品文档与测试", "独立部署与上线"],
+      "focus": ["逻辑学训练", "结构化产品分析", "AI 产品流程设计", "前端原型落地", "独立部署上线"],
       "github": "GitHub",
       "email": "邮箱",
+      "resume": "简历 PDF"
+    },
+    "contact": {
+      "kicker": "05 / WORK WITH ME",
+      "title": "如果你在寻找能把 AI 产品判断做成原型的人，可以联系我。",
+      "description": "合适方向包括：AI 产品实习、LLM 应用产品实习、AI 产品运营实习，以及前端产品原型相关工作。",
+      "email": "联系 Jamie",
+      "github": "GitHub",
       "resume": "简历 PDF"
     }
   },
@@ -181,12 +178,12 @@
   },
   "Footer": {
     "kicker": "CONTACT",
-    "title": "有合适的项目或岗位，欢迎联系。",
+    "title": "有合适的 AI 产品岗位或原型项目，欢迎联系。",
     "email": "联系 Jamie",
     "github": "GitHub",
     "resume": "下载简历",
-    "role": "AI Product / Vibe Coding",
-    "built": "设计、构建并部署于 Jamie Product Lab。"
+    "role": "AI Product / Prototype Builder",
+    "built": "设计、构建并部署于 Jamie Zhang。"
   },
   "Try": {
     "index": {"kicker":"INTERACTIVE DEMOS", "title":"亲自走一遍产品流程", "description":"这些 Demo 使用稳定的本地数据展示核心交互，不会在浏览器中暴露模型密钥。", "proddoc":"体验 ProdDoc AI", "decision":"体验 AI Decision Copilot", "back":"返回首页"},

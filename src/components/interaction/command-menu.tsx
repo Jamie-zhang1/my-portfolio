@@ -1,32 +1,49 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, Code2, FileText, FlaskConical, FolderKanban, Languages, Mail, Search, UserRound, Workflow, X } from "lucide-react";
+import { ArrowUpRight, Code2, FileText, FolderKanban, Languages, Mail, Monitor, Moon, Search, Sun, UserRound, Workflow, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
+import { useTheme, type ThemeMode } from "@/components/interaction/theme-provider";
 import { siteConfig } from "@/data/site-config";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import type { AppLocale } from "@/i18n/routing";
 
+type CommandItem = {
+  label: string;
+  detail: string;
+  icon: typeof Search;
+  href?: string;
+  external?: boolean;
+  locale?: AppLocale;
+  theme?: ThemeMode;
+};
+
 export function CommandMenu() {
   const t = useTranslations("Command");
+  const themeT = useTranslations("Theme");
   const locale = useLocale() as AppLocale;
+  const { setMode } = useTheme();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
   const nextLocale: AppLocale = locale === "zh" ? "en" : "zh";
-  const commands = useMemo(() => [
+  const commands: CommandItem[] = useMemo(() => [
+    { label: t("workspace"), detail: t("workspaceDetail"), href: "/#workspace", icon: UserRound },
     { label: t("work"), detail: t("workDetail"), href: "/#work", icon: FolderKanban },
-    { label: t("demo"), detail: t("demoDetail"), href: "/#demo", icon: FlaskConical },
     { label: t("method"), detail: t("methodDetail"), href: "/#method", icon: Workflow },
     { label: t("about"), detail: t("aboutDetail"), href: "/#about", icon: UserRound },
+    { label: t("contact"), detail: t("contactDetail"), href: "/#contact", icon: Mail },
+    { label: themeT("set.light"), detail: t("themeDetail"), icon: Sun, theme: "light" },
+    { label: themeT("set.dark"), detail: t("themeDetail"), icon: Moon, theme: "dark" },
+    { label: themeT("set.system"), detail: t("themeDetail"), icon: Monitor, theme: "system" },
     { label: t("email"), detail: siteConfig.email ?? "", href: `mailto:${siteConfig.email}`, icon: Mail, external: true },
     { label: t("github"), detail: "Jamie-zhang1", href: siteConfig.github, icon: Code2, external: true },
     { label: t("resume"), detail: t("resumeDetail"), href: siteConfig.resume, icon: FileText, external: true },
     { label: nextLocale === "en" ? t("switchEnglish") : t("switchChinese"), detail: t("languageDetail"), href: pathname, icon: Languages, locale: nextLocale },
-  ], [nextLocale, pathname, t]);
+  ], [nextLocale, pathname, t, themeT]);
   const filtered = useMemo(() => commands.filter((item) => `${item.label} ${item.detail}`.toLowerCase().includes(query.toLowerCase())), [commands, query]);
 
   useEffect(() => {
@@ -47,12 +64,13 @@ export function CommandMenu() {
     };
   }, []);
 
-  const go = (item: (typeof commands)[number]) => {
+  const go = (item: CommandItem) => {
     setOpen(false);
     setQuery("");
-    if (item.locale) router.replace(pathname, { locale: item.locale, scroll: false });
-    else if (item.external) window.open(item.href, item.href.startsWith("mailto:") ? "_self" : "_blank", "noopener,noreferrer");
-    else router.push(item.href);
+    if (item.theme) setMode(item.theme);
+    else if (item.locale) router.replace(pathname, { locale: item.locale, scroll: false });
+    else if (item.external && item.href) window.open(item.href, item.href.startsWith("mailto:") ? "_self" : "_blank", "noopener,noreferrer");
+    else if (item.href) router.push(item.href);
   };
 
   const onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -84,7 +102,7 @@ export function CommandMenu() {
               <div className="command-list" id="command-list" role="listbox">
                 {filtered.map((item, index) => {
                   const Icon = item.icon;
-                  return <button key={`${item.href}-${item.locale ?? "route"}`} onClick={() => go(item)} onMouseEnter={() => setActiveIndex(index)} className={index === activeIndex ? "is-active" : ""} role="option" aria-selected={index === activeIndex}><span className="command-icon"><Icon size={17} /></span><span><strong>{item.label}</strong><small>{item.detail}</small></span><ArrowUpRight size={15} aria-hidden="true" /></button>;
+                  return <button key={`${item.label}-${item.href ?? item.theme ?? item.locale ?? "route"}`} onClick={() => go(item)} onMouseEnter={() => setActiveIndex(index)} className={index === activeIndex ? "is-active" : ""} role="option" aria-selected={index === activeIndex}><span className="command-icon"><Icon size={17} /></span><span><strong>{item.label}</strong><small>{item.detail}</small></span><ArrowUpRight size={15} aria-hidden="true" /></button>;
                 })}
               </div>
             </motion.div>

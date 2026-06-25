@@ -226,7 +226,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
         { title: "Reasoning stays visible", description: "Criteria, recommendation, and risk remain together so the judgment can be inspected." },
         { title: "Stable demo mode", description: "Preset cases protect credentials and keep the portfolio experience reliable." },
       ],
-      aiCapability: "The full project uses Xiaomi MiMo V2.5 for text and image input. The portfolio demo uses preset data and clearly separates model capability from the stable presentation layer.",
+      aiCapability: "The full project uses Xiaomi MiMo V2.5 for text and image input. The portfolio demo uses preset data so the page stays reliable without exposing credentials.",
       techStack: [
         { category: "Frontend", items: ["HTML", "CSS", "JavaScript"] },
         { category: "Backend", items: ["Express.js", "Node.js"] },

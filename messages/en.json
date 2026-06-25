@@ -1,25 +1,38 @@
 {
   "Metadata": {
     "home": {
-      "title": "Jamie Product Lab — AI Product Prototypes",
-      "description": "AI product case studies and working prototypes by Jamie Zhang, including Heard Sheep, ProdDoc AI, and AI Decision Copilot."
+      "title": "Jamie Zhang — AI Product Portfolio",
+      "description": "Jamie Zhang's AI product portfolio: product thinking, frontend prototypes, documentation workflows, and deployed case studies."
     },
     "projects": {
-      "heard-sheep": {"title": "Heard Sheep — Case Study", "description": "The product flow, interaction decisions, AI capability, and delivery of a voice-first task organizer."},
+      "heard-sheep": {"title": "Heard Sheep — Case Study", "description": "A voice-first task organizer that turns spoken requests into editable task cards."},
       "proddoc-ai": {"title": "ProdDoc AI — Case Study", "description": "A documentation workspace for source organization, template extraction, editing, and export."},
-      "ai-decision-copilot": {"title": "AI Decision Copilot — Case Study", "description": "A structured decision workflow that keeps reasoning, recommendation, and risk visible."}
+      "ai-decision-copilot": {"title": "AI Decision Copilot — Case Study", "description": "A structured decision workflow that keeps options, reasoning, recommendation, and risk visible."}
     }
   },
   "Header": {
-    "brandRole": "AI Product Prototype Lab",
+    "brandRole": "Personal AI Workspace",
+    "workspace": "Workspace",
     "work": "Work",
-    "demo": "Heard Sheep Demo",
     "method": "Method",
     "about": "About",
-    "openLab": "Open Lab",
+    "contact": "Contact",
+    "openWorkspace": "Open Workspace",
+    "appearance": "Appearance",
     "menu": "Open menu",
     "closeMenu": "Close menu",
     "githubLabel": "GitHub profile"
+  },
+  "Theme": {
+    "groupLabel": "Choose appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "set": {
+      "light": "Switch to Light",
+      "dark": "Switch to Dark",
+      "system": "Follow System"
+    }
   },
   "Language": {
     "zh": "中文",
@@ -34,14 +47,17 @@
     "dialog": "Quick navigation",
     "close": "Close command menu",
     "placeholder": "Search pages or actions",
+    "workspace": "Open workspace",
+    "workspaceDetail": "Notes, windows, and product practice areas",
     "work": "View work",
-    "workDetail": "Three shipped product case studies",
-    "demo": "Try Heard Sheep",
-    "demoDetail": "From simulated recording to draft tasks",
-    "method": "View method",
-    "methodDetail": "Problem, flow, prototype, test, and ship",
+    "workDetail": "Three product case studies",
+    "method": "How I work",
+    "methodDetail": "Problem, flow, prototype, test, and delivery",
     "about": "About Jamie",
     "aboutDetail": "Logic training and AI product practice",
+    "contact": "Contact",
+    "contactDetail": "Email, GitHub, resume, and role focus",
+    "themeDetail": "Change Light, Dark, or System appearance",
     "email": "Email Jamie",
     "github": "GitHub",
     "resume": "Download resume",
@@ -53,103 +69,84 @@
   },
   "Home": {
     "hero": {
-      "labId": "JPL / 2026",
-      "kicker": "AI PRODUCT PROTOTYPE LAB",
-      "title": "Jamie Product Lab",
-      "headline": "Turning early AI product concepts into prototypes people can actually try.",
-      "description": "I shape AI capabilities into clear product flows, then build and test them through working interfaces.",
-      "availability": "Open to AI product, product prototyping, and frontend product roles",
-      "openLab": "Open Lab",
-      "labOpen": "Lab is open",
+      "labId": "PORTFOLIO / 2026",
+      "kicker": "JAMIE WORKSPACE",
+      "title": "Jamie Zhang",
+      "role": "AI Product Builder",
+      "headline": "I turn fuzzy product concepts into clear flows and testable prototypes.",
+      "description": "I focus on shaping AI capabilities into product experiences people can actually use: clear inputs, visible states, editable outputs, and working interfaces.",
+      "availability": "Open to AI Product Intern, LLM Application Product Intern, and AI Product Operations Intern roles",
+      "openWorkspace": "Open Workspace",
+      "workspaceOpen": "Workspace opened",
       "viewWork": "View Work",
       "github": "GitHub",
-      "standby": "STANDBY",
-      "ready": "LAB READY",
-      "railLabel": "PROTOTYPE SIGNAL",
-      "stages": ["Voice Input", "Product Flow", "Working Prototype"]
+      "standby": "READY",
+      "ready": "WORKSPACE OPEN",
+      "visualLabel": "Workspace Map",
+      "stages": ["Structure", "Prototype", "Ship"],
+      "notes": ["Logic", "Flow", "Prototype", "Docs"]
     },
-    "console": {
-      "kicker": "PRODUCT CONSOLE",
-      "title": "Product Console",
-      "standby": "Waiting for launch",
-      "ready": "Running",
-      "intro": "I’m Jamie Zhang. I work across product thinking, interaction design, and prototype engineering to make AI workflows testable.",
-      "focusLabel": "FOCUS AREAS",
-      "areas": ["AI Product Design", "Vibe Coding", "Multimodal Prototypes", "Product Documentation"],
-      "fields": [
-        {"label": "CURRENT PROJECTS", "value": "03"},
-        {"label": "MAIN STACK", "value": "Next.js / TypeScript / Tailwind CSS / AI APIs"},
-        {"label": "CURRENT FOCUS", "value": "AI workflow prototyping"},
-        {"label": "DELIVERY", "value": "Working prototypes / Case studies / Live demos"}
-      ]
-    },
-    "demo": {
-      "kicker": "01 / HEARD SHEEP WORKFLOW",
-      "title": "Turn a voice note into editable tasks.",
-      "description": "Heard Sheep captures a spoken request, confirms the transcript, and prepares tasks for review before anything enters the task list.",
-      "guided": "Guided demo · No external model call",
-      "steps": ["Record", "Review", "Analyze", "Draft Tasks"],
-      "idleStatus": "Ready to record",
-      "recordingStatus": "Recording",
-      "transcriptStatus": "Transcript ready",
-      "analyzingStatus": "Finding tasks and deadlines",
-      "readyStatus": "Three draft tasks created",
-      "timerIdle": "00:00",
-      "timerRecording": "00:08",
-      "transcriptLabel": "Transcript",
-      "transcript": "Please review last week’s user interviews by Friday, identify the three issues we should address first, and send me a short summary before the afternoon meeting.",
-      "analysisLabel": "ANALYSIS PIPELINE",
-      "analysisLines": ["Find action items", "Extract deadlines", "Keep user review"],
-      "tasksLabel": "Draft tasks",
-      "tasks": [
-        {"title": "Review last week’s user interviews", "meta": "Due: Friday"},
-        {"title": "Identify three priority issues", "meta": "Criteria: frequency and user impact"},
-        {"title": "Prepare a meeting summary", "meta": "Due: before the afternoon meeting"}
+    "workspace": {
+      "kicker": "01 / PERSONAL WORKSPACE",
+      "title": "A personal AI product desk, not a product dashboard.",
+      "description": "This workspace shows how I move from structured thinking to product flows, frontend prototypes, documentation, and deployment.",
+      "status": "Workspace notes",
+      "areas": [
+        {"title": "AI Product Design", "description": "Define the user problem, AI role, review points, and product states before building."},
+        {"title": "Frontend Prototype", "description": "Turn the flow into clickable interfaces with Next.js, TypeScript, and careful mobile behavior."},
+        {"title": "Product Documentation", "description": "Translate decisions into case studies, specs, handoff notes, and demo instructions."},
+        {"title": "Structured Thinking", "description": "Use logic training to separate assumptions, rules, decisions, and conclusions."},
+        {"title": "Vibe Coding", "description": "Use AI coding tools to move faster while keeping product judgment and QA visible."}
       ],
-      "simulate": "Simulate Recording",
-      "confirm": "Confirm and Analyze",
-      "reset": "Start Over",
-      "viewCase": "View Case Study",
-      "openProduct": "Open Heard Sheep"
+      "desk": {
+        "title": "Current desk",
+        "items": ["Case study shelf", "Product notes", "Prototype windows", "Flow rails"]
+      }
     },
     "work": {
-      "kicker": "02 / WORKS CANVAS",
-      "title": "Three projects. Three different AI product flows.",
-      "description": "The homepage keeps each story concise. Product decisions, implementation details, and reflection live in the full case studies.",
-      "positioning": "Positioning",
+      "kicker": "02 / SELECTED WORKS",
+      "title": "Three works, three product questions.",
+      "description": "Each project is kept concise here. The full case study explains the problem, role, interaction choices, AI capability, and reflection.",
+      "positioning": "One-line focus",
       "problem": "Problem",
-      "outcome": "Outcome",
-      "stack": "TECH STACK",
+      "built": "What I built",
+      "stack": "Tech tags",
       "viewCase": "View Case Study",
-      "tryProduct": "Try Demo",
-      "openProduct": "Open Product",
-      "live": "LIVE",
-      "prototype": "PROTOTYPE"
+      "live": "Live",
+      "prototype": "Prototype"
     },
     "process": {
-      "kicker": "03 / HOW I BUILD",
-      "title": "Structure the problem, then test the decision in a real interface.",
-      "description": "Each step produces something that can be reviewed. AI-assisted coding does not replace product reasoning.",
+      "kicker": "03 / HOW I WORK",
+      "title": "I use structure before speed.",
+      "description": "My logic background shows up in how I define a product: clarify the premises, map the rules, test the flow, and keep the final output reviewable.",
       "active": "Active step",
       "steps": [
-        {"number":"01", "title":"Find the real problem", "label":"PROBLEM", "description":"Start with a specific workflow, repeated task, or user complaint."},
-        {"number":"02", "title":"Map the product flow", "label":"FLOW", "description":"Define inputs, system states, review points, outputs, and failure paths."},
-        {"number":"03", "title":"Build a working prototype", "label":"PROTOTYPE", "description":"Use AI-assisted coding to test the flow in a real interface."},
-        {"number":"04", "title":"Test it in use", "label":"TEST", "description":"Check the experience with realistic data, mobile interactions, and edge cases."},
-        {"number":"05", "title":"Ship the result", "label":"SHIP", "description":"Add testing, documentation, deployment, and a stable way to try the product."}
+        {"number":"01", "title":"Find the real problem", "label":"PROBLEM", "description":"Start from a concrete workflow, repeated task, or decision that is difficult to handle today."},
+        {"number":"02", "title":"Map the user flow", "label":"FLOW", "description":"Define inputs, system states, review points, outputs, and fallback paths before building UI."},
+        {"number":"03", "title":"Build a clickable version", "label":"PROTOTYPE", "description":"Use AI-assisted coding to create a working interface that can be tested, not just described."},
+        {"number":"04", "title":"Test the judgment", "label":"TEST", "description":"Use realistic data, mobile interactions, and edge cases to see whether the flow holds up."},
+        {"number":"05", "title":"Turn it into a case", "label":"DELIVER", "description":"Package the product, documentation, deployment, and reflection so the work can be evaluated."}
       ]
     },
     "about": {
       "kicker": "04 / ABOUT JAMIE",
-      "title1": "Logic helps me structure the problem.",
-      "title2": "Prototyping helps me test the product decision.",
-      "bio1": "I’m Jamie Zhang, a graduate student in logic at China University of Political Science and Law. My academic training shapes how I separate assumptions, rules, reasoning, and conclusions—especially when designing AI-assisted products.",
-      "bio2": "I apply that structure to product work: defining the problem, mapping the flow, shaping AI output, and building the interface with Next.js and TypeScript. I also handle testing, documentation, server deployment, and the final live experience.",
-      "opportunity": "I’m currently looking for roles in AI product, product prototyping, and frontend product development.",
-      "focusLabel": "COMBINED PRACTICE",
-      "focus": ["Logic and structured analysis", "AI product flow design", "Frontend prototyping", "Documentation and QA", "Independent deployment"],
+      "title1": "Logic trains how I structure a problem.",
+      "title2": "Product practice tests it in the interface.",
+      "bio1": "I’m Jamie Zhang, a graduate student in logic at China University of Political Science and Law. My background helps me structure ambiguous problems into assumptions, rules, decisions, and conclusions.",
+      "bio2": "I bring that habit into AI product work: defining the problem, mapping the flow, shaping AI output, building frontend prototypes, writing documentation, and deploying the result independently.",
+      "opportunity": "I’m looking for AI product and LLM application roles where product thinking, structured analysis, and hands-on prototyping matter.",
+      "focusLabel": "Combined practice",
+      "focus": ["Logic training", "Structured product analysis", "AI product flow design", "Frontend prototyping", "Independent deployment"],
       "github": "GitHub",
       "email": "Email",
+      "resume": "Resume PDF"
+    },
+    "contact": {
+      "kicker": "05 / WORK WITH ME",
+      "title": "Open to roles where AI product thinking needs a working prototype.",
+      "description": "Best fit: AI Product Intern, LLM Application Product Intern, AI Product Operations Intern, or frontend product prototyping work.",
+      "email": "Email Jamie",
+      "github": "GitHub",
       "resume": "Resume PDF"
     }
   },
@@ -181,12 +178,12 @@
   },
   "Footer": {
     "kicker": "CONTACT",
-    "title": "Have a relevant role or project in mind?",
+    "title": "Have a relevant AI product role or prototype project in mind?",
     "email": "Contact Jamie",
     "github": "GitHub",
     "resume": "Download Resume",
-    "role": "AI Product / Vibe Coding",
-    "built": "Designed, built, and deployed by Jamie Product Lab."
+    "role": "AI Product / Prototype Builder",
+    "built": "Designed, built, and deployed by Jamie Zhang."
   },
   "Try": {
     "index": {"kicker":"INTERACTIVE DEMOS", "title":"Walk through the product flows", "description":"These demos use stable local data to show the core interaction without exposing model credentials in the browser.", "proddoc":"Try ProdDoc AI", "decision":"Try AI Decision Copilot", "back":"Back Home"},

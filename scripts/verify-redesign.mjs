@@ -11,6 +11,8 @@ const browser = await chromium.launch({ headless: true, executablePath });
 const errors = [];
 const routeResults = [];
 const perfResults = [];
+const phraseResults = [];
+const banned = ["human signals", "messy human signals", "product signal", "AI product ideas", "model capability", "AI product concepts", "AI 产品概念"];
 
 function attachObservers(page, label) {
   page.on("pageerror", (error) => errors.push(`${label}: ${error.message}`));
@@ -57,45 +59,65 @@ async function checkMobileOverflow(page, label) {
   if (overflow) errors.push(`${label}: horizontal overflow detected`);
 }
 
+async function setTheme(page, mode) {
+  await page.evaluate((nextMode) => {
+    localStorage.setItem("jamie-theme-mode", nextMode);
+    const resolved = nextMode === "system" ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : nextMode;
+    document.documentElement.dataset.theme = resolved;
+    document.documentElement.dataset.themeMode = nextMode;
+    document.documentElement.style.colorScheme = resolved;
+  }, mode);
+}
+
+async function checkBannedPhrases(page, label) {
+  const text = await page.evaluate(() => document.body.innerText);
+  const found = banned.filter((phrase) => text.toLowerCase().includes(phrase.toLowerCase()));
+  phraseResults.push({ label, found });
+  if (found.length) errors.push(`${label}: banned phrases found: ${found.join(", ")}`);
+}
+
 const desktop = await browser.newContext({ viewport: { width: 1440, height: 1024 }, deviceScaleFactor: 1, reducedMotion: "no-preference" });
 const page = await desktop.newPage();
 attachObservers(page, "desktop");
 
-await gotoChecked(page, "/zh", "zh home");
-await page.getByRole("heading", { name: "Jamie Product Lab" }).waitFor();
-await page.getByText("把 AI 产品概念，做成能体验、能验证的原型。").waitFor();
-await page.getByRole("button", { name: "打开实验室" }).click();
-await page.locator("#console").waitFor();
-await checkNoOverlay(page, "zh home");
-await capturePerf(page, "zh home desktop");
-await page.screenshot({ path: join(output, "zh-home-desktop.png"), fullPage: true });
+await gotoChecked(page, "/zh", "zh home light");
+await setTheme(page, "light");
+await page.reload({ waitUntil: "networkidle" });
+await page.getByRole("heading", { name: "Jamie Zhang" }).waitFor();
+await page.getByText("把复杂想法整理成清楚流程，再做成能体验、能验证的原型。").waitFor();
+await page.getByRole("button", { name: "打开工作台" }).click();
+await page.locator("#workspace").waitFor();
+await checkNoOverlay(page, "zh home light");
+await checkBannedPhrases(page, "zh home light");
+await capturePerf(page, "zh home desktop light");
+await page.screenshot({ path: join(output, "zh-home-light-desktop.png"), fullPage: true });
 
-await gotoChecked(page, "/en", "en home");
-await page.getByText("Turning early AI product concepts into prototypes people can actually try.").waitFor();
-await page.getByText("Product Console").first().waitFor();
-await checkNoOverlay(page, "en home");
-await capturePerf(page, "en home desktop");
-await page.screenshot({ path: join(output, "en-home-desktop.png"), fullPage: true });
+await page.getByRole("button", { name: "切换到夜间模式" }).click();
+await page.waitForFunction(() => document.documentElement.dataset.theme === "dark");
+await page.screenshot({ path: join(output, "appearance-toggle-dark.png"), fullPage: false });
+await page.screenshot({ path: join(output, "zh-home-dark-desktop.png"), fullPage: true });
 
-await page.locator("#demo").scrollIntoViewIfNeeded();
-await page.screenshot({ path: join(output, "heard-sheep-demo-01-idle.png"), fullPage: false });
-await page.getByRole("button", { name: "Simulate Recording" }).first().click();
-await page.getByText("Transcript", { exact: true }).waitFor({ timeout: 6000 });
-await page.screenshot({ path: join(output, "heard-sheep-demo-02-transcript.png"), fullPage: false });
-await page.getByRole("button", { name: "Confirm and Analyze" }).click();
-await page.getByText("Three draft tasks created").first().waitFor({ timeout: 6000 });
-await page.getByText("Review last week’s user interviews").waitFor();
-await page.screenshot({ path: join(output, "heard-sheep-demo-03-tasks.png"), fullPage: false });
+await gotoChecked(page, "/en", "en home dark");
+await setTheme(page, "dark");
+await page.reload({ waitUntil: "networkidle" });
+await page.getByText("I turn fuzzy product concepts into clear flows and testable prototypes.").waitFor();
+await page.getByText("A personal AI product desk, not a product dashboard.").waitFor();
+await checkNoOverlay(page, "en home dark");
+await checkBannedPhrases(page, "en home dark");
+await capturePerf(page, "en home desktop dark");
+await page.screenshot({ path: join(output, "en-home-dark-desktop.png"), fullPage: true });
 
 await page.getByRole("button", { name: "Open command menu" }).click();
 await page.getByRole("dialog", { name: "Quick navigation" }).waitFor();
 await page.getByText("Switch to Chinese").waitFor();
+await page.getByText("Switch to Light").waitFor();
 await page.keyboard.press("Escape");
 
 await gotoChecked(page, "/zh/projects/heard-sheep", "zh heard sheep case");
 await page.getByText("项目概览", { exact: true }).waitFor();
 await page.getByText("项目复盘", { exact: true }).waitFor();
-await page.getByRole("button", { name: "切换到英文" }).first().click();
+await checkBannedPhrases(page, "zh heard sheep case");
+await page.getByRole("button", { name: "Switch to English" }).first().click();
 await page.waitForURL(/\/en\/projects\/heard-sheep$/);
 routeResults.push({ label: "language switch keep path", path: page.url().replace(base, ""), status: 200, ok: page.url().endsWith("/en/projects/heard-sheep") });
 await page.getByText("Overview", { exact: true }).waitFor();
@@ -105,6 +127,7 @@ for (const slug of ["proddoc-ai", "ai-decision-copilot"]) {
   await gotoChecked(page, `/en/projects/${slug}`, `en ${slug} case`);
   await page.getByText("Overview", { exact: true }).waitFor();
   await page.getByText("Reflection", { exact: true }).waitFor();
+  await checkBannedPhrases(page, `en ${slug} case`);
   await page.screenshot({ path: join(output, `case-${slug}.png`), fullPage: true });
 }
 await desktop.close();
@@ -112,14 +135,20 @@ await desktop.close();
 const mobile = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, reducedMotion: "reduce" });
 const mobilePage = await mobile.newPage();
 attachObservers(mobilePage, "mobile");
-await gotoChecked(mobilePage, "/zh", "zh home mobile");
-await mobilePage.getByText("把 AI 产品概念，做成能体验、能验证的原型。").waitFor();
-await checkMobileOverflow(mobilePage, "zh home mobile");
-await checkNoOverlay(mobilePage, "zh home mobile");
-await capturePerf(mobilePage, "zh home mobile");
-await mobilePage.screenshot({ path: join(output, "zh-home-mobile.png"), fullPage: true });
+await gotoChecked(mobilePage, "/zh", "zh home mobile light");
+await setTheme(mobilePage, "light");
+await mobilePage.reload({ waitUntil: "networkidle" });
+await mobilePage.getByText("把复杂想法整理成清楚流程，再做成能体验、能验证的原型。").waitFor();
+await checkMobileOverflow(mobilePage, "zh home mobile light");
+await checkNoOverlay(mobilePage, "zh home mobile light");
+await capturePerf(mobilePage, "zh home mobile light");
+await mobilePage.screenshot({ path: join(output, "zh-home-mobile-light.png"), fullPage: true });
 await mobilePage.getByRole("button", { name: "打开菜单" }).click();
 await mobilePage.getByRole("dialog", { name: "打开菜单" }).waitFor();
+await mobilePage.getByRole("button", { name: "切换到夜间模式" }).click();
+await mobilePage.waitForFunction(() => document.documentElement.dataset.theme === "dark");
+await mobilePage.screenshot({ path: join(output, "mobile-theme-toggle-dark.png"), fullPage: false });
+await mobilePage.screenshot({ path: join(output, "zh-home-mobile-dark.png"), fullPage: true });
 await mobilePage.locator(".mobile-menu-panel .language-switcher button").nth(1).evaluate((button) => button.click());
 await mobilePage.waitForURL(/\/en$/);
 await mobilePage.screenshot({ path: join(output, "mobile-menu-language.png"), fullPage: false });
@@ -142,7 +171,7 @@ for (const path of routePaths) {
 }
 await apiContext.close();
 
-await writeFile(join(output, "acceptance-report.json"), JSON.stringify({ base, generatedAt: new Date().toISOString(), routes: routeResults, performance: perfResults, errors }, null, 2));
+await writeFile(join(output, "acceptance-report.json"), JSON.stringify({ base, generatedAt: new Date().toISOString(), routes: routeResults, performance: perfResults, bannedPhraseScan: phraseResults, errors }, null, 2));
 await browser.close();
 
 if (errors.length) {
@@ -150,4 +179,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(JSON.stringify({ status: "passed", base, output, routes: routeResults, performance: perfResults }, null, 2));
+console.log(JSON.stringify({ status: "passed", base, output, routes: routeResults, performance: perfResults, bannedPhraseScan: phraseResults }, null, 2));

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BuildStory } from "@/components/home/build-story";
-import { HeardSheepDemo } from "@/components/home/heard-sheep-demo";
 import { LaunchHero } from "@/components/home/launch-hero";
+import { PersonalWorkspace } from "@/components/home/personal-workspace";
 import { WorksCanvas } from "@/components/home/works-canvas";
 import { SectionHeader } from "@/components/section-header";
 import { siteConfig } from "@/data/site-config";
@@ -39,16 +39,7 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
   return (
     <div className="portfolio-home">
       <LaunchHero />
-
-      <section id="demo" className="home-section demo-section site-shell">
-        <SectionHeader
-          kicker={t("demo.kicker")}
-          title={t("demo.title")}
-          description={t("demo.description")}
-          aside={<span className="status-marker" data-state="standby"><i aria-hidden="true" />{t("demo.guided")}</span>}
-        />
-        <HeardSheepDemo />
-      </section>
+      <PersonalWorkspace locale={locale} />
 
       <section id="work" className="home-section works-section site-shell">
         <SectionHeader kicker={t("work.kicker")} title={t("work.title")} description={t("work.description")} />
@@ -83,6 +74,19 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="contact" className="home-section contact-section site-shell">
+        <div>
+          <p className="section-kicker">{t("contact.kicker")}</p>
+          <h2>{t("contact.title")}</h2>
+          <p>{t("contact.description")}</p>
+        </div>
+        <div className="contact-actions">
+          <a className="button button-primary" href={`mailto:${siteConfig.email}`}>{t("contact.email")}<ArrowUpRight size={15} /></a>
+          <a className="button button-secondary" href={siteConfig.github} target="_blank" rel="noopener noreferrer">{t("contact.github")}<ArrowUpRight size={15} /></a>
+          <a className="text-link" href={siteConfig.resume} download>{t("contact.resume")}<ArrowUpRight size={14} /></a>
         </div>
       </section>
     </div>
