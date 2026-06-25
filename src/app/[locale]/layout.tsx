@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { CustomCursor } from "@/components/interaction/custom-cursor";
-import { SmoothScroll } from "@/components/interaction/smooth-scroll";
-import { SiteFooter, SiteHeader } from "@/components/site-chrome";
+import { ClientChromeShell } from "@/components/client-chrome-shell";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { localizedAlternates } from "@/lib/seo";
 import { siteConfig } from "@/data/site-config";
@@ -51,13 +49,9 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider messages={messages}>
-          <SmoothScroll />
-          <CustomCursor />
-          <SiteHeader />
-          <main key={locale} className="locale-frame flex-1">{children}</main>
-          <SiteFooter />
-        </NextIntlClientProvider>
+        <ClientChromeShell locale={locale} messages={messages}>
+          {children}
+        </ClientChromeShell>
       </body>
     </html>
   );

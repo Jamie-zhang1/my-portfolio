@@ -15,6 +15,7 @@
 /tmp/
 /output/
 /public/screenshots/redesign/
+/public/screenshots/acceptance/
 
 # next.js
 /.next/

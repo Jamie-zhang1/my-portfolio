@@ -1,11 +1,9 @@
 "use client";
 
-import { BrainCircuit, CodeXml, Rocket, ScanSearch, TestTube2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
-const icons = [ScanSearch, BrainCircuit, CodeXml, TestTube2, Rocket];
-type BuildStep = { number: string; title: string; cn: string; description: string; signal: string };
+type BuildStep = { number: string; title: string; label: string; description: string };
 
 export function BuildStory() {
   const t = useTranslations("Home.process");
@@ -16,26 +14,22 @@ export function BuildStory() {
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced || !root.current) return;
+
     let context: { revert: () => void } | undefined;
     let cancelled = false;
     const setup = async () => {
       const [{ gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
-      if (cancelled) return;
+      if (cancelled || !root.current) return;
       gsap.registerPlugin(ScrollTrigger);
       context = gsap.context(() => {
-        const cards = gsap.utils.toArray<HTMLElement>("[data-build-step]");
-        cards.forEach((card, index) => {
-          gsap.fromTo(card, { opacity: 0.35, y: 32 }, {
-            opacity: 1,
-            y: 0,
-            scrollTrigger: {
-              trigger: card,
-              start: "top 72%",
-              end: "bottom 48%",
-              toggleActions: "play reverse play reverse",
-              onEnter: () => setActive(index),
-              onEnterBack: () => setActive(index),
-            },
+        const items = gsap.utils.toArray<HTMLElement>("[data-method-step]");
+        items.forEach((item, index) => {
+          ScrollTrigger.create({
+            trigger: item,
+            start: "top 64%",
+            end: "bottom 48%",
+            onEnter: () => setActive(index),
+            onEnterBack: () => setActive(index),
           });
         });
       }, root);
@@ -48,28 +42,27 @@ export function BuildStory() {
   }, []);
 
   return (
-    <div ref={root} className="build-story">
-      <aside className="build-sticky">
+    <div ref={root} className="build-method">
+      <aside className="build-method-heading">
         <p className="section-kicker">{t("kicker")}</p>
-        <h2>{t("title1")}<br />{t("title2")}</h2>
+        <h2>{t("title")}</h2>
         <p>{t("description")}</p>
-        <div className="build-progress"><span style={{ transform: `scaleY(${(active + 1) / steps.length})` }} /></div>
-        <div className="build-status"><small>{t("active")}</small><strong>{steps[active].number} / {steps[active].signal}</strong></div>
+        <div className="method-status">
+          <span>{t("active")}</span>
+          <strong>{steps[active].number} / {steps[active].label}</strong>
+        </div>
       </aside>
-      <div className="build-steps">
-        {steps.map((step, index) => {
-          const Icon = icons[index];
-          return (
-            <article key={step.number} data-build-step className={index === active ? "is-active" : ""}>
-              <div className="build-step-visual">
-                <span>{step.number}</span>
-                <div className="build-icon"><Icon size={34} strokeWidth={1.4} /></div>
-                <i />
-              </div>
-              <div><p>{step.cn}</p><h3>{step.title}</h3><span>{step.description}</span></div>
-            </article>
-          );
-        })}
+      <div className="method-steps">
+        {steps.map((step, index) => (
+          <article className={index === active ? "is-active" : ""} data-method-step key={step.number}>
+            <div className="method-node"><span>{step.number}</span><i aria-hidden="true" /></div>
+            <div>
+              <p className="console-label">{step.label}</p>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   );
