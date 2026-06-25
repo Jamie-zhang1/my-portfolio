@@ -12,7 +12,47 @@ const errors = [];
 const routeResults = [];
 const perfResults = [];
 const phraseResults = [];
-const banned = ["Product Console", "PROTOTYPE SIGNAL", "STANDBY", "Heard Sheep Demo", "Heard Sheep Workflow", "human signals", "messy human signals", "product signal", "AI product ideas", "model capability", "AI product concepts", "AI 产品概念", "JPL / 2026", "Waiting for launch", "做出能点的原型", "能点的原型", "真实页面", "接受操作", "Build a clickable version", "Build a clickable prototype"];
+const p = (...parts) => parts.join("");
+const banned = [
+  p("AI 产品", "实践者"),
+  p("AI Product", " Builder"),
+  p("AI 产品", "设计"),
+  p("产品", "流程"),
+  p("产品", "原型"),
+  p("前端", "原型"),
+  p("可交互", "原型"),
+  p("独立", "部署上线"),
+  p("AI 产品", "岗位"),
+  p("AI ", "实习"),
+  p("大模型", "应用岗位"),
+  p("Open to AI", " Product Intern"),
+  p("Work With", " Me"),
+  p("产品", "判断"),
+  p("完整", "产品", "流程"),
+  p("Product", " Thinking"),
+  p("AI ", "Capability"),
+  p("Core ", "Interaction"),
+  p("My ", "Role"),
+  p("User Pain", " Point"),
+  p("Market", " Problem"),
+  p("Case Study", " Shelf"),
+  p("Prototype", " Window"),
+  p("Workspace", " Cards"),
+  p("Product", " Console"),
+  p("PROTOTYPE", " SIGNAL"),
+  p("STAND", "BY"),
+  p("Heard Sheep", " Demo"),
+  p("Heard Sheep", " Workflow"),
+  p("human", " signals"),
+  p("product", " signal"),
+  p("AI product", " ideas"),
+  p("JPL", " / 2026"),
+  p("Waiting for", " launch"),
+  p("做出", "能点"),
+  p("能点的", "原型"),
+  p("真实", "页面"),
+  p("Build a", " clickable"),
+];
 
 function attachObservers(page, label) {
   page.on("pageerror", (error) => errors.push(`${label}: ${error.message}`));
@@ -84,9 +124,12 @@ await gotoChecked(page, "/zh", "zh home light");
 await setTheme(page, "light");
 await page.reload({ waitUntil: "networkidle" });
 await page.getByRole("heading", { name: "Jamie Zhang" }).waitFor();
-await page.getByText("把复杂想法整理成清楚流程，再做成能体验、能验证的原型。").waitFor();
-await page.getByRole("button", { name: "进入工作台" }).click();
-await page.locator("#workspace").waitFor();
+await page.getByText("用 vibe coding 把想法做成网页。").waitFor();
+for (const label of ["我的作品", "研究方法", "关于我", "联系我"]) {
+  await page.locator(".desktop-nav").getByText(label, { exact: true }).waitFor();
+}
+await page.getByRole("button", { name: "浏览这个空间" }).click();
+await page.locator("#work").waitFor();
 await checkNoOverlay(page, "zh home light");
 await checkBannedPhrases(page, "zh home light");
 await capturePerf(page, "zh home desktop light");
@@ -94,48 +137,53 @@ await page.screenshot({ path: join(output, "zh-home-light-desktop.png"), fullPag
 await page.locator(".site-header").screenshot({ path: join(output, "navigation-light.png") });
 await page.locator("#work").scrollIntoViewIfNeeded();
 await page.locator("#work").screenshot({ path: join(output, "selected-works-light.png") });
+const cardLinks = await page.locator("#work .work-card").evaluateAll((cards) => cards.map((card) => card.getAttribute("href")));
+if (cardLinks.length !== 3 || !cardLinks.every(Boolean)) errors.push(`work cards: expected 3 clickable cards, got ${JSON.stringify(cardLinks)}`);
 await page.locator("#method").scrollIntoViewIfNeeded();
 await page.locator("#method").screenshot({ path: join(output, "method-light.png") });
+await page.locator("#method").getByText("拆清楚", { exact: true }).waitFor();
+await page.locator("#method").getByText("搭页面", { exact: true }).waitFor();
 await page.locator("#about").scrollIntoViewIfNeeded();
 await page.locator("#about").screenshot({ path: join(output, "about-light-desktop.png") });
+await page.getByText("逻辑学硕士在读").waitFor();
 
 await page.getByRole("button", { name: "切换到夜间模式" }).click();
 await page.waitForFunction(() => document.documentElement.dataset.theme === "dark");
 await page.screenshot({ path: join(output, "appearance-toggle-dark.png"), fullPage: false });
 await page.screenshot({ path: join(output, "zh-home-dark-desktop.png"), fullPage: true });
 
-await gotoChecked(page, "/en", "en home dark");
-await setTheme(page, "dark");
+await gotoChecked(page, "/en", "en home light");
+await setTheme(page, "light");
 await page.reload({ waitUntil: "networkidle" });
-await page.getByText("I turn fuzzy product concepts into clear flows and testable prototypes.").waitFor();
-await page.getByText("A light workspace for how I build AI product prototypes.").waitFor();
-await checkNoOverlay(page, "en home dark");
-await checkBannedPhrases(page, "en home dark");
-await capturePerf(page, "en home desktop dark");
-await page.screenshot({ path: join(output, "en-home-dark-desktop.png"), fullPage: true });
+await page.getByText("I use vibe coding to turn ideas into web pages.").waitFor();
+await page.getByText("AI tool experiments and web pages.").waitFor();
+await checkNoOverlay(page, "en home light");
+await checkBannedPhrases(page, "en home light");
+await capturePerf(page, "en home desktop light");
+await page.screenshot({ path: join(output, "en-home-light-desktop.png"), fullPage: true });
 
 await page.getByRole("button", { name: "Open command menu" }).click();
 await page.getByRole("dialog", { name: "Quick navigation" }).waitFor();
 await page.getByText("Switch to Chinese").waitFor();
-await page.getByText("Switch to Light").waitFor();
+await page.getByText("Switch to Dark").waitFor();
 await page.keyboard.press("Escape");
 
-await gotoChecked(page, "/zh/projects/heard-sheep", "zh heard sheep case");
-await page.getByText("项目概览", { exact: true }).waitFor();
-await page.getByText("项目复盘", { exact: true }).waitFor();
-await checkBannedPhrases(page, "zh heard sheep case");
+await gotoChecked(page, "/zh/projects/heard-sheep", "zh heard sheep note");
+await page.getByText("项目记录", { exact: true }).waitFor();
+await page.getByText("复盘", { exact: true }).waitFor();
+await checkBannedPhrases(page, "zh heard sheep note");
 await page.getByRole("button", { name: "Switch to English" }).first().click();
 await page.waitForURL(/\/en\/projects\/heard-sheep$/);
 routeResults.push({ label: "language switch keep path", path: page.url().replace(base, ""), status: 200, ok: page.url().endsWith("/en/projects/heard-sheep") });
-await page.getByText("Overview", { exact: true }).waitFor();
-await page.screenshot({ path: join(output, "case-heard-sheep.png"), fullPage: true });
+await page.getByText("Project Note", { exact: true }).waitFor();
+await page.screenshot({ path: join(output, "project-heard-sheep.png"), fullPage: true });
 
 for (const slug of ["proddoc-ai", "ai-decision-copilot"]) {
-  await gotoChecked(page, `/en/projects/${slug}`, `en ${slug} case`);
-  await page.getByText("Overview", { exact: true }).waitFor();
+  await gotoChecked(page, `/en/projects/${slug}`, `en ${slug} note`);
+  await page.getByText("Project Note", { exact: true }).waitFor();
   await page.getByText("Reflection", { exact: true }).waitFor();
-  await checkBannedPhrases(page, `en ${slug} case`);
-  await page.screenshot({ path: join(output, `case-${slug}.png`), fullPage: true });
+  await checkBannedPhrases(page, `en ${slug} note`);
+  await page.screenshot({ path: join(output, `project-${slug}.png`), fullPage: true });
 }
 await desktop.close();
 
@@ -145,22 +193,21 @@ attachObservers(mobilePage, "mobile");
 await gotoChecked(mobilePage, "/zh", "zh home mobile light");
 await setTheme(mobilePage, "light");
 await mobilePage.reload({ waitUntil: "networkidle" });
-await mobilePage.getByText("把复杂想法整理成清楚流程，再做成能体验、能验证的原型。").waitFor();
+await mobilePage.getByText("用 vibe coding 把想法做成网页。").waitFor();
 await checkMobileOverflow(mobilePage, "zh home mobile light");
 await checkNoOverlay(mobilePage, "zh home mobile light");
+await checkBannedPhrases(mobilePage, "zh home mobile light");
 await capturePerf(mobilePage, "zh home mobile light");
 await mobilePage.screenshot({ path: join(output, "zh-home-mobile-light.png"), fullPage: true });
-await mobilePage.locator("#about").scrollIntoViewIfNeeded();
-await mobilePage.locator("#about").screenshot({ path: join(output, "about-mobile-light.png") });
 await mobilePage.getByRole("button", { name: "打开菜单" }).click();
 await mobilePage.getByRole("dialog", { name: "打开菜单" }).waitFor();
+await mobilePage.locator(".mobile-menu-panel nav a").first().waitFor();
+const firstMobileNav = await mobilePage.locator(".mobile-menu-panel nav a").first().innerText();
+if (!firstMobileNav.includes("我的作品")) errors.push(`mobile nav: expected first item to include 我的作品, got ${firstMobileNav}`);
+await mobilePage.screenshot({ path: join(output, "mobile-navigation-light.png"), fullPage: false });
 await mobilePage.getByRole("button", { name: "切换到夜间模式" }).click();
 await mobilePage.waitForFunction(() => document.documentElement.dataset.theme === "dark");
-await mobilePage.screenshot({ path: join(output, "mobile-theme-toggle-dark.png"), fullPage: false });
 await mobilePage.screenshot({ path: join(output, "zh-home-mobile-dark.png"), fullPage: true });
-await mobilePage.locator(".mobile-menu-panel .language-switcher button").nth(1).evaluate((button) => button.click());
-await mobilePage.waitForURL(/\/en$/);
-await mobilePage.screenshot({ path: join(output, "mobile-menu-language.png"), fullPage: false });
 await mobile.close();
 
 const apiContext = await browser.newContext();

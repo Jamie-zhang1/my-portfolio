@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, Code2, FileText, FolderKanban, Languages, Mail, Monitor, Moon, Search, Sun, UserRound, Workflow, X } from "lucide-react";
+import { ArrowUpRight, Code2, FileText, FolderKanban, Languages, Mail, Monitor, Moon, Search, Sun, Workflow, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { useTheme, type ThemeMode } from "@/components/interaction/theme-provider";
@@ -31,10 +31,9 @@ export function CommandMenu() {
   const pathname = usePathname();
   const nextLocale: AppLocale = locale === "zh" ? "en" : "zh";
   const commands: CommandItem[] = useMemo(() => [
-    { label: t("workspace"), detail: t("workspaceDetail"), href: "/#workspace", icon: UserRound },
     { label: t("work"), detail: t("workDetail"), href: "/#work", icon: FolderKanban },
     { label: t("method"), detail: t("methodDetail"), href: "/#method", icon: Workflow },
-    { label: t("about"), detail: t("aboutDetail"), href: "/#about", icon: UserRound },
+    { label: t("about"), detail: t("aboutDetail"), href: "/#about", icon: FolderKanban },
     { label: t("contact"), detail: t("contactDetail"), href: "/#contact", icon: Mail },
     { label: themeT("set.light"), detail: t("themeDetail"), icon: Sun, theme: "light" },
     { label: themeT("set.dark"), detail: t("themeDetail"), icon: Moon, theme: "dark" },

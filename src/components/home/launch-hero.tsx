@@ -28,7 +28,7 @@ export function LaunchHero() {
       window.sessionStorage.setItem("jamie-workspace-open", "1");
     }
     window.setTimeout(() => {
-      document.getElementById("workspace")?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      document.getElementById("work")?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
     }, reduceMotion ? 0 : 220);
   };
 

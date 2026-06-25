@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: t("description"),
     alternates: localizedAlternates(locale),
     authors: [{ name: siteConfig.author }],
-    keywords: locale === "zh" ? ["AI 产品", "Vibe Coding", "产品原型", "Next.js", "多模态 AI"] : ["AI product", "Vibe Coding", "interactive prototype", "Next.js", "multimodal AI"],
+    keywords: locale === "zh" ? ["Vibe Coding", "AI 工具", "项目记录", "Next.js", "学习实践"] : ["Vibe Coding", "AI tools", "project notes", "Next.js", "learning practice"],
     openGraph: {
       type: "website", locale: locale === "zh" ? "zh_CN" : "en_US", url: `/${locale}`,
       title: t("title"), description: t("description"), siteName: siteConfig.name,

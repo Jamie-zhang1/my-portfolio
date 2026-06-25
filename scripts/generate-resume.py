@@ -70,7 +70,7 @@ c.setFont("Helvetica-Bold", 29)
 c.drawString(margin, height - 21 * mm, "JAMIE ZHANG")
 c.setFillColor(VIOLET)
 c.setFont("Helvetica-Bold", 10.5)
-c.drawString(margin, height - 28 * mm, "AI PRODUCT BUILDER  /  VIBE CODING")
+c.drawString(margin, height - 28 * mm, "VIBE CODING  /  PROJECT NOTES")
 c.setFillColor(MUTED)
 c.setFont("Helvetica", 8.3)
 c.drawString(margin, height - 34 * mm, "zhangjiangmin0902@gmail.com  |  github.com/Jamie-zhang1  |  heard-sheep.cloud")
@@ -83,18 +83,18 @@ y = para(c,
     "Logic-trained AI product practitioner who turns messy real-world requirements into clear, testable product flows. "
     "Builds working prototypes with Next.js, TypeScript and AI APIs, focusing on multimodal input, human confirmation, "
     "safe fallback behavior and delivery-ready product documentation.", body, margin, y, left_w, 8)
-y = section(c, "Selected products", margin, y)
-y = draw_project(c, margin, y, left_w, "Heard Sheep", "MULTIMODAL AI TASK ASSISTANT  /  LIVE MVP",
+y = section(c, "Selected project notes", margin, y)
+y = draw_project(c, margin, y, left_w, "Heard Sheep", "VOICE NOTE TO TASK CARD  /  LIVE PAGE",
     "Turns voice, audio, images and text into user-confirmed tasks and action plans.",
     ["Designed capture -> transcript confirmation -> AI analysis -> candidate task confirmation.",
      "Built a mobile-first PWA, task management loop, history and model-failure fallback."])
 y -= 8
-y = draw_project(c, margin, y, left_w, "ProdDoc AI", "AI PRODUCT DOCUMENTATION WORKSPACE  /  INTERACTIVE DEMO",
+y = draw_project(c, margin, y, left_w, "ProdDoc AI", "DOCUMENTATION EXPERIMENT  /  LOCAL DEMO",
     "Organizes product inputs, references and reusable templates into editable document drafts.",
     ["Designed prompt, API and Mock modes for real use, offline work and stable demonstrations.",
      "Built template extraction, multi-format parsing, local history and Word export workflow."])
 y -= 8
-y = draw_project(c, margin, y, left_w, "AI Decision Copilot", "STRUCTURED DECISION ASSISTANT  /  EXPERIMENT",
+y = draw_project(c, margin, y, left_w, "AI Decision Copilot", "DECISION SUPPORT PAGE  /  EXPERIMENT",
     "Transforms open questions into comparable options, evidence, recommendations and risk notes.",
     ["Designed dual-path analysis for existing options or AI-suggested alternatives.",
      "Created a no-key preset demo while retaining MiMo multimodal capability in the full project."])
@@ -104,7 +104,7 @@ c.line(right_x - gutter / 2, height - 43 * mm, right_x - gutter / 2, 15 * mm)
 
 ry = height - 46 * mm
 ry = section(c, "Capabilities", right_x, ry)
-skills = ["AI product design", "Vibe Coding", "Product flow design", "Multimodal UX", "Requirements structuring", "Product documentation", "Logic modeling", "Prototype delivery"]
+skills = ["Vibe coding", "Vibe Coding", "Page structure", "Multimodal UX", "Requirements structuring", "Product documentation", "Logic modeling", "Project notes"]
 for skill in skills:
     c.setFillColor(PALE)
     c.roundRect(right_x, ry - 15, right_w, 13, 4, fill=1, stroke=0)
@@ -116,8 +116,8 @@ for skill in skills:
 ry -= 3
 ry = section(c, "Technology", right_x, ry)
 ry = para(c, "Next.js / React / TypeScript / Tailwind CSS / shadcn/ui / AI APIs / PWA / Playwright", small, right_x, ry, right_w, 8)
-ry = section(c, "Product approach", right_x, ry)
-ry = para(c, "1. Find real workflow friction<br/>2. Structure inputs and decisions<br/>3. Build a usable prototype<br/>4. Validate failure states and responsive behavior<br/>5. Ship the story and working entry point", small, right_x, ry, right_w, 8)
+ry = section(c, "Working method", right_x, ry)
+ry = para(c, "1. Find real workflow friction<br/>2. Structure inputs and decisions<br/>3. Build a live page<br/>4. Validate failure states and responsive behavior<br/>5. Record the process and page entry", small, right_x, ry, right_w, 8)
 ry = section(c, "Education", right_x, ry)
 ry = para(c, "China University of Political Science and Law<br/><b>Master's student in Logic</b><br/>Legal logic, mathematical logic and rule modeling.", small, right_x, ry, right_w, 8)
 ry = section(c, "Background", right_x, ry)
@@ -128,7 +128,7 @@ para(c, "Chinese (native)<br/>English (working proficiency)", small, right_x, ry
 c.setFillColor(MUTED)
 c.setFont("Helvetica", 6.8)
 c.drawString(margin, 10 * mm, "PORTFOLIO RESUME  /  UPDATED JUNE 2026")
-c.drawRightString(width - margin, 10 * mm, "Jamie Zhang  /  AI Product Builder")
+c.drawRightString(width - margin, 10 * mm, "Jamie Zhang  /  Project Notes")
 c.save()
 
 shutil.copyfile(OUTPUT, PUBLIC)

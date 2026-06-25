@@ -11,8 +11,8 @@ export async function WorksCanvas({ locale }: { locale: AppLocale }) {
   return (
     <div className="works-grid">
       {studies.map((study, index) => (
-        <article className="work-card" key={study.slug}>
-          <div className="work-card-copy">
+        <Link className="work-card" href={`/projects/${study.slug}`} key={study.slug} aria-label={`${t("viewCase")}: ${study.title}`}>
+          <article className="work-card-copy">
             <div className="work-card-heading">
               <span>{String(index + 1).padStart(2, "0")}</span>
               <span>{study.subtitle}</span>
@@ -27,11 +27,9 @@ export async function WorksCanvas({ locale }: { locale: AppLocale }) {
             <div className="work-stack" aria-label={t("stack")}>
               {study.homepageStack.map((item) => <span key={item}>{item}</span>)}
             </div>
-            <div className="work-actions">
-              <Link href={`/projects/${study.slug}`} className="button button-secondary">{t("viewCase")}<ArrowUpRight size={15} /></Link>
-            </div>
-          </div>
-        </article>
+            <span className="work-card-link">{t("viewCase")}<ArrowUpRight size={15} /></span>
+          </article>
+        </Link>
       ))}
     </div>
   );

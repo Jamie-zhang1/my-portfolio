@@ -44,9 +44,9 @@ export function CaseStudyPage({ study }: { study: LocalizedCaseStudy }) {
             </div>
           </div>
           <div className="prototype-window case-hero-window">
-            <div className="prototype-window-bar"><span>{study.eyebrow}</span><span>PRODUCT VIEW</span></div>
+            <div className="prototype-window-bar"><span>{study.eyebrow}</span><span>PAGE VIEW</span></div>
             <div className={`case-hero-image ${study.slug === "heard-sheep" ? "is-mobile-product" : ""}`}>
-              <Image src={heroImage} alt={`${study.title} product interface`} fill priority sizes="(max-width: 900px) 100vw, 50vw" />
+              <Image src={heroImage} alt={`${study.title} page screen`} fill priority sizes="(max-width: 900px) 100vw, 50vw" />
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@ export function CaseStudyPage({ study }: { study: LocalizedCaseStudy }) {
       <section className="case-section site-shell case-ai">
         <CaseSectionLabel number="07" label={t("aiCapability")} />
         <div className="prototype-window ai-panel">
-          <div className="prototype-window-bar"><span>AI CAPABILITY</span><span className="status-marker" data-state="ready"><i aria-hidden="true" />CONTROLLED</span></div>
+          <div className="prototype-window-bar"><span>AI NOTE</span><span className="status-marker" data-state="ready"><i aria-hidden="true" />DOCUMENTED</span></div>
           <p>{study.aiCapability}</p>
           <div className="ai-guardrails"><span>{t("structured")}</span><span>{t("human")}</span><span>{t("fallback")}</span></div>
         </div>

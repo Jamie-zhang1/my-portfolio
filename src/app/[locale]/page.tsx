@@ -3,7 +3,6 @@ import { ArrowUpRight } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BuildStory } from "@/components/home/build-story";
 import { LaunchHero } from "@/components/home/launch-hero";
-import { PersonalWorkspace } from "@/components/home/personal-workspace";
 import { WorksCanvas } from "@/components/home/works-canvas";
 import { SectionHeader } from "@/components/section-header";
 import { siteConfig } from "@/data/site-config";
@@ -38,9 +37,7 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
 
   return (
     <div className="portfolio-home">
-      <LaunchHero />
-      <PersonalWorkspace locale={locale} />
-
+      <LaunchHero />`r`n
       <section id="work" className="home-section works-section site-shell">
         <SectionHeader kicker={t("work.kicker")} title={t("work.title")} description={t("work.description")} />
         <WorksCanvas locale={locale} />
