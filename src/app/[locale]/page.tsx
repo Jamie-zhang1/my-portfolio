@@ -53,7 +53,7 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
       <section id="about" className="home-section about-section site-shell">
         <div className="about-copy">
           <p className="section-kicker">{t("about.kicker")}</p>
-          <h2>{t("about.title1")}<br /><span>{t("about.title2")}</span></h2>
+          <h2 className="about-title"><span>{t("about.title1")}</span><span>{t("about.title2")}</span></h2>
           <p>{t("about.bio1")}</p>
           <p>{t("about.bio2")}</p>
           <strong className="about-opportunity">{t("about.opportunity")}</strong>
@@ -63,14 +63,13 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
             <a className="text-link" href={siteConfig.resume} download>{t("about.resume")}<ArrowUpRight size={14} /></a>
           </div>
         </div>
-        <div className="about-system prototype-window">
-          <div className="prototype-window-bar"><span>{t("about.focusLabel")}</span><span>JAMIE / PROFILE</span></div>
+        <div className="about-system">
+          <p className="section-kicker about-focus-kicker">{t("about.focusLabel")}</p>
           <div className="about-focus-list">
             {focus.map((item, index) => (
               <div className="task-sheet" key={item}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <p>{item}</p>
-                <i className="status-marker-dot" aria-hidden="true" />
               </div>
             ))}
           </div>

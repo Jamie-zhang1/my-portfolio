@@ -12,7 +12,7 @@ const errors = [];
 const routeResults = [];
 const perfResults = [];
 const phraseResults = [];
-const banned = ["Product Console", "PROTOTYPE SIGNAL", "STANDBY", "Heard Sheep Demo", "Heard Sheep Workflow", "human signals", "messy human signals", "product signal", "AI product ideas", "model capability", "AI product concepts", "AI 产品概念", "JPL / 2026", "Waiting for launch"];
+const banned = ["Product Console", "PROTOTYPE SIGNAL", "STANDBY", "Heard Sheep Demo", "Heard Sheep Workflow", "human signals", "messy human signals", "product signal", "AI product ideas", "model capability", "AI product concepts", "AI 产品概念", "JPL / 2026", "Waiting for launch", "做出能点的原型", "能点的原型", "真实页面", "接受操作", "Build a clickable version", "Build a clickable prototype"];
 
 function attachObservers(page, label) {
   page.on("pageerror", (error) => errors.push(`${label}: ${error.message}`));
@@ -94,6 +94,10 @@ await page.screenshot({ path: join(output, "zh-home-light-desktop.png"), fullPag
 await page.locator(".site-header").screenshot({ path: join(output, "navigation-light.png") });
 await page.locator("#work").scrollIntoViewIfNeeded();
 await page.locator("#work").screenshot({ path: join(output, "selected-works-light.png") });
+await page.locator("#method").scrollIntoViewIfNeeded();
+await page.locator("#method").screenshot({ path: join(output, "method-light.png") });
+await page.locator("#about").scrollIntoViewIfNeeded();
+await page.locator("#about").screenshot({ path: join(output, "about-light-desktop.png") });
 
 await page.getByRole("button", { name: "切换到夜间模式" }).click();
 await page.waitForFunction(() => document.documentElement.dataset.theme === "dark");
@@ -146,6 +150,8 @@ await checkMobileOverflow(mobilePage, "zh home mobile light");
 await checkNoOverlay(mobilePage, "zh home mobile light");
 await capturePerf(mobilePage, "zh home mobile light");
 await mobilePage.screenshot({ path: join(output, "zh-home-mobile-light.png"), fullPage: true });
+await mobilePage.locator("#about").scrollIntoViewIfNeeded();
+await mobilePage.locator("#about").screenshot({ path: join(output, "about-mobile-light.png") });
 await mobilePage.getByRole("button", { name: "打开菜单" }).click();
 await mobilePage.getByRole("dialog", { name: "打开菜单" }).waitFor();
 await mobilePage.getByRole("button", { name: "切换到夜间模式" }).click();
