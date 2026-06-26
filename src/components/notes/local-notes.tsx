@@ -5,11 +5,14 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 type NoteType = "idea" | "draft" | "review" | "learning";
+type NoteFilter = "all" | NoteType;
+type NoteStatus = "raw" | "drafting" | "reviewed" | "archived";
 type Option = { value: string; label: string };
 type NoteMode = {
   kicker: string;
   heading: string;
   description: string;
+  position: string;
   titlePlaceholder: string;
   bodyPlaceholder: string;
   tagsPlaceholder: string;
@@ -18,11 +21,14 @@ type NoteMode = {
 type AttachmentInfo = { name: string; size: number; type: string };
 type LocalNote = {
   id: string;
-  locale?: "zh" | "en";
+  locale: "zh" | "en";
   type: NoteType;
   title: string;
   relatedProject?: string;
   project?: string;
+  relatedNoteId?: string;
+  relatedNoteTitle?: string;
+  status?: NoteStatus;
   body: string;
   tags: string[];
   attachments: AttachmentInfo[];
@@ -30,9 +36,29 @@ type LocalNote = {
   updatedAt: string;
 };
 
+type NotesCenterCopy = {
+  kicker: string;
+  heading: string;
+  description: string;
+  flowMain: string;
+  flowSide: string;
+  viewLabel: string;
+  filterDescriptions: Record<NoteFilter, string>;
+  emptyStates: Record<NoteFilter, string>;
+  nextActions: Record<NoteType, string>;
+  updatedAt: string;
+  relatedProject: string;
+  relatedRecord: string;
+  nextStep: string;
+  sourceLabel: string;
+  sourceNames: Record<NoteType, string>;
+  statusLabels: Record<NoteStatus, string>;
+};
+
 type NotesCopy = {
   common: Record<string, string>;
   new: Record<string, string>;
+  center: NotesCenterCopy;
   modes: Record<NoteType, NoteMode>;
   types: Option[];
   projects: Option[];
@@ -50,13 +76,39 @@ function normalizeType(value: string | null | undefined): NoteType {
   return NOTE_TYPES.includes(value as NoteType) ? (value as NoteType) : "idea";
 }
 
+function normalizeStatus(value: string | null | undefined, type: NoteType): NoteStatus {
+  if (value === "raw" || value === "drafting" || value === "reviewed" || value === "archived") return value;
+  if (type === "draft") return "drafting";
+  if (type === "review") return "reviewed";
+  return "raw";
+}
+
+function defaultStatus(type: NoteType): NoteStatus {
+  if (type === "draft") return "drafting";
+  if (type === "review") return "reviewed";
+  return "raw";
+}
+
 function readNotes(): LocalNote[] {
   if (typeof window === "undefined") return [];
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    return Array.isArray(parsed) ? parsed.map((note) => {
+      const type = normalizeType(note.type);
+      const relatedProject = note.relatedProject ?? note.project ?? "none";
+      return {
+        ...note,
+        locale: note.locale === "en" ? "en" : "zh",
+        type,
+        status: normalizeStatus(note.status, type),
+        relatedProject,
+        project: relatedProject,
+        tags: Array.isArray(note.tags) ? note.tags : [],
+        attachments: Array.isArray(note.attachments) ? note.attachments : [],
+      };
+    }) : [];
   } catch {
     return [];
   }
@@ -85,18 +137,44 @@ function projectValue(note: LocalNote) {
   return note.relatedProject ?? note.project ?? "none";
 }
 
+function isZh(copy: NotesCopy) {
+  return copy.common.title === "标题";
+}
+
+function sourceLine(source: LocalNote, copy: NotesCopy) {
+  const type = normalizeType(source.type);
+  const colon = isZh(copy) ? "：" : ":";
+  return `${copy.center.sourceNames[type]}${colon}${source.title}`;
+}
+
+function nextAction(note: LocalNote, locale: "zh" | "en", copy: NotesCopy) {
+  const type = normalizeType(note.type);
+  const nextType: NoteType = type === "idea" ? "draft" : type === "draft" ? "review" : type === "review" ? "review" : "learning";
+  return {
+    label: copy.center.nextActions[type],
+    href: `/${locale}/notes/new?type=${nextType}&from=${note.id}`,
+  };
+}
+
+function noteExcerpt(note: LocalNote, fallback: string) {
+  const text = note.body.replace(/^#+\s*/gm, "").replace(/\s+/g, " ").trim();
+  if (!text) return fallback;
+  return text.length > 180 ? `${text.slice(0, 180)}…` : text;
+}
+
 function markdownFor(note: LocalNote, copy: NotesCopy) {
   const title = note.title || (copy.common.untitled ?? "Untitled");
   const type = optionLabel(copy.types, note.type);
   const project = optionLabel(copy.projects, projectValue(note));
-  const tags = note.tags.join(", ");
+  const related = note.relatedNoteTitle ?? "-";
+  const tags = note.tags.length ? note.tags.join(", ") : "-";
   const attachments = note.attachments.length ? note.attachments.map((file) => `- ${file.name}`).join("\n") : "-";
 
-  if (copy.common.title === "标题") {
-    return `# ${title}\n\n类型：${type}\n关联项目：${project}\n标签：${tags}\n创建时间：${note.createdAt}\n\n${note.body}\n\n## 附件\n\n${attachments}\n`;
+  if (isZh(copy)) {
+    return `# ${title}\n\n类型：${type}\n关联项目：${project}\n关联记录：${related}\n标签：${tags}\n创建时间：${note.createdAt}\n更新时间：${note.updatedAt}\n\n${note.body}\n\n## 附件\n\n${attachments}\n`;
   }
 
-  return `# ${title}\n\nType: ${type}\nRelated project: ${project}\nTags: ${tags}\nCreated at: ${note.createdAt}\n\n${note.body}\n\n## Attachments\n\n${attachments}\n`;
+  return `# ${title}\n\nType: ${type}\nRelated project: ${project}\nRelated record: ${related}\nTags: ${tags}\nCreated at: ${note.createdAt}\nUpdated at: ${note.updatedAt}\n\n${note.body}\n\n## Attachments\n\n${attachments}\n`;
 }
 
 function downloadMarkdown(note: LocalNote, copy: NotesCopy) {
@@ -113,32 +191,48 @@ function downloadMarkdown(note: LocalNote, copy: NotesCopy) {
 export function NewLocalNote({ locale, copy }: NotesProps) {
   const searchParams = useSearchParams();
   const editId = searchParams.get("edit");
+  const sourceId = searchParams.get("from");
   const requestedType = normalizeType(searchParams.get("type"));
   const [title, setTitle] = useState("");
   const [type, setType] = useState<NoteType>(requestedType);
   const [project, setProject] = useState("none");
+  const [relatedNoteId, setRelatedNoteId] = useState("");
+  const [relatedNoteTitle, setRelatedNoteTitle] = useState("");
   const [body, setBody] = useState(() => copy.modes[requestedType].template);
   const [tags, setTags] = useState("");
   const [attachments, setAttachments] = useState<AttachmentInfo[]>([]);
   const [existing, setExisting] = useState<LocalNote | null>(null);
-  const [status, setStatus] = useState("");
+  const [saveStatus, setSaveStatus] = useState("");
 
   useEffect(() => {
-    if (!editId) return;
     const timer = window.setTimeout(() => {
-      const found = readNotes().find((note) => note.id === editId);
-      if (!found) return;
-      const foundType = normalizeType(found.type);
-      setExisting(found);
-      setTitle(found.title);
-      setType(foundType);
-      setProject(projectValue(found));
-      setBody(found.body || copy.modes[foundType].template);
-      setTags(found.tags.join(", "));
-      setAttachments(found.attachments);
+      if (editId) {
+        const found = readNotes().find((note) => note.id === editId);
+        if (!found) return;
+        const foundType = normalizeType(found.type);
+        setExisting(found);
+        setTitle(found.title);
+        setType(foundType);
+        setProject(projectValue(found));
+        setRelatedNoteId(found.relatedNoteId ?? "");
+        setRelatedNoteTitle(found.relatedNoteTitle ?? "");
+        setBody(found.body || copy.modes[foundType].template);
+        setTags(found.tags.join(", "));
+        setAttachments(found.attachments);
+        return;
+      }
+
+      if (sourceId) {
+        const source = readNotes().find((note) => note.id === sourceId);
+        if (!source) return;
+        setRelatedNoteId(source.id);
+        setRelatedNoteTitle(source.title);
+        setProject(projectValue(source));
+        setBody(`${sourceLine(source, copy)}\n\n${copy.modes[requestedType].template}`);
+      }
     }, 0);
     return () => window.clearTimeout(timer);
-  }, [copy.modes, editId]);
+  }, [copy, editId, requestedType, sourceId]);
 
   const mode = copy.modes[type];
   const listHref = `/${locale}/notes`;
@@ -146,7 +240,7 @@ export function NewLocalNote({ locale, copy }: NotesProps) {
 
   const changeType = (nextType: NoteType) => {
     const previousTemplate = copy.modes[type].template.trim();
-    const shouldReplaceTemplate = !existing && (!body.trim() || body.trim() === previousTemplate);
+    const shouldReplaceTemplate = !existing && !relatedNoteId && (!body.trim() || body.trim() === previousTemplate);
     setType(nextType);
     if (shouldReplaceTemplate) setBody(copy.modes[nextType].template);
   };
@@ -161,6 +255,9 @@ export function NewLocalNote({ locale, copy }: NotesProps) {
       title: title.trim() || (locale === "zh" ? "未命名记录" : "Untitled note"),
       relatedProject: project,
       project,
+      relatedNoteId: relatedNoteId || undefined,
+      relatedNoteTitle: relatedNoteTitle || undefined,
+      status: existing?.status ?? defaultStatus(type),
       body,
       tags: cleanTags,
       attachments,
@@ -170,7 +267,7 @@ export function NewLocalNote({ locale, copy }: NotesProps) {
     const rest = readNotes().filter((note) => note.id !== nextNote.id);
     writeNotes([nextNote, ...rest]);
     setExisting(nextNote);
-    setStatus(copy.common.saved);
+    setSaveStatus(copy.common.saved);
   };
 
   return (
@@ -184,6 +281,7 @@ export function NewLocalNote({ locale, copy }: NotesProps) {
         <p className="section-kicker">{mode.kicker}</p>
         <h1>{existing ? copy.common.editNote : mode.heading}</h1>
         <p>{mode.description}</p>
+        <p className="note-position">{mode.position}</p>
       </header>
 
       <div className="note-mode-tabs" role="group" aria-label={copy.common.filterLabel}>
@@ -194,6 +292,13 @@ export function NewLocalNote({ locale, copy }: NotesProps) {
       </div>
 
       <div className="note-editor-shell">
+        {relatedNoteTitle ? (
+          <div className="note-source-box">
+            <span>{copy.center.relatedRecord}</span>
+            <strong>{relatedNoteTitle}</strong>
+          </div>
+        ) : null}
+
         <label className="note-field note-title-field">
           <span>{copy.common.title}</span>
           <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder={mode.titlePlaceholder} />
@@ -243,9 +348,10 @@ export function NewLocalNote({ locale, copy }: NotesProps) {
 
         <div className="note-actions-row">
           <button className="button button-primary" type="button" onClick={saveNote}><Save size={15} />{existing ? copy.common.update : copy.common.save}</button>
+          {existing ? <a className="button button-secondary" href={nextAction(existing, locale, copy).href}>{nextAction(existing, locale, copy).label}</a> : null}
           <a className="button button-secondary" href={listHref}>{copy.common.backList}</a>
         </div>
-        {status ? <p className="note-save-message" role="status">{status}</p> : null}
+        {saveStatus ? <p className="note-save-message" role="status">{saveStatus}</p> : null}
         <p className="note-local-warning">{copy.common.localOnly}</p>
       </div>
     </section>
@@ -255,7 +361,7 @@ export function NewLocalNote({ locale, copy }: NotesProps) {
 export function LocalNotesList({ locale, copy }: NotesProps) {
   const [notes, setNotes] = useState<LocalNote[]>([]);
   const [status, setStatus] = useState("");
-  const [filter, setFilter] = useState<"all" | NoteType>("all");
+  const [filter, setFilter] = useState<NoteFilter>("all");
 
   useEffect(() => {
     const timer = window.setTimeout(() => setNotes(readNotes()), 0);
@@ -287,34 +393,56 @@ export function LocalNotesList({ locale, copy }: NotesProps) {
         <a className="button button-primary" href={`/${locale}/notes/new?type=idea`}><Plus size={15} />{copy.common.newNote}</a>
       </div>
       <header className="notes-hero notes-list-hero">
-        <p className="section-kicker">LOCAL NOTES</p>
-        <h1>{copy.common.backList}</h1>
-        <p>{copy.common.listIntro}</p>
+        <p className="section-kicker">{copy.center.kicker}</p>
+        <h1>{copy.center.heading}</h1>
+        <p>{copy.center.description}</p>
       </header>
-      <div className="note-filter-tabs" role="group" aria-label={copy.common.filterLabel}>
-        <button type="button" className={filter === "all" ? "is-active" : ""} onClick={() => setFilter("all")}>{copy.common.all}</button>
-        {copy.types.map((item) => {
-          const value = normalizeType(item.value);
-          return <button type="button" key={item.value} className={filter === value ? "is-active" : ""} onClick={() => setFilter(value)}>{item.label}</button>;
-        })}
+
+      <div className="notes-flow-card" aria-label={copy.center.flowMain}>
+        <strong>{copy.center.flowMain}</strong>
+        <span>{copy.center.flowSide}</span>
       </div>
+
+      <div className="note-filter-area">
+        <p className="note-filter-intro">{copy.center.viewLabel}</p>
+        <div className="note-filter-tabs" role="group" aria-label={copy.common.filterLabel}>
+          <button type="button" className={filter === "all" ? "is-active" : ""} onClick={() => setFilter("all")}>{copy.common.all}</button>
+          {copy.types.map((item) => {
+            const value = normalizeType(item.value);
+            return <button type="button" key={item.value} className={filter === value ? "is-active" : ""} onClick={() => setFilter(value)}>{item.label}</button>;
+          })}
+        </div>
+        <p className="note-filter-description">{copy.center.filterDescriptions[filter]}</p>
+      </div>
+
       {status ? <p className="note-save-message" role="status">{status}</p> : null}
       {visibleNotes.length === 0 ? (
-        <div className="notes-empty"><p>{copy.common.empty}</p><a className="button button-secondary" href={`/${locale}/notes/new?type=idea`}>{copy.common.newNote}</a></div>
+        <div className="notes-empty">
+          <p>{copy.center.emptyStates[filter]}</p>
+          <a className="button button-secondary" href={`/${locale}/notes/new?type=${filter === "all" ? "idea" : filter}`}>{copy.common.newNote}</a>
+        </div>
       ) : (
         <div className="notes-list">
           {visibleNotes.map((note) => {
             const noteType = normalizeType(note.type);
+            const action = nextAction(note, locale, copy);
+            const selectedProject = projectValue(note);
             return (
               <article className="note-list-card" data-note-type={noteType} key={note.id}>
                 <div>
-                  <p className="note-type-line"><span>{optionLabel(copy.types, noteType)}</span>{optionLabel(copy.projects, projectValue(note))}</p>
+                  <p className="note-type-line"><span>{optionLabel(copy.types, noteType)}</span>{copy.center.statusLabels[normalizeStatus(note.status, noteType)]}</p>
                   <h2>{note.title}</h2>
-                  <p>{note.body || copy.common.empty}</p>
-                  <div className="note-meta-line"><span>{copy.common.createdAt}: {note.createdAt}</span>{note.tags.map((tag) => <small key={tag}>{tag}</small>)}</div>
+                  <p>{noteExcerpt(note, copy.common.empty)}</p>
+                  <div className="note-card-relations">
+                    <span>{copy.center.updatedAt}: {note.updatedAt}</span>
+                    {selectedProject !== "none" ? <span>{copy.center.relatedProject}: {optionLabel(copy.projects, selectedProject)}</span> : null}
+                    {note.relatedNoteTitle ? <span>{copy.center.relatedRecord}: {note.relatedNoteTitle}</span> : null}
+                  </div>
+                  <div className="note-meta-line">{note.tags.map((tag) => <small key={tag}>{tag}</small>)}</div>
                   {note.attachments.length ? <ul className="note-file-list compact">{note.attachments.map((file) => <li key={`${note.id}-${file.name}`}>{file.name}</li>)}</ul> : null}
                 </div>
                 <div className="note-card-actions">
+                  <a className="note-next-action" href={action.href}><span>{copy.center.nextStep}</span>{action.label}</a>
                   <a className="button button-secondary" href={`/${locale}/notes/new?edit=${note.id}`}>{copy.common.edit}</a>
                   <button className="button button-secondary" type="button" onClick={() => copyMarkdown(note)}><Copy size={14} />{copy.common.copyMarkdown}</button>
                   <button className="button button-secondary" type="button" onClick={() => { downloadMarkdown(note, copy); setStatus(copy.common.exported); }}><Download size={14} />{copy.common.exportMarkdown}</button>

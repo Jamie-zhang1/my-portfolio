@@ -93,28 +93,32 @@
                                             {
                                                 "type":  "idea",
                                                 "title":  "想法记录",
-                                                "description":  "随手写下一个新想法"
+                                                "description":  "随手写下一个新想法",
+                                                "step":  "第一步"
                                             },
                                             {
                                                 "type":  "draft",
                                                 "title":  "页面草稿",
-                                                "description":  "整理一个页面的大致结构"
+                                                "description":  "整理一个页面的大致结构",
+                                                "step":  "第二步"
                                             },
                                             {
                                                 "type":  "review",
                                                 "title":  "项目复盘",
-                                                "description":  "记录哪里做得好、哪里还要改"
+                                                "description":  "记录哪里做得好、哪里还要改",
+                                                "step":  "第三步"
                                             },
                                             {
                                                 "type":  "learning",
                                                 "title":  "学习笔记",
-                                                "description":  "保存最近学到的内容"
+                                                "description":  "保存最近学到的内容",
+                                                "step":  "随时记录"
                                             }
                                         ],
                               "previewTitle":  "先让想法变得可见",
                               "previewDescription":  "再根据页面里的问题继续改。",
                               "visualTitle":  "把想法先放进一个地方",
-                              "visualDescription":  "先记录，再整理。这里可以进入想法、草稿、复盘和学习笔记。"
+                              "visualDescription":  "先记录想法，再整理页面；项目做完一轮后写复盘，学习笔记可以随时补充。"
                           },
                  "work":  {
                               "kicker":  "01 / 我的作品",
@@ -302,11 +306,11 @@
     "Notes":  {
                   "meta":  {
                                "newTitle":  "记录一个想法",
-                               "listTitle":  "本地记录"
+                               "listTitle":  "记录中心"
                            },
                   "common":  {
                                  "backHome":  "返回首页",
-                                 "backList":  "查看本地记录",
+                                 "backList":  "记录中心",
                                  "newNote":  "新建想法记录",
                                  "editNote":  "编辑记录",
                                  "title":  "标题",
@@ -390,7 +394,8 @@
                                              "titlePlaceholder":  "给这个想法起个名字",
                                              "bodyPlaceholder":  "这个想法从哪里来？想解决什么？可能做成什么页面？还有哪些不确定？",
                                              "tagsPlaceholder":  "网页想法、AI 工具、待整理",
-                                             "template":  "## 原始想法\n\n## 可能用途\n\n## 还不确定的地方\n\n## 下一步\n"
+                                             "template":  "## 原始想法\n\n## 可能用途\n\n## 还不确定的地方\n\n## 下一步\n",
+                                             "position":  "第一步 / 先记录"
                                          },
                                 "draft":  {
                                               "kicker":  "页面草稿",
@@ -399,7 +404,8 @@
                                               "titlePlaceholder":  "给这个页面草稿起个名字",
                                               "bodyPlaceholder":  "这个页面想展示什么？需要哪些模块？用户点进来后应该先看到什么？",
                                               "tagsPlaceholder":  "页面结构、信息架构、待补充",
-                                              "template":  "## 页面目标\n\n## 页面结构\n\n## 主要模块\n\n## 需要补充的内容\n\n## 后续修改\n"
+                                              "template":  "## 页面目标\n\n## 页面结构\n\n## 主要模块\n\n## 需要补充的内容\n\n## 后续修改\n",
+                                              "position":  "第二步 / 从想法整理成页面"
                                           },
                                 "review":  {
                                                "kicker":  "项目复盘",
@@ -408,7 +414,8 @@
                                                "titlePlaceholder":  "写下要复盘的项目或阶段",
                                                "bodyPlaceholder":  "这个项目最近做了什么？哪些地方有效？哪些地方还不满意？下一步想改哪里？",
                                                "tagsPlaceholder":  "项目复盘、问题记录、下一步",
-                                               "template":  "## 做了什么\n\n## 有效的地方\n\n## 还不成熟的地方\n\n## 下一步调整\n"
+                                               "template":  "## 做了什么\n\n## 有效的地方\n\n## 还不成熟的地方\n\n## 下一步调整\n",
+                                               "position":  "第三步 / 做完一轮后回看"
                                            },
                                 "learning":  {
                                                  "kicker":  "学习笔记",
@@ -417,8 +424,54 @@
                                                  "titlePlaceholder":  "写下这条学习笔记的主题",
                                                  "bodyPlaceholder":  "今天学到了什么？它和哪个项目有关？之后可能怎么用？",
                                                  "tagsPlaceholder":  "学习记录、工具、方法、待整理",
-                                                 "template":  "## 学到的内容\n\n## 我的理解\n\n## 相关项目\n\n## 之后可以怎么用\n"
+                                                 "template":  "## 学到的内容\n\n## 我的理解\n\n## 相关项目\n\n## 之后可以怎么用\n",
+                                                 "position":  "旁支 / 可以关联任意阶段"
                                              }
-                            }
+                            },
+                  "center":  {
+                                 "kicker":  "本地记录系统",
+                                 "heading":  "记录中心",
+                                 "description":  "先把想法写下来，再整理成页面草稿；项目做完一轮后，可以继续写复盘。学习笔记可以关联到任意项目或记录。",
+                                 "flowMain":  "想法记录 → 页面草稿 → 项目复盘",
+                                 "flowSide":  "学习笔记可关联任意阶段",
+                                 "viewLabel":  "查看方式",
+                                 "filterDescriptions":  {
+                                                            "all":  "显示所有本地记录，按更新时间排序。",
+                                                            "idea":  "这里是最初的想法池。可以把一个想法继续整理成页面草稿。",
+                                                            "draft":  "这里保存已经开始整理页面结构的记录。可以关联原始想法，也可以继续写成项目复盘。",
+                                                            "review":  "这里记录项目或页面完成一轮后的问题、调整和下一步。",
+                                                            "learning":  "这里保存学习到的内容，也可以关联项目、想法或页面草稿。"
+                                                        },
+                                 "emptyStates":  {
+                                                     "all":  "当前浏览器还没有记录。可以先从一个模糊想法开始。",
+                                                     "idea":  "还没有想法记录。可以先写一个模糊想法，不需要整理完整。",
+                                                     "draft":  "还没有页面草稿。可以从一个想法开始，把它整理成页面结构。",
+                                                     "review":  "还没有项目复盘。等一个页面或项目完成一轮后，可以回来记录哪里有效、哪里还要改。",
+                                                     "learning":  "还没有学习笔记。可以先保存最近学到的工具、方法或问题。"
+                                                 },
+                                 "nextActions":  {
+                                                     "idea":  "整理成页面草稿",
+                                                     "draft":  "写项目复盘",
+                                                     "review":  "继续记录下一步",
+                                                     "learning":  "关联到项目 / 关联到记录"
+                                                 },
+                                 "updatedAt":  "更新时间",
+                                 "relatedProject":  "关联项目",
+                                 "relatedRecord":  "关联记录",
+                                 "nextStep":  "下一步",
+                                 "sourceLabel":  "来源",
+                                 "sourceNames":  {
+                                                     "idea":  "来源想法",
+                                                     "draft":  "来源草稿",
+                                                     "review":  "来源复盘",
+                                                     "learning":  "来源学习笔记"
+                                                 },
+                                 "statusLabels":  {
+                                                      "raw":  "刚记录",
+                                                      "drafting":  "整理中",
+                                                      "reviewed":  "已复盘",
+                                                      "archived":  "已归档"
+                                                  }
+                             }
               }
 }

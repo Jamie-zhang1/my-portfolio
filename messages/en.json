@@ -93,28 +93,32 @@
                                             {
                                                 "type":  "idea",
                                                 "title":  "Idea Notes",
-                                                "description":  "Write down a rough idea"
+                                                "description":  "Write down a rough idea",
+                                                "step":  "Start"
                                             },
                                             {
                                                 "type":  "draft",
                                                 "title":  "Page Drafts",
-                                                "description":  "Sketch the structure of a page"
+                                                "description":  "Sketch the structure of a page",
+                                                "step":  "Structure"
                                             },
                                             {
                                                 "type":  "review",
                                                 "title":  "Project Reviews",
-                                                "description":  "Review what worked and what needs revision"
+                                                "description":  "Review what worked and what needs revision",
+                                                "step":  "Review"
                                             },
                                             {
                                                 "type":  "learning",
                                                 "title":  "Learning Logs",
-                                                "description":  "Save what I recently learned"
+                                                "description":  "Save what I recently learned",
+                                                "step":  "Learn"
                                             }
                                         ],
                               "previewTitle":  "Make the idea visible first",
                               "previewDescription":  "Then keep revising what the page reveals.",
                               "visualTitle":  "Put rough ideas somewhere first",
-                              "visualDescription":  "Capture first, organize later. Use this space for ideas, drafts, reviews, and learning notes."
+                              "visualDescription":  "Capture ideas first, shape them into page drafts, review them after a round of work, and add learning notes whenever needed."
                           },
                  "work":  {
                               "kicker":  "01 / Work",
@@ -302,11 +306,11 @@
     "Notes":  {
                   "meta":  {
                                "newTitle":  "Capture an idea",
-                               "listTitle":  "Local notes"
+                               "listTitle":  "Notes"
                            },
                   "common":  {
                                  "backHome":  "Back home",
-                                 "backList":  "View local notes",
+                                 "backList":  "Notes",
                                  "newNote":  "New idea note",
                                  "editNote":  "Edit note",
                                  "title":  "Title",
@@ -390,7 +394,8 @@
                                              "titlePlaceholder":  "Give this idea a title",
                                              "bodyPlaceholder":  "Where did this idea come from? What might it solve? What could it become? What is still unclear?",
                                              "tagsPlaceholder":  "web idea, AI tool, draft",
-                                             "template":  "## Raw idea\n\n## Possible use\n\n## Still unclear\n\n## Next step\n"
+                                             "template":  "## Raw idea\n\n## Possible use\n\n## Still unclear\n\n## Next step\n",
+                                             "position":  "Step 1 / Capture first"
                                          },
                                 "draft":  {
                                               "kicker":  "Page Drafts",
@@ -399,7 +404,8 @@
                                               "titlePlaceholder":  "Name this page draft",
                                               "bodyPlaceholder":  "What should this page show? Which sections are needed? What should users see first?",
                                               "tagsPlaceholder":  "page structure, draft, information layout",
-                                              "template":  "## Page goal\n\n## Page structure\n\n## Main sections\n\n## Missing content\n\n## Later revision\n"
+                                              "template":  "## Page goal\n\n## Page structure\n\n## Main sections\n\n## Missing content\n\n## Later revision\n",
+                                              "position":  "Step 2 / Shape it into a page"
                                           },
                                 "review":  {
                                                "kicker":  "Project Reviews",
@@ -408,7 +414,8 @@
                                                "titlePlaceholder":  "Name the project or stage to review",
                                                "bodyPlaceholder":  "What changed recently? What worked? What still feels weak? What should be revised next?",
                                                "tagsPlaceholder":  "project review, revision, next step",
-                                               "template":  "## What I did\n\n## What worked\n\n## What is still rough\n\n## Next revision\n"
+                                               "template":  "## What I did\n\n## What worked\n\n## What is still rough\n\n## Next revision\n",
+                                               "position":  "Step 3 / Review after a round of work"
                                            },
                                 "learning":  {
                                                  "kicker":  "Learning Notes",
@@ -417,8 +424,54 @@
                                                  "titlePlaceholder":  "Name this learning note",
                                                  "bodyPlaceholder":  "What did I learn today? Which project is it related to? How might I use it later?",
                                                  "tagsPlaceholder":  "learning, tool, method, draft",
-                                                 "template":  "## What I learned\n\n## My understanding\n\n## Related project\n\n## How I might use it later\n"
+                                                 "template":  "## What I learned\n\n## My understanding\n\n## Related project\n\n## How I might use it later\n",
+                                                 "position":  "Side note / Link to any stage"
                                              }
-                            }
+                            },
+                  "center":  {
+                                 "kicker":  "LOCAL NOTE SYSTEM",
+                                 "heading":  "Notes",
+                                 "description":  "Capture an idea first, turn it into a page draft, and review it after a round of work. Learning notes can be linked to any project or record.",
+                                 "flowMain":  "Idea Note → Page Draft → Project Review",
+                                 "flowSide":  "Learning notes can be linked to any stage",
+                                 "viewLabel":  "View by",
+                                 "filterDescriptions":  {
+                                                            "all":  "Show all local notes, sorted by latest update.",
+                                                            "idea":  "This is the first input pool. An idea can later become a page draft.",
+                                                            "draft":  "These notes already organize a page structure. They can link back to an idea and continue into a project review.",
+                                                            "review":  "These notes record what changed after a round of work, what still needs revision, and what comes next.",
+                                                            "learning":  "These notes save tools, concepts, methods, or questions, and can link to projects or other records."
+                                                        },
+                                 "emptyStates":  {
+                                                     "all":  "No notes saved in this browser yet. Start with a rough idea.",
+                                                     "idea":  "No idea notes yet. Start with a rough idea; it does not need to be complete.",
+                                                     "draft":  "No page drafts yet. Start from an idea and shape it into a page structure.",
+                                                     "review":  "No project reviews yet. After a page or project gets one round of work, record what worked and what needs revision.",
+                                                     "learning":  "No learning notes yet. Save a tool, method, concept, or question you recently learned."
+                                                 },
+                                 "nextActions":  {
+                                                     "idea":  "Turn into a page draft",
+                                                     "draft":  "Write a project review",
+                                                     "review":  "Record the next step",
+                                                     "learning":  "Link to a project / record"
+                                                 },
+                                 "updatedAt":  "Updated at",
+                                 "relatedProject":  "Related project",
+                                 "relatedRecord":  "Related record",
+                                 "nextStep":  "Next step",
+                                 "sourceLabel":  "Source",
+                                 "sourceNames":  {
+                                                     "idea":  "Source idea",
+                                                     "draft":  "Source draft",
+                                                     "review":  "Source review",
+                                                     "learning":  "Source learning note"
+                                                 },
+                                 "statusLabels":  {
+                                                      "raw":  "Raw",
+                                                      "drafting":  "Drafting",
+                                                      "reviewed":  "Reviewed",
+                                                      "archived":  "Archived"
+                                                  }
+                             }
               }
 }

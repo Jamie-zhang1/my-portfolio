@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { siteConfig } from "@/data/site-config";
 import { Link } from "@/i18n/navigation";
 
-type HeroNote = { type: string; title: string; description: string };
+type HeroNote = { type: string; title: string; description: string; step?: string };
 
 export function LaunchHero() {
   const t = useTranslations("Home.hero");
@@ -37,7 +37,7 @@ export function LaunchHero() {
   return (
     <section className={`launch-hero ${open ? "is-open" : ""}`}>
       <div className="site-shell launch-grid">
-        <motion.div className="launch-copy" initial={reduceMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.div className="launch-copy" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
           <p className="section-kicker">{t("kicker")}</p>
           <h1>{t("title")}</h1>
           <p className="launch-role">{t("role")}</p>
@@ -51,7 +51,7 @@ export function LaunchHero() {
           <p className="launch-availability"><span aria-hidden="true" />{t("availability")}</p>
         </motion.div>
 
-        <motion.div className="launch-visual workspace-visual" aria-label={t("visualLabel")} initial={reduceMotion ? false : { opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.div className="launch-visual workspace-visual" aria-label={t("visualLabel")} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}>
           <div className="workspace-map">
             <div className="workspace-entry-copy">
               <strong>{t("visualTitle")}</strong>
@@ -60,6 +60,7 @@ export function LaunchHero() {
             <div className="workspace-note-stack workspace-entry-stack">
               {notes.map((note, index) => (
                 <Link className="workspace-note-entry" href={`/notes/new?type=${note.type}`} key={note.type} style={{ "--note-index": index } as React.CSSProperties} onClick={markOpen}>
+                  <em className="workspace-note-step">{note.step}</em>
                   <span>{note.title}</span>
                   <small>{note.description}</small>
                   <ArrowRight size={14} aria-hidden="true" />

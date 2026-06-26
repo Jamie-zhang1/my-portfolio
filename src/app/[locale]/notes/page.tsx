@@ -17,6 +17,7 @@ export default async function Page({ params }: { params: Promise<{ locale: AppLo
   const copy = {
     common: t.raw("common") as Record<string, string>,
     new: t.raw("new") as Record<string, string>,
+    center: t.raw("center") as never,
     modes: t.raw("modes") as never,
     types: t.raw("types") as { value: string; label: string }[],
     projects: t.raw("projects") as { value: string; label: string }[],

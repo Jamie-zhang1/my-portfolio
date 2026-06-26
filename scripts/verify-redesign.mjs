@@ -146,10 +146,13 @@ async function checkBannedPhrases(page, label) {
 async function checkTextareaContains(page, expected, label) {
   const textarea = page.locator("textarea").first();
   await textarea.waitFor();
-  const value = await textarea.inputValue();
-  if (!value.includes(expected)) errors.push(`${label}: expected textarea to include ${expected}, got ${value}`);
-}
-await scanHtmlPaths(["/", "/zh", "/en"]);
+  try {
+    await page.waitForFunction((value) => document.querySelector("textarea")?.value.includes(value), expected, { timeout: 5000 });
+  } catch {
+    const value = await textarea.inputValue();
+    errors.push(`${label}: expected textarea to include ${expected}, got ${value}`);
+  }
+}await scanHtmlPaths(["/", "/zh", "/en"]);
 
 const desktop = await browser.newContext({ viewport: { width: 1440, height: 1024 }, deviceScaleFactor: 1, reducedMotion: "no-preference", acceptDownloads: true, permissions: ["clipboard-read", "clipboard-write"] });
 const page = await desktop.newPage();
@@ -190,6 +193,15 @@ await page.getByText("逻辑训练让我习惯把问题拆成前提、规则、�
 await page.locator("#contact").getByRole("link", { name: "zhangjiangmin0902@gmail.com" }).waitFor();
 await page.locator("#contact").screenshot({ path: join(output, "contact-email-light.png") });
 
+await gotoChecked(page, "/zh/notes", "zh notes center empty");
+await page.getByRole("heading", { name: "记录中心" }).waitFor();
+await page.getByText("想法记录 → 页面草稿 → 项目复盘").waitFor();
+await page.getByText("学习笔记可关联任意阶段").waitFor();
+await page.getByText("显示所有本地记录，按更新时间排序。").waitFor();
+await page.getByRole("button", { name: "页面草稿" }).click();
+await page.getByText("这里保存已经开始整理页面结构的记录。").waitFor();
+await page.getByText("还没有页面草稿。可以从一个想法开始，把它整理成页面结构。").waitFor();
+await page.screenshot({ path: join(output, "notes-center-empty-zh.png"), fullPage: true });
 await gotoChecked(page, "/zh/notes/new?type=idea", "zh new note");
 await page.getByRole("heading", { name: "记录一个想法" }).waitFor();
 await checkTextareaContains(page, "## 原始想法", "zh idea template");
@@ -216,15 +228,52 @@ await page.getByRole("button", { name: "保存草稿" }).click();
 await page.getByText("已保存到当前浏览器").waitFor();
 await page.screenshot({ path: join(output, "notes-save-success-zh.png"), fullPage: true });
 await gotoChecked(page, "/zh/notes", "zh notes list");
+await page.getByRole("heading", { name: "记录中心" }).waitFor();
+await page.getByText("想法记录 → 页面草稿 → 项目复盘").waitFor();
 await page.getByText("语音任务整理想法").waitFor();
+await page.getByText("关联项目: Heard Sheep").waitFor();
+await page.getByText("下一步").first().waitFor();
+await page.getByRole("link", { name: /整理成页面草稿/ }).waitFor();
 await page.screenshot({ path: join(output, "notes-list-zh.png"), fullPage: true });
 await page.getByRole("button", { name: "想法记录" }).click();
+await page.getByText("这里是最初的想法池。").waitFor();
 await page.getByText("语音任务整理想法").waitFor();
-await page.getByRole("button", { name: "复制 Markdown" }).click();
+await page.getByRole("button", { name: "复制 Markdown" }).first().click();
 await page.getByText("Markdown 已复制。").waitFor();
 const copiedMarkdown = await page.evaluate(() => navigator.clipboard.readText());
-if (!copiedMarkdown.includes("类型：想法记录")) errors.push(`notes markdown: expected type label 想法记录, got ${copiedMarkdown}`);
+if (!copiedMarkdown.includes("类型：想法记录") || !copiedMarkdown.includes("关联记录：-")) errors.push(`notes markdown: expected type and relation fields, got ${copiedMarkdown}`);
 await page.screenshot({ path: join(output, "notes-markdown-copy-zh.png"), fullPage: true });
+
+await page.getByRole("link", { name: /整理成页面草稿/ }).click();
+await page.getByRole("heading", { name: "整理一个页面草稿" }).waitFor();
+await page.getByText("第二步 / 从想法整理成页面").waitFor();
+await page.locator(".note-source-box").getByText("关联记录").waitFor();
+await page.locator(".note-source-box").getByText("语音任务整理想法").waitFor();
+await checkTextareaContains(page, "来源想法：语音任务整理想法", "zh idea to draft source");
+await page.getByPlaceholder("给这个页面草稿起个名字").fill("首页记录入口结构");
+await page.locator("textarea").fill("来源想法：语音任务整理想法\n\n## 页面目标\n把记录入口按想法、草稿、复盘和学习笔记组织起来。\n\n## 页面结构\n入口说明、四类记录和后续动作。\n");
+await page.getByRole("button", { name: "保存草稿" }).click();
+await page.getByText("已保存到当前浏览器").waitFor();
+await gotoChecked(page, "/zh/notes", "zh notes list after draft");
+await page.getByRole("button", { name: "页面草稿" }).click();
+await page.getByText("首页记录入口结构").waitFor();
+await page.getByText("关联记录: 语音任务整理想法").waitFor();
+await page.getByRole("link", { name: /写项目复盘/ }).click();
+await page.getByRole("heading", { name: "写一段项目复盘" }).waitFor();
+await page.getByText("第三步 / 做完一轮后回看").waitFor();
+await checkTextareaContains(page, "来源草稿：首页记录入口结构", "zh draft to review source");
+const draftId = await page.evaluate(() => {
+  const notes = JSON.parse(localStorage.getItem("jamie-local-notes-v1") || "[]");
+  return notes.find((note) => note.title === "首页记录入口结构")?.id;
+});
+if (!draftId) errors.push("notes relation: expected saved draft id");
+if (draftId) {
+  await gotoChecked(page, `/zh/notes/new?type=learning&from=${draftId}`, "zh learning from draft");
+  await page.getByRole("heading", { name: "保存一条学习笔记" }).waitFor();
+  await page.getByText("旁支 / 可以关联任意阶段").waitFor();
+  await page.locator(".note-source-box").getByText("首页记录入口结构").waitFor();
+  await checkTextareaContains(page, "来源草稿：首页记录入口结构", "zh learning source relation");
+}
 await gotoChecked(page, "/en/notes/new?type=idea", "en new note");
 await page.getByRole("heading", { name: "Capture an idea" }).waitFor();
 await checkTextareaContains(page, "## Raw idea", "en idea template");
