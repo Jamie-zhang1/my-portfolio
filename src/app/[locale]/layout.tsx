@@ -8,6 +8,8 @@ import { localizedAlternates } from "@/lib/seo";
 import { siteConfig } from "@/data/site-config";
 import "../globals.css";
 
+export const revalidate = 0;
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -20,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   return {
     metadataBase: new URL(siteConfig.url),
-    title: { default: t("title"), template: `%s | ${siteConfig.name}` },
+    title: { default: t("title"), template: `%s｜${siteConfig.name}` },
     description: t("description"),
     alternates: localizedAlternates(locale),
     authors: [{ name: siteConfig.author }],

@@ -53,7 +53,7 @@ export function HeardSheepDemo() {
         </span>
       </div>
 
-      <div className="demo-stepper" aria-label="Heard Sheep product flow">
+      <div className="demo-stepper" aria-label="Heard Sheep page steps">
         {steps.map((step, index) => (
           <div className={`${index === stepIndex ? "is-active" : ""} ${index < stepIndex ? "is-complete" : ""}`} key={step}>
             <span>{index < stepIndex ? <Check size={13} aria-hidden="true" /> : String(index + 1).padStart(2, "0")}</span>

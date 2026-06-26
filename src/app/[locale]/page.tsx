@@ -10,6 +10,7 @@ import type { AppLocale } from "@/i18n/routing";
 import { localizedAlternates } from "@/lib/seo";
 
 type AboutFocus = string;
+type RecentItem = { date: string; title: string; note: string };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: AppLocale }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -34,15 +35,29 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "Home" });
   const focus = t.raw("about.focus") as AboutFocus[];
+  const recent = t.raw("recent.items") as RecentItem[];
 
   return (
     <div className="portfolio-home">
-      <LaunchHero />`r`n
+      <LaunchHero />
       <section id="work" className="home-section works-section site-shell">
         <SectionHeader kicker={t("work.kicker")} title={t("work.title")} description={t("work.description")} />
         <WorksCanvas locale={locale} />
       </section>
 
+
+      <section id="recent" className="home-section recent-section site-shell">
+        <SectionHeader kicker={t("recent.kicker")} title={t("recent.title")} description={t("recent.description")} />
+        <div className="recent-list">
+          {recent.map((item) => (
+            <article className="recent-row" key={`${item.date}-${item.title}`}>
+              <span>{item.date}</span>
+              <h3>{item.title}</h3>
+              <p>{item.note}</p>
+            </article>
+          ))}
+        </div>
+      </section>
       <section id="method" className="home-section method-section site-shell">
         <BuildStory />
       </section>

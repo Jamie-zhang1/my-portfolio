@@ -26,6 +26,16 @@ const banned = [
   p("AI ", "实习"),
   p("大模型", "应用岗位"),
   p("Open to AI", " Product Intern"),
+  p("LLM Application", " Product Intern"),
+  p("AI Product", " Operations Intern"),
+  p("product", " prototype"),
+  p("testable", " prototype"),
+  p("clear flows and", " testable ", "prototypes"),
+  p("product", " experiences"),
+  p("product", " flow"),
+  p("frontend", " prototype"),
+  p("case study", " shelf"),
+  p("AI Product", " Portfolio"),
   p("Work With", " Me"),
   p("产品", "判断"),
   p("完整", "产品", "流程"),
@@ -109,12 +119,25 @@ async function setTheme(page, mode) {
   }, mode);
 }
 
+
+async function scanHtmlPaths(paths) {
+  for (const path of paths) {
+    const response = await fetch(`${base}${path}`, { redirect: "follow" });
+    const html = await response.text();
+    const found = banned.filter((phrase) => html.toLowerCase().includes(phrase.toLowerCase()));
+    phraseResults.push({ label: `html ${path}`, found, finalUrl: response.url, status: response.status });
+    if (found.length) errors.push(`html ${path}: banned phrases found: ${found.join(", ")}`);
+    if (path === "/" && !response.url.endsWith("/zh")) errors.push(`root redirect: expected / to end at /zh, got ${response.url}`);
+  }
+}
 async function checkBannedPhrases(page, label) {
   const text = await page.evaluate(() => document.body.innerText);
   const found = banned.filter((phrase) => text.toLowerCase().includes(phrase.toLowerCase()));
   phraseResults.push({ label, found });
   if (found.length) errors.push(`${label}: banned phrases found: ${found.join(", ")}`);
 }
+
+await scanHtmlPaths(["/", "/zh", "/en"]);
 
 const desktop = await browser.newContext({ viewport: { width: 1440, height: 1024 }, deviceScaleFactor: 1, reducedMotion: "no-preference" });
 const page = await desktop.newPage();
@@ -139,6 +162,8 @@ await page.locator("#work").scrollIntoViewIfNeeded();
 await page.locator("#work").screenshot({ path: join(output, "selected-works-light.png") });
 const cardLinks = await page.locator("#work .work-card").evaluateAll((cards) => cards.map((card) => card.getAttribute("href")));
 if (cardLinks.length !== 3 || !cardLinks.every(Boolean)) errors.push(`work cards: expected 3 clickable cards, got ${JSON.stringify(cardLinks)}`);
+await page.locator("#recent").scrollIntoViewIfNeeded();
+await page.locator("#recent").screenshot({ path: join(output, "recent-revisions-light.png") });
 await page.locator("#method").scrollIntoViewIfNeeded();
 await page.locator("#method").screenshot({ path: join(output, "method-light.png") });
 await page.locator("#method").getByText("拆清楚", { exact: true }).waitFor();
@@ -219,7 +244,8 @@ for (const path of routePaths) {
   try {
     const response = await apiPage.goto(`${base}${path}`, { waitUntil: "domcontentloaded", timeout: 20000 });
     const status = response?.status() ?? 0;
-    routeResults.push({ label: "route", path, status, ok: status >= 200 && status < 400 });
+    routeResults.push({ label: "route", path, status, finalUrl: apiPage.url(), ok: status >= 200 && status < 400 });
+    if (path === "/" && !apiPage.url().endsWith("/zh")) errors.push(`route: expected / to resolve to /zh, got ${apiPage.url()}`);
     if (status < 200 || status >= 400) errors.push(`route: expected 2xx/3xx for ${path}, got ${status}`);
   } catch (error) {
     errors.push(`route: failed to load ${path}: ${error instanceof Error ? error.message : String(error)}`);

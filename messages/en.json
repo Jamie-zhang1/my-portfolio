@@ -1,240 +1,285 @@
 {
-  "Metadata": {
-    "home": {
-      "title": "Jamie Zhang — Personal Project Notes",
-      "description": "Jamie Zhang's personal site for AI tool experiments, web pages, and learning records."
-    },
-    "projects": {
-      "heard-sheep": {
-        "title": "Heard Sheep — Project Note",
-        "description": "A small tool that turns voice notes into task cards."
-      },
-      "proddoc-ai": {
-        "title": "ProdDoc AI — Project Note",
-        "description": "A documentation experiment for turning project ideas into structured drafts."
-      },
-      "ai-decision-copilot": {
-        "title": "AI Decision Copilot — Project Note",
-        "description": "A web experiment around decision support and comparison."
-      }
-    }
-  },
-  "Header": {
-    "brandRole": "Personal project notes",
-    "work": "Work",
-    "method": "Method",
-    "about": "About",
-    "contact": "Contact",
-    "appearance": "Appearance",
-    "menu": "Open menu",
-    "closeMenu": "Close menu",
-    "githubLabel": "GitHub profile"
-  },
-  "Theme": {
-    "groupLabel": "Choose appearance",
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System",
-    "set": {
-      "light": "Switch to Light",
-      "dark": "Switch to Dark",
-      "system": "Follow System"
-    }
-  },
-  "Language": {
-    "zh": "中文",
-    "en": "EN",
-    "switchToZh": "Switch to Chinese",
-    "switchToEn": "Switch to English",
-    "groupLabel": "Choose language"
-  },
-  "Command": {
-    "open": "Open command menu",
-    "navigate": "Navigate",
-    "dialog": "Quick navigation",
-    "close": "Close command menu",
-    "placeholder": "Search pages or actions",
-    "work": "View work",
-    "workDetail": "Open three project notes",
-    "method": "Method",
-    "methodDetail": "Clarify, build, iterate, record",
-    "about": "About Jamie",
-    "aboutDetail": "Logic background and learning practice",
-    "contact": "Contact",
-    "contactDetail": "Email, GitHub, and resume",
-    "themeDetail": "Change Light, Dark, or System appearance",
-    "email": "Email Jamie",
-    "github": "GitHub",
-    "resume": "Download resume",
-    "resumeDetail": "One-page PDF",
-    "switchEnglish": "Switch to English",
-    "switchChinese": "Switch to Chinese",
-    "languageDetail": "Keep the current page path",
-    "current": "Current page"
-  },
-  "Home": {
-    "hero": {
-      "kicker": "JAMIE ZHANG",
-      "title": "Jamie Zhang",
-      "role": "I use vibe coding to turn ideas into web pages.",
-      "headline": "This is a personal space for my AI tool experiments, project notes, and learning records.",
-      "description": "I care less about presenting perfect products, and more about making ideas visible enough to test and improve. This site is where I keep the process, not just the final page.",
-      "availability": "Project notes, drafts, and revisions in one place.",
-      "openWorkspace": "Explore this space",
-      "viewWork": "View Work",
-      "github": "GitHub",
-      "visualLabel": "Jamie's personal project space",
-      "stages": ["Write", "Build", "Revise"],
-      "notes": ["Idea notes", "Page drafts", "Project reviews", "Learning logs"],
-      "previewTitle": "Make the idea visible first",
-      "previewDescription": "Then keep revising what the page reveals."
-    },
-    "work": {
-      "kicker": "01 / Work",
-      "title": "AI tool experiments and web pages.",
-      "description": "The homepage keeps each project short: what it is, why I made it, and what I tried. The details live in the project note pages.",
-      "positioning": "Project note",
-      "problem": "I wanted to address",
-      "built": "I tried",
-      "stack": "Tech tags",
-      "viewCase": "View project note"
-    },
-    "process": {
-      "kicker": "02 / Method",
-      "title": "I usually start by writing the problem clearly.",
-      "description": "My logic training makes me organize materials, constraints, and reasons first. Building the page is only one step; revision and records matter just as much.",
-      "active": "Active step",
-      "steps": [
-        {
-          "number": "01",
-          "title": "Clarify",
-          "label": "CLARIFY",
-          "description": "Write down the problem, materials, and goal first. I start by organizing the background, needs, and constraints before touching the interface."
-        },
-        {
-          "number": "02",
-          "title": "Build",
-          "label": "BUILD",
-          "description": "Use vibe coding to make a live version. The first goal is to make the idea openable, browsable, and easy to revise."
-        },
-        {
-          "number": "03",
-          "title": "Iterate",
-          "label": "ITERATE",
-          "description": "Keep adjusting the writing, layout, and interaction. Many problems only become visible after the idea appears on a page."
-        },
-        {
-          "number": "04",
-          "title": "Record",
-          "label": "RECORD",
-          "description": "Turn the process into project notes. I document what I made, why I made it, and what still needs work."
-        }
-      ]
-    },
-    "about": {
-      "kicker": "03 / About",
-      "title1": "Logic training,",
-      "title2": "plus small web practice.",
-      "bio1": "I’m Jamie Zhang, a graduate student in logic at China University of Political Science and Law. My background helps me break problems into assumptions, rules, decisions, and conclusions.",
-      "bio2": "Recently, I’ve been using vibe coding to build small web pages and AI tool experiments, then turning the process into project notes. This site is less a polished gallery, and more a personal space for recording what I build, revise, and learn.",
-      "opportunity": "If you want to browse my project notes or talk about AI tools, web pages, and learning practice, you can reach me below.",
-      "focusLabel": "Things I keep practicing",
-      "focus": ["Clarifying problems", "Organizing materials and limits", "Making live pages", "Revising writing and layout", "Recording the process"],
-      "github": "GitHub",
-      "email": "Email",
-      "resume": "Resume PDF"
-    },
-    "contact": {
-      "kicker": "04 / Contact",
-      "title": "Open to conversations about AI tools, web pages, and learning practice.",
-      "description": "If you want to browse my project notes or talk about AI tools, web pages, and learning practice, you can reach me below.",
-      "email": "Email Jamie",
-      "github": "GitHub",
-      "resume": "Resume PDF"
-    }
-  },
-  "Case": {
-    "allWork": "Back to work",
-    "role": "Recorded as",
-    "status": "Status",
-    "tryProduct": "Open Page",
-    "github": "GitHub",
-    "overview": "Project Note",
-    "problem": "Background",
-    "solution": "What I tried",
-    "myRole": "What I worked on",
-    "coreFlow": "Page path",
-    "keyInteraction": "Page details",
-    "screens": "Screens",
-    "aiCapability": "AI-related attempt",
-    "structured": "Structured result",
-    "human": "Manual review",
-    "fallback": "Fallback path",
-    "techStack": "Tech Stack",
-    "whatBuilt": "Finished parts",
-    "reflection": "Reflection",
-    "demoGithub": "Page / Code",
-    "finalTitle": "Open the page or inspect the code record.",
-    "openDemo": "Open Page",
-    "viewGithub": "View GitHub",
-    "productDesign": "Project notes / web page / process record"
-  },
-  "Footer": {
-    "kicker": "CONTACT",
-    "title": "Open to conversations about AI tools, web pages, and learning practice.",
-    "email": "Contact Jamie",
-    "github": "GitHub",
-    "resume": "Download Resume",
-    "role": "Personal project notes",
-    "built": "Organized and maintained by Jamie Zhang."
-  },
-  "Try": {
-    "index": {
-      "kicker": "INTERACTIVE PAGES",
-      "title": "Open a few live pages",
-      "description": "These pages use stable local data to show the basic interaction without exposing model credentials in the browser.",
-      "proddoc": "Open ProdDoc AI",
-      "decision": "Open AI Decision Copilot",
-      "back": "Back Home"
-    },
-    "common": {
-      "back": "Back to Pages",
-      "local": "Local demo · No external model call",
-      "input": "Input",
-      "output": "Output",
-      "viewCase": "View project note",
-      "reset": "Start Over"
-    },
-    "proddoc": {
-      "title": "ProdDoc AI · Documentation Page",
-      "description": "Enter project context and generate an editable structured-document preview.",
-      "productName": "Project name",
-      "productType": "Project type",
-      "targetUsers": "Audience",
-      "modules": "Main modules",
-      "docType": "Document purpose",
-      "generate": "Generate Sample",
-      "modify": "Edit Inputs",
-      "regenerate": "Generate Again",
-      "preview": "Document Preview",
-      "copy": "Copy Content",
-      "empty": "Complete the project details, then generate a structured preview.",
-      "types": ["Web tool", "Learning project", "AI tool"],
-      "docs": ["Project note", "Operating note", "Delivery note"]
-    },
-    "decision": {
-      "title": "AI Decision Copilot · Decision Page",
-      "description": "Choose a question and review a comparison, recommendation, and risk note.",
-      "choose": "Choose a Decision",
-      "note": "Results use stable preset cases to demonstrate the page structure.",
-      "analyze": "Analyze",
-      "other": "Choose Another Question",
-      "brief": "Decision Brief",
-      "analysis": "Comparison",
-      "recommendation": "Recommendation",
-      "risk": "Risk Note",
-      "optionA": "Option A",
-      "optionB": "Option B"
-    }
-  }
+    "Metadata":  {
+                     "home":  {
+                                  "title":  "Jamie Zhang｜Personal Project Notes",
+                                  "description":  "Jamie Zhang\u0027s personal site for AI tool experiments, web pages, and learning records."
+                              },
+                     "projects":  {
+                                      "heard-sheep":  {
+                                                          "title":  "Heard Sheep — Project Note",
+                                                          "description":  "A small tool that turns voice notes into task cards."
+                                                      },
+                                      "proddoc-ai":  {
+                                                         "title":  "ProdDoc AI — Project Note",
+                                                         "description":  "A documentation experiment for turning project ideas into structured drafts."
+                                                     },
+                                      "ai-decision-copilot":  {
+                                                                  "title":  "AI Decision Copilot — Project Note",
+                                                                  "description":  "A web experiment around decision support and comparison."
+                                                              }
+                                  }
+                 },
+    "Header":  {
+                   "brandRole":  "Personal project notes",
+                   "work":  "Work",
+                   "method":  "Method",
+                   "about":  "About",
+                   "contact":  "Contact",
+                   "appearance":  "Appearance",
+                   "menu":  "Open menu",
+                   "closeMenu":  "Close menu",
+                   "githubLabel":  "GitHub profile"
+               },
+    "Theme":  {
+                  "groupLabel":  "Choose appearance",
+                  "light":  "Light",
+                  "dark":  "Dark",
+                  "system":  "System",
+                  "set":  {
+                              "light":  "Switch to Light",
+                              "dark":  "Switch to Dark",
+                              "system":  "Follow System"
+                          }
+              },
+    "Language":  {
+                     "zh":  "中文",
+                     "en":  "EN",
+                     "switchToZh":  "Switch to Chinese",
+                     "switchToEn":  "Switch to English",
+                     "groupLabel":  "Choose language"
+                 },
+    "Command":  {
+                    "open":  "Open command menu",
+                    "navigate":  "Navigate",
+                    "dialog":  "Quick navigation",
+                    "close":  "Close command menu",
+                    "placeholder":  "Search pages or actions",
+                    "work":  "View work",
+                    "workDetail":  "Open three project notes",
+                    "method":  "Method",
+                    "methodDetail":  "Clarify, build, iterate, record",
+                    "about":  "About Jamie",
+                    "aboutDetail":  "Logic background and learning practice",
+                    "contact":  "Contact",
+                    "contactDetail":  "Email, GitHub, and resume",
+                    "themeDetail":  "Change Light, Dark, or System appearance",
+                    "email":  "Email Jamie",
+                    "github":  "GitHub",
+                    "resume":  "Download resume",
+                    "resumeDetail":  "One-page PDF",
+                    "switchEnglish":  "Switch to English",
+                    "switchChinese":  "Switch to Chinese",
+                    "languageDetail":  "Keep the current page path",
+                    "current":  "Current page"
+                },
+    "Home":  {
+                 "hero":  {
+                              "kicker":  "JAMIE ZHANG",
+                              "title":  "Jamie Zhang",
+                              "role":  "I use vibe coding to turn ideas into web pages.",
+                              "headline":  "This is a personal space for my AI tool experiments, project notes, and learning records.",
+                              "description":  "I care less about presenting perfect products, and more about making ideas visible enough to test and improve. This site is where I keep the process, not just the final page.",
+                              "availability":  "Project notes, drafts, and revisions in one place.",
+                              "openWorkspace":  "Explore this space",
+                              "viewWork":  "View Work",
+                              "github":  "GitHub",
+                              "visualLabel":  "Jamie\u0027s personal project space",
+                              "stages":  [
+                                             "Write",
+                                             "Build",
+                                             "Revise"
+                                         ],
+                              "notes":  [
+                                            "Idea notes",
+                                            "Page drafts",
+                                            "Project reviews",
+                                            "Learning logs"
+                                        ],
+                              "previewTitle":  "Make the idea visible first",
+                              "previewDescription":  "Then keep revising what the page reveals."
+                          },
+                 "work":  {
+                              "kicker":  "01 / Work",
+                              "title":  "AI tool experiments and web pages.",
+                              "description":  "The homepage keeps each project short: what it is, why I made it, and what I tried. The details live in the project note pages.",
+                              "positioning":  "Project note",
+                              "problem":  "I wanted to address",
+                              "built":  "I tried",
+                              "stack":  "Tech tags",
+                              "viewCase":  "View project note"
+                          },
+                 "process":  {
+                                 "kicker":  "02 / Method",
+                                 "title":  "I usually start by writing the problem clearly.",
+                                 "description":  "My logic training makes me organize materials, constraints, and reasons first. Building the page is only one step; revision and records matter just as much.",
+                                 "active":  "Active step",
+                                 "steps":  [
+                                               {
+                                                   "number":  "01",
+                                                   "title":  "Clarify",
+                                                   "label":  "CLARIFY",
+                                                   "description":  "Write down the problem, materials, and goal first. I start by organizing the background, needs, and constraints before touching the interface."
+                                               },
+                                               {
+                                                   "number":  "02",
+                                                   "title":  "Build",
+                                                   "label":  "BUILD",
+                                                   "description":  "Use vibe coding to make a live version. The first goal is to make the idea openable, browsable, and easy to revise."
+                                               },
+                                               {
+                                                   "number":  "03",
+                                                   "title":  "Iterate",
+                                                   "label":  "ITERATE",
+                                                   "description":  "Keep adjusting the writing, layout, and interaction. Many problems only become visible after the idea appears on a page."
+                                               },
+                                               {
+                                                   "number":  "04",
+                                                   "title":  "Record",
+                                                   "label":  "RECORD",
+                                                   "description":  "Turn the process into project notes. I document what I made, why I made it, and what still needs work."
+                                               }
+                                           ]
+                             },
+                 "about":  {
+                               "kicker":  "03 / About",
+                               "title1":  "Logic training,",
+                               "title2":  "plus small web practice.",
+                               "bio1":  "I’m Jamie Zhang, a graduate student in logic at China University of Political Science and Law. My background helps me break problems into assumptions, rules, decisions, and conclusions.",
+                               "bio2":  "Recently, I’ve been using vibe coding to build small web pages and AI tool experiments, then turning the process into project notes. This site is less a polished gallery, and more a personal space for recording what I build, revise, and learn.",
+                               "opportunity":  "If you want to browse my project notes or talk about AI tools, web pages, and learning practice, you can reach me below.",
+                               "focusLabel":  "Things I keep practicing",
+                               "focus":  [
+                                             "Clarifying problems",
+                                             "Organizing materials and limits",
+                                             "Making live pages",
+                                             "Revising writing and layout",
+                                             "Recording the process"
+                                         ],
+                               "github":  "GitHub",
+                               "email":  "Email",
+                               "resume":  "Resume PDF"
+                           },
+                 "contact":  {
+                                 "kicker":  "04 / Contact",
+                                 "title":  "Open to conversations about AI tools, web pages, and learning practice.",
+                                 "description":  "If you want to browse my project notes or talk about AI tools, web pages, and learning practice, you can reach me below.",
+                                 "email":  "Email Jamie",
+                                 "github":  "GitHub",
+                                 "resume":  "Resume PDF"
+                             },
+                 "recent":  {
+                                "kicker":  "02 / Recent revisions",
+                                "title":  "This is a record of ongoing changes, not a finished gallery.",
+                                "description":  "I keep notes on what I am changing: wording that feels too inflated, pages that look too template-like, and features that still need clearer structure.",
+                                "items":  [
+                                              {
+                                                  "date":  "2026.06",
+                                                  "title":  "Rewrote the site positioning",
+                                                  "note":  "Removed role-oriented and inflated wording, then moved the site back to personal project notes."
+                                              },
+                                              {
+                                                  "date":  "2026.06",
+                                                  "title":  "Cleaned up project entries",
+                                                  "note":  "Made the three projects equal notes instead of centering the homepage on Heard Sheep."
+                                              },
+                                              {
+                                                  "date":  "Ongoing",
+                                                  "title":  "Refining the page feel",
+                                                  "note":  "Reducing oversized cards and tech-template styling so the site feels more personal."
+                                              }
+                                          ]
+                            }
+             },
+    "Case":  {
+                 "allWork":  "Back to work",
+                 "role":  "Recorded as",
+                 "status":  "Status",
+                 "tryProduct":  "Open Page",
+                 "github":  "GitHub",
+                 "overview":  "Project Note",
+                 "problem":  "Background",
+                 "solution":  "What I tried",
+                 "myRole":  "What I worked on",
+                 "coreFlow":  "Page path",
+                 "keyInteraction":  "Page details",
+                 "screens":  "Screens",
+                 "aiCapability":  "AI-related attempt",
+                 "structured":  "Structured result",
+                 "human":  "Manual review",
+                 "fallback":  "Fallback path",
+                 "techStack":  "Tech Stack",
+                 "whatBuilt":  "Finished parts",
+                 "reflection":  "Reflection",
+                 "demoGithub":  "Page / Code",
+                 "finalTitle":  "Open the page or inspect the code record.",
+                 "openDemo":  "Open Page",
+                 "viewGithub":  "View GitHub",
+                 "productDesign":  "Project notes / web page / process record"
+             },
+    "Footer":  {
+                   "kicker":  "CONTACT",
+                   "title":  "Open to conversations about AI tools, web pages, and learning practice.",
+                   "email":  "Contact Jamie",
+                   "github":  "GitHub",
+                   "resume":  "Download Resume",
+                   "role":  "Personal project notes",
+                   "built":  "Organized and maintained by Jamie Zhang."
+               },
+    "Try":  {
+                "index":  {
+                              "kicker":  "INTERACTIVE PAGES",
+                              "title":  "Open a few live pages",
+                              "description":  "These pages use stable local data to show the basic interaction without exposing model credentials in the browser.",
+                              "proddoc":  "Open ProdDoc AI",
+                              "decision":  "Open AI Decision Copilot",
+                              "back":  "Back Home"
+                          },
+                "common":  {
+                               "back":  "Back to Pages",
+                               "local":  "Local demo · No external model call",
+                               "input":  "Input",
+                               "output":  "Output",
+                               "viewCase":  "View project note",
+                               "reset":  "Start Over"
+                           },
+                "proddoc":  {
+                                "title":  "ProdDoc AI · Documentation Page",
+                                "description":  "Enter project context and generate an editable structured-document preview.",
+                                "productName":  "Project name",
+                                "productType":  "Project type",
+                                "targetUsers":  "Audience",
+                                "modules":  "Main modules",
+                                "docType":  "Document purpose",
+                                "generate":  "Generate Sample",
+                                "modify":  "Edit Inputs",
+                                "regenerate":  "Generate Again",
+                                "preview":  "Document Preview",
+                                "copy":  "Copy Content",
+                                "empty":  "Complete the project details, then generate a structured preview.",
+                                "types":  [
+                                              "Web tool",
+                                              "Learning project",
+                                              "AI tool"
+                                          ],
+                                "docs":  [
+                                             "Project note",
+                                             "Operating note",
+                                             "Delivery note"
+                                         ]
+                            },
+                "decision":  {
+                                 "title":  "AI Decision Copilot · Decision Page",
+                                 "description":  "Choose a question and review a comparison, recommendation, and risk note.",
+                                 "choose":  "Choose a Decision",
+                                 "note":  "Results use stable preset cases to demonstrate the page structure.",
+                                 "analyze":  "Analyze",
+                                 "other":  "Choose Another Question",
+                                 "brief":  "Decision Brief",
+                                 "analysis":  "Comparison",
+                                 "recommendation":  "Recommendation",
+                                 "risk":  "Risk Note",
+                                 "optionA":  "Option A",
+                                 "optionB":  "Option B"
+                             }
+            }
 }

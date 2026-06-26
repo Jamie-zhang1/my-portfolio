@@ -1,240 +1,285 @@
 {
-  "Metadata": {
-    "home": {
-      "title": "Jamie Zhang — 个人项目记录",
-      "description": "Jamie Zhang 的个人主页，记录 AI 工具尝试、网页搭建和学习实践。"
-    },
-    "projects": {
-      "heard-sheep": {
-        "title": "Heard Sheep — 项目记录",
-        "description": "一个把语音想法整理成任务卡片的小工具记录。"
-      },
-      "proddoc-ai": {
-        "title": "ProdDoc AI — 项目记录",
-        "description": "一个尝试把项目想法整理成文档的工具记录。"
-      },
-      "ai-decision-copilot": {
-        "title": "AI Decision Copilot — 项目记录",
-        "description": "一个围绕决策辅助场景做的网页实验记录。"
-      }
-    }
-  },
-  "Header": {
-    "brandRole": "个人项目记录",
-    "work": "我的作品",
-    "method": "研究方法",
-    "about": "关于我",
-    "contact": "联系我",
-    "appearance": "外观",
-    "menu": "打开菜单",
-    "closeMenu": "关闭菜单",
-    "githubLabel": "GitHub 主页"
-  },
-  "Theme": {
-    "groupLabel": "选择外观",
-    "light": "白天",
-    "dark": "夜间",
-    "system": "系统",
-    "set": {
-      "light": "切换到白天模式",
-      "dark": "切换到夜间模式",
-      "system": "跟随系统外观"
-    }
-  },
-  "Language": {
-    "zh": "中文",
-    "en": "EN",
-    "switchToZh": "切换到中文",
-    "switchToEn": "Switch to English",
-    "groupLabel": "选择语言"
-  },
-  "Command": {
-    "open": "打开快捷导航",
-    "navigate": "导航",
-    "dialog": "快捷导航",
-    "close": "关闭快捷导航",
-    "placeholder": "搜索页面或操作",
-    "work": "我的作品",
-    "workDetail": "查看三个项目记录",
-    "method": "研究方法",
-    "methodDetail": "拆清楚、搭页面、反复改、做记录",
-    "about": "关于 Jamie",
-    "aboutDetail": "逻辑学背景和学习实践",
-    "contact": "联系我",
-    "contactDetail": "邮箱、GitHub 和简历",
-    "themeDetail": "切换白天、夜间或跟随系统",
-    "email": "发送邮件",
-    "github": "GitHub",
-    "resume": "下载简历",
-    "resumeDetail": "一页 PDF 简历",
-    "switchEnglish": "Switch to English",
-    "switchChinese": "切换到中文",
-    "languageDetail": "保持当前页面路径",
-    "current": "当前页面"
-  },
-  "Home": {
-    "hero": {
-      "kicker": "JAMIE ZHANG",
-      "title": "Jamie Zhang",
-      "role": "用 vibe coding 把想法做成网页。",
-      "headline": "这里记录我的 AI 工具尝试、项目页面和学习实践。",
-      "description": "我更关心把想法先做出来，再慢慢修正它。这个网站不是成熟产品合集，而是一个持续整理项目、表达和页面搭建过程的个人空间。",
-      "availability": "记录项目，也记录修改过程。",
-      "openWorkspace": "浏览这个空间",
-      "viewWork": "我的作品",
-      "github": "GitHub",
-      "visualLabel": "Jamie 的个人记录空间",
-      "stages": ["写清楚", "搭页面", "慢慢改"],
-      "notes": ["想法记录", "页面草稿", "项目复盘", "学习笔记"],
-      "previewTitle": "先让想法变得可见",
-      "previewDescription": "再根据页面里的问题继续改。"
-    },
-    "work": {
-      "kicker": "01 / 我的作品",
-      "title": "几个 AI 工具和网页尝试。",
-      "description": "这里先放最关键的信息：做了什么、为什么做、我尝试了哪些部分。详细过程放在各自的项目记录页。",
-      "positioning": "项目说明",
-      "problem": "我想解决",
-      "built": "我尝试了",
-      "stack": "技术标签",
-      "viewCase": "查看项目记录"
-    },
-    "process": {
-      "kicker": "02 / 研究方法",
-      "title": "我通常先把问题写明白。",
-      "description": "逻辑学训练让我习惯先整理材料、限制和判断依据。页面搭建只是其中一步，后续修改和记录同样重要。",
-      "active": "当前步骤",
-      "steps": [
-        {
-          "number": "01",
-          "title": "拆清楚",
-          "label": "CLARIFY",
-          "description": "先把问题、材料和目标写明白。我会先整理背景、需求和限制，避免一开始就被页面效果带跑。"
-        },
-        {
-          "number": "02",
-          "title": "搭页面",
-          "label": "BUILD",
-          "description": "用 vibe coding 做出可以访问的版本。先让想法变成一个能打开、能浏览、能继续修改的网页。"
-        },
-        {
-          "number": "03",
-          "title": "反复改",
-          "label": "ITERATE",
-          "description": "根据观感、表达和功能继续调整。很多问题只有放到页面里才看得出来，所以我会不断改文案、排版和交互。"
-        },
-        {
-          "number": "04",
-          "title": "做记录",
-          "label": "RECORD",
-          "description": "把过程整理成项目记录。记录做了什么、为什么这么做、哪里还不成熟，方便后续复盘。"
-        }
-      ]
-    },
-    "about": {
-      "kicker": "03 / 关于我",
-      "title1": "逻辑学训练，",
-      "title2": "加上一点点网页实践。",
-      "bio1": "我是 Jamie Zhang，中国政法大学逻辑学硕士在读。逻辑学训练让我习惯把问题拆成前提、规则、判断和结论。",
-      "bio2": "最近我在尝试用 vibe coding 做一些网页和 AI 工具，把想法尽快变成可以访问的页面，也把过程整理成项目记录。这个网站不是一个成熟产品合集，更像是我记录项目、调整表达和练习网页搭建的个人空间。",
-      "opportunity": "如果你想看看我的项目记录，或者交流 AI 工具、网页搭建和学习实践，可以通过下面的方式联系我。",
-      "focusLabel": "我会反复练习的事",
-      "focus": ["把问题拆清楚", "整理材料和限制", "搭出可以访问的页面", "修改文案和排版", "记录过程和复盘"],
-      "github": "GitHub",
-      "email": "邮箱",
-      "resume": "简历 PDF"
-    },
-    "contact": {
-      "kicker": "04 / 联系我",
-      "title": "欢迎交流项目记录、AI 工具和网页搭建。",
-      "description": "如果你想看看我的项目记录，或者交流 AI 工具、网页搭建和学习实践，可以通过下面的方式联系我。",
-      "email": "联系 Jamie",
-      "github": "GitHub",
-      "resume": "简历 PDF"
-    }
-  },
-  "Case": {
-    "allWork": "返回我的作品",
-    "role": "整理内容",
-    "status": "状态",
-    "tryProduct": "打开页面",
-    "github": "GitHub",
-    "overview": "项目记录",
-    "problem": "背景",
-    "solution": "尝试方式",
-    "myRole": "我做了什么",
-    "coreFlow": "页面路径",
-    "keyInteraction": "页面细节",
-    "screens": "页面截图",
-    "aiCapability": "AI 相关尝试",
-    "structured": "结构化结果",
-    "human": "手动确认",
-    "fallback": "备用路径",
-    "techStack": "技术栈",
-    "whatBuilt": "完成的部分",
-    "reflection": "复盘",
-    "demoGithub": "页面 / 代码",
-    "finalTitle": "查看页面，也查看代码记录。",
-    "openDemo": "打开页面",
-    "viewGithub": "查看 GitHub",
-    "productDesign": "项目整理 / 页面搭建 / 过程记录"
-  },
-  "Footer": {
-    "kicker": "CONTACT",
-    "title": "欢迎交流 AI 工具、网页搭建和学习实践。",
-    "email": "联系 Jamie",
-    "github": "GitHub",
-    "resume": "下载简历",
-    "role": "个人项目记录",
-    "built": "由 Jamie Zhang 整理和维护。"
-  },
-  "Try": {
-    "index": {
-      "kicker": "INTERACTIVE PAGES",
-      "title": "查看几个可访问页面",
-      "description": "这些页面使用稳定的本地数据展示基本操作，不会在浏览器中暴露模型密钥。",
-      "proddoc": "查看 ProdDoc AI",
-      "decision": "查看 AI Decision Copilot",
-      "back": "返回首页"
-    },
-    "common": {
-      "back": "返回体验入口",
-      "local": "本地演示 · 不调用外部模型",
-      "input": "输入",
-      "output": "输出",
-      "viewCase": "查看项目记录",
-      "reset": "重新开始"
-    },
-    "proddoc": {
-      "title": "ProdDoc AI · 文档生成页面",
-      "description": "填写项目信息，生成一份可以继续编辑的结构化文档预览。",
-      "productName": "项目名称",
-      "productType": "项目类型",
-      "targetUsers": "使用对象",
-      "modules": "主要模块",
-      "docType": "文档用途",
-      "generate": "生成示例文档",
-      "modify": "修改输入",
-      "regenerate": "重新生成",
-      "preview": "文档预览",
-      "copy": "复制内容",
-      "empty": "填写项目信息后，生成结构化文档预览。",
-      "types": ["网页工具", "学习项目", "AI 工具"],
-      "docs": ["项目说明", "操作说明", "交付说明"]
-    },
-    "decision": {
-      "title": "AI Decision Copilot · 决策整理页面",
-      "description": "选择一个问题，查看方案比较、推荐结论和风险提示。",
-      "choose": "选择一个决策问题",
-      "note": "结果来自稳定预设案例，用于展示页面结构。",
-      "analyze": "开始分析",
-      "other": "选择其他问题",
-      "brief": "决策简报",
-      "analysis": "比较分析",
-      "recommendation": "推荐结论",
-      "risk": "风险提示",
-      "optionA": "方案 A",
-      "optionB": "方案 B"
-    }
-  }
+    "Metadata":  {
+                     "home":  {
+                                  "title":  "Jamie Zhang｜个人项目记录",
+                                  "description":  "Jamie Zhang 的个人主页，记录 AI 工具尝试、网页搭建和学习实践。"
+                              },
+                     "projects":  {
+                                      "heard-sheep":  {
+                                                          "title":  "Heard Sheep — 项目记录",
+                                                          "description":  "一个把语音想法整理成任务卡片的小工具记录。"
+                                                      },
+                                      "proddoc-ai":  {
+                                                         "title":  "ProdDoc AI — 项目记录",
+                                                         "description":  "一个尝试把项目想法整理成文档的工具记录。"
+                                                     },
+                                      "ai-decision-copilot":  {
+                                                                  "title":  "AI Decision Copilot — 项目记录",
+                                                                  "description":  "一个围绕决策辅助场景做的网页实验记录。"
+                                                              }
+                                  }
+                 },
+    "Header":  {
+                   "brandRole":  "个人项目记录",
+                   "work":  "我的作品",
+                   "method":  "研究方法",
+                   "about":  "关于我",
+                   "contact":  "联系我",
+                   "appearance":  "外观",
+                   "menu":  "打开菜单",
+                   "closeMenu":  "关闭菜单",
+                   "githubLabel":  "GitHub 主页"
+               },
+    "Theme":  {
+                  "groupLabel":  "选择外观",
+                  "light":  "白天",
+                  "dark":  "夜间",
+                  "system":  "系统",
+                  "set":  {
+                              "light":  "切换到白天模式",
+                              "dark":  "切换到夜间模式",
+                              "system":  "跟随系统外观"
+                          }
+              },
+    "Language":  {
+                     "zh":  "中文",
+                     "en":  "EN",
+                     "switchToZh":  "切换到中文",
+                     "switchToEn":  "Switch to English",
+                     "groupLabel":  "选择语言"
+                 },
+    "Command":  {
+                    "open":  "打开快捷导航",
+                    "navigate":  "导航",
+                    "dialog":  "快捷导航",
+                    "close":  "关闭快捷导航",
+                    "placeholder":  "搜索页面或操作",
+                    "work":  "我的作品",
+                    "workDetail":  "查看三个项目记录",
+                    "method":  "研究方法",
+                    "methodDetail":  "拆清楚、搭页面、反复改、做记录",
+                    "about":  "关于 Jamie",
+                    "aboutDetail":  "逻辑学背景和学习实践",
+                    "contact":  "联系我",
+                    "contactDetail":  "邮箱、GitHub 和简历",
+                    "themeDetail":  "切换白天、夜间或跟随系统",
+                    "email":  "发送邮件",
+                    "github":  "GitHub",
+                    "resume":  "下载简历",
+                    "resumeDetail":  "一页 PDF 简历",
+                    "switchEnglish":  "Switch to English",
+                    "switchChinese":  "切换到中文",
+                    "languageDetail":  "保持当前页面路径",
+                    "current":  "当前页面"
+                },
+    "Home":  {
+                 "hero":  {
+                              "kicker":  "JAMIE ZHANG",
+                              "title":  "Jamie Zhang",
+                              "role":  "用 vibe coding 把想法做成网页。",
+                              "headline":  "这里记录我的 AI 工具尝试、项目页面和学习实践。",
+                              "description":  "我更关心把想法先做出来，再慢慢修正它。这个网站不是成熟产品合集，而是一个持续整理项目、表达和页面搭建过程的个人空间。",
+                              "availability":  "记录项目，也记录修改过程。",
+                              "openWorkspace":  "浏览这个空间",
+                              "viewWork":  "我的作品",
+                              "github":  "GitHub",
+                              "visualLabel":  "Jamie 的个人记录空间",
+                              "stages":  [
+                                             "写清楚",
+                                             "搭页面",
+                                             "慢慢改"
+                                         ],
+                              "notes":  [
+                                            "想法记录",
+                                            "页面草稿",
+                                            "项目复盘",
+                                            "学习笔记"
+                                        ],
+                              "previewTitle":  "先让想法变得可见",
+                              "previewDescription":  "再根据页面里的问题继续改。"
+                          },
+                 "work":  {
+                              "kicker":  "01 / 我的作品",
+                              "title":  "几个 AI 工具和网页尝试。",
+                              "description":  "这里先放最关键的信息：做了什么、为什么做、我尝试了哪些部分。详细过程放在各自的项目记录页。",
+                              "positioning":  "项目说明",
+                              "problem":  "我想解决",
+                              "built":  "我尝试了",
+                              "stack":  "技术标签",
+                              "viewCase":  "查看项目记录"
+                          },
+                 "process":  {
+                                 "kicker":  "02 / 研究方法",
+                                 "title":  "我通常先把问题写明白。",
+                                 "description":  "逻辑学训练让我习惯先整理材料、限制和判断依据。页面搭建只是其中一步，后续修改和记录同样重要。",
+                                 "active":  "当前步骤",
+                                 "steps":  [
+                                               {
+                                                   "number":  "01",
+                                                   "title":  "拆清楚",
+                                                   "label":  "CLARIFY",
+                                                   "description":  "先把问题、材料和目标写明白。我会先整理背景、需求和限制，避免一开始就被页面效果带跑。"
+                                               },
+                                               {
+                                                   "number":  "02",
+                                                   "title":  "搭页面",
+                                                   "label":  "BUILD",
+                                                   "description":  "用 vibe coding 做出可以访问的版本。先让想法变成一个能打开、能浏览、能继续修改的网页。"
+                                               },
+                                               {
+                                                   "number":  "03",
+                                                   "title":  "反复改",
+                                                   "label":  "ITERATE",
+                                                   "description":  "根据观感、表达和功能继续调整。很多问题只有放到页面里才看得出来，所以我会不断改文案、排版和交互。"
+                                               },
+                                               {
+                                                   "number":  "04",
+                                                   "title":  "做记录",
+                                                   "label":  "RECORD",
+                                                   "description":  "把过程整理成项目记录。记录做了什么、为什么这么做、哪里还不成熟，方便后续复盘。"
+                                               }
+                                           ]
+                             },
+                 "about":  {
+                               "kicker":  "03 / 关于我",
+                               "title1":  "逻辑学训练，",
+                               "title2":  "加上一点点网页实践。",
+                               "bio1":  "我是 Jamie Zhang，中国政法大学逻辑学硕士在读。逻辑学训练让我习惯把问题拆成前提、规则、判断和结论。",
+                               "bio2":  "最近我在尝试用 vibe coding 做一些网页和 AI 工具，把想法尽快变成可以访问的页面，也把过程整理成项目记录。这个网站不是一个成熟产品合集，更像是我记录项目、调整表达和练习网页搭建的个人空间。",
+                               "opportunity":  "如果你想看看我的项目记录，或者交流 AI 工具、网页搭建和学习实践，可以通过下面的方式联系我。",
+                               "focusLabel":  "我会反复练习的事",
+                               "focus":  [
+                                             "把问题拆清楚",
+                                             "整理材料和限制",
+                                             "搭出可以访问的页面",
+                                             "修改文案和排版",
+                                             "记录过程和复盘"
+                                         ],
+                               "github":  "GitHub",
+                               "email":  "邮箱",
+                               "resume":  "简历 PDF"
+                           },
+                 "contact":  {
+                                 "kicker":  "04 / 联系我",
+                                 "title":  "欢迎交流项目记录、AI 工具和网页搭建。",
+                                 "description":  "如果你想看看我的项目记录，或者交流 AI 工具、网页搭建和学习实践，可以通过下面的方式联系我。",
+                                 "email":  "联系 Jamie",
+                                 "github":  "GitHub",
+                                 "resume":  "简历 PDF"
+                             },
+                 "recent":  {
+                                "kicker":  "02 / 最近在改什么",
+                                "title":  "不是完成品展示，而是持续修改的记录。",
+                                "description":  "我会把站点和项目里正在调整的地方写出来：哪些文案太满、哪些页面太像模板、哪些功能还需要继续拆。",
+                                "items":  [
+                                              {
+                                                  "date":  "2026.06",
+                                                  "title":  "重写个人主页口径",
+                                                  "note":  "删掉过度包装的岗位和能力表达，把站点改回个人项目记录。"
+                                              },
+                                              {
+                                                  "date":  "2026.06",
+                                                  "title":  "整理项目入口",
+                                                  "note":  "把三个项目放成平权记录卡，不再把 Heard Sheep 放在首页中心。"
+                                              },
+                                              {
+                                                  "date":  "持续",
+                                                  "title":  "修改页面观感",
+                                                  "note":  "减少大卡片和蓝色科技感，让页面更像个人记录空间。"
+                                              }
+                                          ]
+                            }
+             },
+    "Case":  {
+                 "allWork":  "返回我的作品",
+                 "role":  "整理内容",
+                 "status":  "状态",
+                 "tryProduct":  "打开页面",
+                 "github":  "GitHub",
+                 "overview":  "项目记录",
+                 "problem":  "背景",
+                 "solution":  "尝试方式",
+                 "myRole":  "我做了什么",
+                 "coreFlow":  "页面路径",
+                 "keyInteraction":  "页面细节",
+                 "screens":  "页面截图",
+                 "aiCapability":  "AI 相关尝试",
+                 "structured":  "结构化结果",
+                 "human":  "手动确认",
+                 "fallback":  "备用路径",
+                 "techStack":  "技术栈",
+                 "whatBuilt":  "完成的部分",
+                 "reflection":  "复盘",
+                 "demoGithub":  "页面 / 代码",
+                 "finalTitle":  "查看页面，也查看代码记录。",
+                 "openDemo":  "打开页面",
+                 "viewGithub":  "查看 GitHub",
+                 "productDesign":  "项目整理 / 页面搭建 / 过程记录"
+             },
+    "Footer":  {
+                   "kicker":  "CONTACT",
+                   "title":  "欢迎交流 AI 工具、网页搭建和学习实践。",
+                   "email":  "联系 Jamie",
+                   "github":  "GitHub",
+                   "resume":  "下载简历",
+                   "role":  "个人项目记录",
+                   "built":  "由 Jamie Zhang 整理和维护。"
+               },
+    "Try":  {
+                "index":  {
+                              "kicker":  "INTERACTIVE PAGES",
+                              "title":  "查看几个可访问页面",
+                              "description":  "这些页面使用稳定的本地数据展示基本操作，不会在浏览器中暴露模型密钥。",
+                              "proddoc":  "查看 ProdDoc AI",
+                              "decision":  "查看 AI Decision Copilot",
+                              "back":  "返回首页"
+                          },
+                "common":  {
+                               "back":  "返回体验入口",
+                               "local":  "本地演示 · 不调用外部模型",
+                               "input":  "输入",
+                               "output":  "输出",
+                               "viewCase":  "查看项目记录",
+                               "reset":  "重新开始"
+                           },
+                "proddoc":  {
+                                "title":  "ProdDoc AI · 文档生成页面",
+                                "description":  "填写项目信息，生成一份可以继续编辑的结构化文档预览。",
+                                "productName":  "项目名称",
+                                "productType":  "项目类型",
+                                "targetUsers":  "使用对象",
+                                "modules":  "主要模块",
+                                "docType":  "文档用途",
+                                "generate":  "生成示例文档",
+                                "modify":  "修改输入",
+                                "regenerate":  "重新生成",
+                                "preview":  "文档预览",
+                                "copy":  "复制内容",
+                                "empty":  "填写项目信息后，生成结构化文档预览。",
+                                "types":  [
+                                              "网页工具",
+                                              "学习项目",
+                                              "AI 工具"
+                                          ],
+                                "docs":  [
+                                             "项目说明",
+                                             "操作说明",
+                                             "交付说明"
+                                         ]
+                            },
+                "decision":  {
+                                 "title":  "AI Decision Copilot · 决策整理页面",
+                                 "description":  "选择一个问题，查看方案比较、推荐结论和风险提示。",
+                                 "choose":  "选择一个决策问题",
+                                 "note":  "结果来自稳定预设案例，用于展示页面结构。",
+                                 "analyze":  "开始分析",
+                                 "other":  "选择其他问题",
+                                 "brief":  "决策简报",
+                                 "analysis":  "比较分析",
+                                 "recommendation":  "推荐结论",
+                                 "risk":  "风险提示",
+                                 "optionA":  "方案 A",
+                                 "optionB":  "方案 B"
+                             }
+            }
 }

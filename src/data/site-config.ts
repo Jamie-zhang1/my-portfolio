@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Jamie Zhang",
-  title: "Jamie Zhang — 个人项目记录",
+  title: "Jamie Zhang｜个人项目记录",
   description: "Jamie Zhang 的个人主页：记录 AI 工具尝试、网页搭建和学习实践。",
   url: "https://heard-sheep.cloud",
   ogImage: "/screenshots/portfolio/home-desktop.png",
