@@ -307,7 +307,7 @@
                   "common":  {
                                  "backHome":  "Back home",
                                  "backList":  "View local notes",
-                                 "newNote":  "New note",
+                                 "newNote":  "New idea note",
                                  "editNote":  "Edit note",
                                  "title":  "Title",
                                  "type":  "Type",
@@ -331,7 +331,9 @@
                                  "listIntro":  "These are temporary drafts saved in the current browser. They are not public and are not uploaded to a server.",
                                  "noUpload":  "Files are not uploaded, and notes are not submitted to a public database.",
                                  "createdAt":  "Created at",
-                                 "updatedAt":  "Updated at"
+                                 "updatedAt":  "Updated at",
+                                 "all":  "All",
+                                 "filterLabel":  "Filter by type"
                              },
                   "new":  {
                               "heading":  "Capture an idea",
@@ -343,19 +345,19 @@
                   "types":  [
                                 {
                                     "value":  "idea",
-                                    "label":  "Idea Note"
+                                    "label":  "Idea Notes"
                                 },
                                 {
                                     "value":  "draft",
-                                    "label":  "Page Draft"
+                                    "label":  "Page Drafts"
                                 },
                                 {
                                     "value":  "review",
-                                    "label":  "Project Review"
+                                    "label":  "Project Reviews"
                                 },
                                 {
                                     "value":  "learning",
-                                    "label":  "Learning Log"
+                                    "label":  "Learning Notes"
                                 }
                             ],
                   "projects":  [
@@ -379,6 +381,44 @@
                                        "value":  "other",
                                        "label":  "Other"
                                    }
-                               ]
+                               ],
+                  "modes":  {
+                                "idea":  {
+                                             "kicker":  "Idea Notes",
+                                             "heading":  "Capture an idea",
+                                             "description":  "Write the idea down first. It does not need to be complete yet. You can later turn it into page drafts, project notes, or learning notes.",
+                                             "titlePlaceholder":  "Give this idea a title",
+                                             "bodyPlaceholder":  "Where did this idea come from? What might it solve? What could it become? What is still unclear?",
+                                             "tagsPlaceholder":  "web idea, AI tool, draft",
+                                             "template":  "## Raw idea\n\n## Possible use\n\n## Still unclear\n\n## Next step\n"
+                                         },
+                                "draft":  {
+                                              "kicker":  "Page Drafts",
+                                              "heading":  "Draft a page structure",
+                                              "description":  "Write down what the page needs to express, which sections it needs, where users enter, and what they should see at the end.",
+                                              "titlePlaceholder":  "Name this page draft",
+                                              "bodyPlaceholder":  "What should this page show? Which sections are needed? What should users see first?",
+                                              "tagsPlaceholder":  "page structure, draft, information layout",
+                                              "template":  "## Page goal\n\n## Page structure\n\n## Main sections\n\n## Missing content\n\n## Later revision\n"
+                                          },
+                                "review":  {
+                                               "kicker":  "Project Reviews",
+                                               "heading":  "Write a project review",
+                                               "description":  "Record what the project did, what worked, what is still rough, and what to revise next.",
+                                               "titlePlaceholder":  "Name the project or stage to review",
+                                               "bodyPlaceholder":  "What changed recently? What worked? What still feels weak? What should be revised next?",
+                                               "tagsPlaceholder":  "project review, revision, next step",
+                                               "template":  "## What I did\n\n## What worked\n\n## What is still rough\n\n## Next revision\n"
+                                           },
+                                "learning":  {
+                                                 "kicker":  "Learning Notes",
+                                                 "heading":  "Save a learning note",
+                                                 "description":  "Save a concept, tool, method, or question you recently learned. Organize it later.",
+                                                 "titlePlaceholder":  "Name this learning note",
+                                                 "bodyPlaceholder":  "What did I learn today? Which project is it related to? How might I use it later?",
+                                                 "tagsPlaceholder":  "learning, tool, method, draft",
+                                                 "template":  "## What I learned\n\n## My understanding\n\n## Related project\n\n## How I might use it later\n"
+                                             }
+                            }
               }
 }

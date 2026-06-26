@@ -143,9 +143,15 @@ async function checkBannedPhrases(page, label) {
   if (found.length) errors.push(`${label}: banned phrases found: ${found.join(", ")}`);
 }
 
+async function checkTextareaContains(page, expected, label) {
+  const textarea = page.locator("textarea").first();
+  await textarea.waitFor();
+  const value = await textarea.inputValue();
+  if (!value.includes(expected)) errors.push(`${label}: expected textarea to include ${expected}, got ${value}`);
+}
 await scanHtmlPaths(["/", "/zh", "/en"]);
 
-const desktop = await browser.newContext({ viewport: { width: 1440, height: 1024 }, deviceScaleFactor: 1, reducedMotion: "no-preference", acceptDownloads: true });
+const desktop = await browser.newContext({ viewport: { width: 1440, height: 1024 }, deviceScaleFactor: 1, reducedMotion: "no-preference", acceptDownloads: true, permissions: ["clipboard-read", "clipboard-write"] });
 const page = await desktop.newPage();
 attachObservers(page, "desktop");
 
@@ -186,25 +192,49 @@ await page.locator("#contact").screenshot({ path: join(output, "contact-email-li
 
 await gotoChecked(page, "/zh/notes/new?type=idea", "zh new note");
 await page.getByRole("heading", { name: "记录一个想法" }).waitFor();
+await checkTextareaContains(page, "## 原始想法", "zh idea template");
 await page.getByPlaceholder("给这个想法起个名字").fill("语音任务整理想法");
 await page.getByLabel("关联项目").selectOption("heard-sheep");
-await page.getByPlaceholder("先随便写").fill("继续整理语音输入后的任务拆分方式，先记录，再慢慢补成项目记录。");
+await page.locator("textarea").fill("## 原始想法`n继续整理语音输入后的任务拆分方式，先记录，再慢慢补成项目记录。`n`n## 可能用途`n任务卡片整理。`n");
 await page.getByPlaceholder("网页想法、AI 工具").fill("网页想法, AI 工具, 待整理");
 const fixturePath = join(output, "note-attachment-sample.txt");
 await writeFile(fixturePath, "local attachment preview only", "utf8");
 await page.locator("input[type=file]").setInputFiles(fixturePath);
 await page.screenshot({ path: join(output, "notes-new-zh.png"), fullPage: true });
+for (const [type, heading, templateText] of [["draft", "整理一个页面草稿", "## 页面目标"], ["review", "写一段项目复盘", "## 做了什么"], ["learning", "保存一条学习笔记", "## 学到的内容"]]) {
+  await gotoChecked(page, `/zh/notes/new?type=${type}`, `zh ${type} note mode`);
+  await page.getByRole("heading", { name: heading }).waitFor();
+  await checkTextareaContains(page, templateText, `${type} template`);
+}
+await gotoChecked(page, "/zh/notes/new?type=idea", "zh idea note before save");
+await page.getByRole("heading", { name: "记录一个想法" }).waitFor();
+await page.getByPlaceholder("给这个想法起个名字").fill("语音任务整理想法");
+await page.getByLabel("关联项目").selectOption("heard-sheep");
+await page.locator("textarea").fill("## 原始想法`n继续整理语音输入后的任务拆分方式。`n`n## 可能用途`n任务卡片整理。`n");
+await page.getByPlaceholder("网页想法、AI 工具").fill("网页想法, AI 工具, 待整理");
 await page.getByRole("button", { name: "保存草稿" }).click();
 await page.getByText("已保存到当前浏览器").waitFor();
 await page.screenshot({ path: join(output, "notes-save-success-zh.png"), fullPage: true });
 await gotoChecked(page, "/zh/notes", "zh notes list");
 await page.getByText("语音任务整理想法").waitFor();
 await page.screenshot({ path: join(output, "notes-list-zh.png"), fullPage: true });
+await page.getByRole("button", { name: "想法记录" }).click();
+await page.getByText("语音任务整理想法").waitFor();
 await page.getByRole("button", { name: "复制 Markdown" }).click();
 await page.getByText("Markdown 已复制。").waitFor();
+const copiedMarkdown = await page.evaluate(() => navigator.clipboard.readText());
+if (!copiedMarkdown.includes("类型：想法记录")) errors.push(`notes markdown: expected type label 想法记录, got ${copiedMarkdown}`);
 await page.screenshot({ path: join(output, "notes-markdown-copy-zh.png"), fullPage: true });
-await gotoChecked(page, "/en/notes/new?type=learning", "en new note");
+await gotoChecked(page, "/en/notes/new?type=idea", "en new note");
 await page.getByRole("heading", { name: "Capture an idea" }).waitFor();
+await checkTextareaContains(page, "## Raw idea", "en idea template");
+for (const [type, heading, templateText] of [["draft", "Draft a page structure", "## Page goal"], ["review", "Write a project review", "## What I did"], ["learning", "Save a learning note", "## What I learned"]]) {
+  await gotoChecked(page, `/en/notes/new?type=${type}`, `en ${type} note mode`);
+  await page.getByRole("heading", { name: heading }).waitFor();
+  await checkTextareaContains(page, templateText, `${type} template`);
+}
+await gotoChecked(page, "/en/notes/new?type=learning", "en learning note screenshot");
+await page.getByRole("heading", { name: "Save a learning note" }).waitFor();
 await page.screenshot({ path: join(output, "notes-new-en.png"), fullPage: true });
 
 await gotoChecked(page, "/zh", "zh home before dark toggle");

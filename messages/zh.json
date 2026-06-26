@@ -307,7 +307,7 @@
                   "common":  {
                                  "backHome":  "返回首页",
                                  "backList":  "查看本地记录",
-                                 "newNote":  "新建记录",
+                                 "newNote":  "新建想法记录",
                                  "editNote":  "编辑记录",
                                  "title":  "标题",
                                  "type":  "类型",
@@ -331,7 +331,9 @@
                                  "listIntro":  "这里显示当前浏览器里保存的临时草稿。它们不会公开展示，也不会上传到服务器。",
                                  "noUpload":  "不会上传文件，也不会提交到公开数据库。",
                                  "createdAt":  "创建时间",
-                                 "updatedAt":  "更新时间"
+                                 "updatedAt":  "更新时间",
+                                 "all":  "全部",
+                                 "filterLabel":  "按类型筛选"
                              },
                   "new":  {
                               "heading":  "记录一个想法",
@@ -379,6 +381,44 @@
                                        "value":  "other",
                                        "label":  "其他"
                                    }
-                               ]
+                               ],
+                  "modes":  {
+                                "idea":  {
+                                             "kicker":  "想法记录",
+                                             "heading":  "记录一个想法",
+                                             "description":  "先把想法写下来，不需要一开始就整理完整。之后可以再把它变成页面草稿、项目记录或学习笔记。",
+                                             "titlePlaceholder":  "给这个想法起个名字",
+                                             "bodyPlaceholder":  "这个想法从哪里来？想解决什么？可能做成什么页面？还有哪些不确定？",
+                                             "tagsPlaceholder":  "网页想法、AI 工具、待整理",
+                                             "template":  "## 原始想法\n\n## 可能用途\n\n## 还不确定的地方\n\n## 下一步\n"
+                                         },
+                                "draft":  {
+                                              "kicker":  "页面草稿",
+                                              "heading":  "整理一个页面草稿",
+                                              "description":  "先写出页面要表达什么、有哪些模块、用户从哪里进入、最后要看到什么。",
+                                              "titlePlaceholder":  "给这个页面草稿起个名字",
+                                              "bodyPlaceholder":  "这个页面想展示什么？需要哪些模块？用户点进来后应该先看到什么？",
+                                              "tagsPlaceholder":  "页面结构、信息架构、待补充",
+                                              "template":  "## 页面目标\n\n## 页面结构\n\n## 主要模块\n\n## 需要补充的内容\n\n## 后续修改\n"
+                                          },
+                                "review":  {
+                                               "kicker":  "项目复盘",
+                                               "heading":  "写一段项目复盘",
+                                               "description":  "记录这个项目做了什么、哪里还可以、哪里不成熟，以及下一轮想怎么改。",
+                                               "titlePlaceholder":  "写下要复盘的项目或阶段",
+                                               "bodyPlaceholder":  "这个项目最近做了什么？哪些地方有效？哪些地方还不满意？下一步想改哪里？",
+                                               "tagsPlaceholder":  "项目复盘、问题记录、下一步",
+                                               "template":  "## 做了什么\n\n## 有效的地方\n\n## 还不成熟的地方\n\n## 下一步调整\n"
+                                           },
+                                "learning":  {
+                                                 "kicker":  "学习笔记",
+                                                 "heading":  "保存一条学习笔记",
+                                                 "description":  "记录最近学到的概念、工具、方法或问题，先保存下来，之后再整理。",
+                                                 "titlePlaceholder":  "写下这条学习笔记的主题",
+                                                 "bodyPlaceholder":  "今天学到了什么？它和哪个项目有关？之后可能怎么用？",
+                                                 "tagsPlaceholder":  "学习记录、工具、方法、待整理",
+                                                 "template":  "## 学到的内容\n\n## 我的理解\n\n## 相关项目\n\n## 之后可以怎么用\n"
+                                             }
+                            }
               }
 }
