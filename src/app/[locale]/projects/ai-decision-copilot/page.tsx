@@ -17,5 +17,5 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: A
 export default async function Page({ params }: { params: Promise<{ locale: AppLocale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <CaseStudyPage study={getLocalizedCaseStudy(locale, slug)!} />;
+  return <CaseStudyPage study={getLocalizedCaseStudy(locale, slug)!} locale={locale} />;
 }

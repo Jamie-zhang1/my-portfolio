@@ -80,23 +80,41 @@
                               "headline":  "This is a personal space for my AI tool experiments, project notes, and learning records.",
                               "description":  "I care less about presenting perfect products, and more about making ideas visible enough to test and improve. This site is where I keep the process, not just the final page.",
                               "availability":  "Project notes, drafts, and revisions in one place.",
-                              "openWorkspace":  "Explore this space",
+                              "openWorkspace":  "Capture an idea",
                               "viewWork":  "View Work",
                               "github":  "GitHub",
-                              "visualLabel":  "Jamie\u0027s personal project space",
+                              "visualLabel":  "Jamie\u0027s personal note entries",
                               "stages":  [
                                              "Write",
                                              "Build",
                                              "Revise"
                                          ],
                               "notes":  [
-                                            "Idea notes",
-                                            "Page drafts",
-                                            "Project reviews",
-                                            "Learning logs"
+                                            {
+                                                "type":  "idea",
+                                                "title":  "Idea Notes",
+                                                "description":  "Write down a rough idea"
+                                            },
+                                            {
+                                                "type":  "draft",
+                                                "title":  "Page Drafts",
+                                                "description":  "Sketch the structure of a page"
+                                            },
+                                            {
+                                                "type":  "review",
+                                                "title":  "Project Reviews",
+                                                "description":  "Review what worked and what needs revision"
+                                            },
+                                            {
+                                                "type":  "learning",
+                                                "title":  "Learning Logs",
+                                                "description":  "Save what I recently learned"
+                                            }
                                         ],
                               "previewTitle":  "Make the idea visible first",
-                              "previewDescription":  "Then keep revising what the page reveals."
+                              "previewDescription":  "Then keep revising what the page reveals.",
+                              "visualTitle":  "Put rough ideas somewhere first",
+                              "visualDescription":  "Capture first, organize later. Use this space for ideas, drafts, reviews, and learning notes."
                           },
                  "work":  {
                               "kicker":  "01 / Work",
@@ -142,8 +160,8 @@
                              },
                  "about":  {
                                "kicker":  "04 / About",
-                               "title1":  "Logic training,",
-                               "title2":  "plus small web practice.",
+                               "title1":  "Logic training, ",
+                               "title2":  "plus a little web practice.",
                                "bio1":  "I’m Jamie Zhang, a graduate student in logic at China University of Political Science and Law. My background helps me break problems into assumptions, rules, decisions, and conclusions.",
                                "bio2":  "Recently, I’ve been using vibe coding to build small web pages and AI tool experiments, then turning the process into project notes. This site is less a polished gallery, and more a personal space for recording what I build, revise, and learn.",
                                "opportunity":  "If you want to browse my project notes or talk about AI tools, web pages, and learning practice, you can reach me below.",
@@ -163,14 +181,14 @@
                                  "kicker":  "05 / Contact",
                                  "title":  "Open to conversations about AI tools, web pages, and learning practice.",
                                  "description":  "If you want to browse my project notes or talk about AI tools, web pages, and learning practice, you can reach me below.",
-                                 "email":  "Email Jamie",
+                                 "email":  "zhangjiangmin0902@gmail.com",
                                  "github":  "GitHub",
                                  "resume":  "Resume PDF"
                              },
                  "recent":  {
-                                "kicker":  "02 / Project updates",
-                                "title":  "A running record of how these projects keep changing.",
-                                "description":  "Short notes on recent project changes: feature ideas, page structure, wording, and follow-up reflections.",
+                                "kicker":  "02 / Ongoing Updates",
+                                "title":  "Recording how each project keeps changing.",
+                                "description":  "This section records recent changes to small projects, including feature ideas, page structure, writing, and later review.",
                                 "items":  [
                                               {
                                                   "date":  "2026.06",
@@ -194,7 +212,7 @@
                             }
              },
     "Case":  {
-                 "allWork":  "Back to work",
+                 "allWork":  "Back to Work",
                  "role":  "Recorded as",
                  "status":  "Status",
                  "tryProduct":  "Open Page",
@@ -217,15 +235,11 @@
                  "finalTitle":  "Open the page or inspect the code record.",
                  "openDemo":  "Open Page",
                  "viewGithub":  "View GitHub",
-                 "productDesign":  "Project notes / web page / process record"
+                 "productDesign":  "Project notes / web page / process record",
+                 "backShort":  "Back"
              },
     "Footer":  {
-                   "kicker":  "CONTACT",
-                   "title":  "Open to conversations about AI tools, web pages, and learning practice.",
-                   "email":  "Contact Jamie",
-                   "github":  "GitHub",
-                   "resume":  "Download Resume",
-                   "role":  "Personal project notes",
+                   "role":  "Jamie Zhang Personal Project Notes",
                    "built":  "Organized and maintained by Jamie Zhang."
                },
     "Try":  {
@@ -284,5 +298,87 @@
                                  "optionA":  "Option A",
                                  "optionB":  "Option B"
                              }
-            }
+            },
+    "Notes":  {
+                  "meta":  {
+                               "newTitle":  "Capture an idea",
+                               "listTitle":  "Local notes"
+                           },
+                  "common":  {
+                                 "backHome":  "Back home",
+                                 "backList":  "View local notes",
+                                 "newNote":  "New note",
+                                 "editNote":  "Edit note",
+                                 "title":  "Title",
+                                 "type":  "Type",
+                                 "project":  "Related project",
+                                 "body":  "Body",
+                                 "attachments":  "Attachments",
+                                 "tags":  "Tags",
+                                 "save":  "Save draft",
+                                 "update":  "Update draft",
+                                 "delete":  "Delete",
+                                 "edit":  "Edit",
+                                 "copyMarkdown":  "Copy Markdown",
+                                 "exportMarkdown":  "Export Markdown",
+                                 "empty":  "No notes saved in this browser yet.",
+                                 "saved":  "Saved in this browser. It may be lost if you switch devices or clear storage. Export Markdown for important notes.",
+                                 "localOnly":  "Notes are stored locally in this browser for temporary drafting.",
+                                 "copied":  "Markdown copied.",
+                                 "exported":  "Markdown exported.",
+                                 "attachHint":  "Choose images, PDFs, Markdown, or txt files. This version only stores file name, size, and type.",
+                                 "tagHint":  "Separate tags with commas",
+                                 "listIntro":  "These are temporary drafts saved in the current browser. They are not public and are not uploaded to a server.",
+                                 "noUpload":  "Files are not uploaded, and notes are not submitted to a public database.",
+                                 "createdAt":  "Created at",
+                                 "updatedAt":  "Updated at"
+                             },
+                  "new":  {
+                              "heading":  "Capture an idea",
+                              "description":  "Write the idea down first. It does not need to be complete yet. You can later turn it into project notes, page drafts, project reviews, or learning logs.",
+                              "titlePlaceholder":  "Give this idea a title",
+                              "bodyPlaceholder":  "Write freely first. Where did this idea come from? What might it solve? What could it become? What is still unclear?",
+                              "tagsPlaceholder":  "web idea, AI tool, revision, learning, draft"
+                          },
+                  "types":  [
+                                {
+                                    "value":  "idea",
+                                    "label":  "Idea Note"
+                                },
+                                {
+                                    "value":  "draft",
+                                    "label":  "Page Draft"
+                                },
+                                {
+                                    "value":  "review",
+                                    "label":  "Project Review"
+                                },
+                                {
+                                    "value":  "learning",
+                                    "label":  "Learning Log"
+                                }
+                            ],
+                  "projects":  [
+                                   {
+                                       "value":  "none",
+                                       "label":  "No related project"
+                                   },
+                                   {
+                                       "value":  "heard-sheep",
+                                       "label":  "Heard Sheep"
+                                   },
+                                   {
+                                       "value":  "proddoc-ai",
+                                       "label":  "ProdDoc AI"
+                                   },
+                                   {
+                                       "value":  "ai-decision-copilot",
+                                       "label":  "AI Decision Copilot"
+                                   },
+                                   {
+                                       "value":  "other",
+                                       "label":  "Other"
+                                   }
+                               ]
+              }
 }

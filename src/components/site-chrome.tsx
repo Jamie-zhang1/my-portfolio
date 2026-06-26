@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Code2, Mail } from "lucide-react";
+import { Code2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { CommandMenu } from "@/components/interaction/command-menu";
 import { LanguageSwitcher } from "@/components/interaction/language-switcher";
@@ -43,17 +43,9 @@ export function SiteHeader() {
 export function SiteFooter() {
   const t = useTranslations("Footer");
   return (
-    <footer className="site-footer">
-      <div className="site-shell footer-main">
-        <div><p className="section-kicker">{t("kicker")}</p><h2>{t("title")}</h2></div>
-        <div className="footer-actions">
-          <a href={`mailto:${siteConfig.email}`} className="button button-primary"><Mail size={16} />{t("email")}</a>
-          <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" className="button button-secondary"><Code2 size={16} />{t("github")}</a>
-          <a href={siteConfig.resume} download className="text-link">{t("resume")}<ArrowUpRight size={14} /></a>
-        </div>
-      </div>
+    <footer className="site-footer site-footer-minimal">
       <div className="site-shell footer-bottom">
-        <div><span>JZ</span><p>Jamie Zhang<small>{t("role")}</small></p></div>
+        <div><span>JZ</span><p>{t("role")}</p></div>
         <p>© {new Date().getFullYear()} {t("built")}</p>
       </div>
     </footer>

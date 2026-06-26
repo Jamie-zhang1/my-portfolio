@@ -6,6 +6,8 @@ const paths = [
   { pathname: "/projects/heard-sheep", priority: 0.9 },
   { pathname: "/projects/proddoc-ai", priority: 0.8 },
   { pathname: "/projects/ai-decision-copilot", priority: 0.8 },
+  { pathname: "/notes", priority: 0.7 },
+  { pathname: "/notes/new", priority: 0.7 },
   { pathname: "/try", priority: 0.7 },
   { pathname: "/try/proddoc-ai", priority: 0.6 },
   { pathname: "/try/decision-copilot", priority: 0.6 },

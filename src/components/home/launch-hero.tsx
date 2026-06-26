@@ -1,12 +1,13 @@
 "use client";
 
-import { ArrowDown, ArrowUpRight, DoorOpen } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, PenLine } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { siteConfig } from "@/data/site-config";
+import { Link } from "@/i18n/navigation";
 
-type HeroNote = string;
+type HeroNote = { type: string; title: string; description: string };
 
 export function LaunchHero() {
   const t = useTranslations("Home.hero");
@@ -22,14 +23,15 @@ export function LaunchHero() {
     return () => window.clearTimeout(timer);
   }, []);
 
-  const openWorkspace = () => {
+  const markOpen = () => {
     if (!open) {
       setOpen(true);
       window.sessionStorage.setItem("jamie-workspace-open", "1");
     }
-    window.setTimeout(() => {
-      document.getElementById("work")?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
-    }, reduceMotion ? 0 : 220);
+  };
+
+  const scrollToWork = () => {
+    document.getElementById("work")?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
   };
 
   return (
@@ -42,8 +44,8 @@ export function LaunchHero() {
           <p className="launch-headline">{t("headline")}</p>
           <p className="launch-description">{t("description")}</p>
           <div className="launch-actions">
-            <button className="button button-primary" type="button" onClick={openWorkspace}><DoorOpen size={16} aria-hidden="true" />{t("openWorkspace")}</button>
-            <a className="button button-secondary" href="#work">{t("viewWork")}<ArrowDown size={16} aria-hidden="true" /></a>
+            <Link className="button button-primary" href="/notes/new?type=idea" onClick={markOpen}><PenLine size={16} aria-hidden="true" />{t("openWorkspace")}</Link>
+            <button className="button button-secondary" type="button" onClick={scrollToWork}>{t("viewWork")}<ArrowDown size={16} aria-hidden="true" /></button>
             <a className="text-link" href={siteConfig.github} target="_blank" rel="noopener noreferrer">{t("github")}<ArrowUpRight size={14} aria-hidden="true" /></a>
           </div>
           <p className="launch-availability"><span aria-hidden="true" />{t("availability")}</p>
@@ -51,8 +53,18 @@ export function LaunchHero() {
 
         <motion.div className="launch-visual workspace-visual" aria-label={t("visualLabel")} initial={reduceMotion ? false : { opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}>
           <div className="workspace-map">
-            <div className="workspace-note-stack" aria-hidden="true">
-              {notes.map((note, index) => <span key={note} style={{ "--note-index": index } as React.CSSProperties}>{note}</span>)}
+            <div className="workspace-entry-copy">
+              <strong>{t("visualTitle")}</strong>
+              <p>{t("visualDescription")}</p>
+            </div>
+            <div className="workspace-note-stack workspace-entry-stack">
+              {notes.map((note, index) => (
+                <Link className="workspace-note-entry" href={`/notes/new?type=${note.type}`} key={note.type} style={{ "--note-index": index } as React.CSSProperties} onClick={markOpen}>
+                  <span>{note.title}</span>
+                  <small>{note.description}</small>
+                  <ArrowRight size={14} aria-hidden="true" />
+                </Link>
+              ))}
             </div>
             <div className="flow-rail launch-flow-rail" aria-hidden="true">
               {stages.map((stage, index) => <div className={open ? "is-active" : ""} key={stage}><span>{String(index + 1).padStart(2, "0")}</span><p>{stage}</p></div>)}

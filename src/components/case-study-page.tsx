@@ -1,7 +1,9 @@
-import { ArrowLeft, ArrowUpRight, Check, Code2, Play } from "lucide-react";
+import { ArrowUpRight, Check, Code2, Play } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { LocalizedCaseStudy } from "@/data/case-studies-localized";
+import type { AppLocale } from "@/i18n/routing";
+import { ProjectBackButton } from "@/components/project-back-button";
 import { siteConfig } from "@/data/site-config";
 import { Link } from "@/i18n/navigation";
 
@@ -14,7 +16,7 @@ function CaseSectionLabel({ number, label }: { number: string; label: string }) 
   return <div className="case-section-label"><span>{number}</span><p>{label}</p></div>;
 }
 
-export function CaseStudyPage({ study }: { study: LocalizedCaseStudy }) {
+export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; locale: AppLocale }) {
   const t = useTranslations("Case");
   const { project } = study;
   const heroImage = project.homepageImages[0]?.src ?? (study.slug === "ai-decision-copilot" ? "/screenshots/portfolio/copilot-desktop.png" : project.icon.src);
@@ -23,8 +25,8 @@ export function CaseStudyPage({ study }: { study: LocalizedCaseStudy }) {
 
   return (
     <article className="case-study">
+      <ProjectBackButton locale={locale} fallbackHref={`/${locale}#work`} label={t("allWork")} shortLabel={t("backShort")} projectTitle={study.title} />
       <header className="case-header site-shell">
-        <Link href="/#work" className="case-back"><ArrowLeft size={15} />{t("allWork")}</Link>
         <div className="case-header-grid">
           <div className="case-header-copy">
             <div className="case-header-status"><span>{project.number} / {study.eyebrow}</span><span className="status-marker" data-state={study.slug === "heard-sheep" ? "ready" : "idle"}><i aria-hidden="true" />{study.experienceTag}</span></div>

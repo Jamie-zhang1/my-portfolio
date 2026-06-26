@@ -62,6 +62,12 @@ const banned = [
   p("能点的", "原型"),
   p("真实", "页面"),
   p("Build a", " clickable"),
+  p("逻辑学", "训练"),
+  p("我尝试了", " 我主要尝试了"),
+  p("I tried", " I tried"),
+  p("Logic training,", "plus"),
+  p("最近", "在改什么"),
+  p("项目", "最近更新"),
 ];
 
 function attachObservers(page, label) {
@@ -139,7 +145,7 @@ async function checkBannedPhrases(page, label) {
 
 await scanHtmlPaths(["/", "/zh", "/en"]);
 
-const desktop = await browser.newContext({ viewport: { width: 1440, height: 1024 }, deviceScaleFactor: 1, reducedMotion: "no-preference" });
+const desktop = await browser.newContext({ viewport: { width: 1440, height: 1024 }, deviceScaleFactor: 1, reducedMotion: "no-preference", acceptDownloads: true });
 const page = await desktop.newPage();
 attachObservers(page, "desktop");
 
@@ -151,7 +157,10 @@ await page.getByText("用 vibe coding 把想法做成网页。").waitFor();
 for (const label of ["我的作品", "研究方法", "关于我", "联系我"]) {
   await page.locator(".desktop-nav").getByText(label, { exact: true }).waitFor();
 }
-await page.getByRole("button", { name: "浏览这个空间" }).click();
+await page.getByRole("link", { name: "写下一个想法" }).waitFor();
+const noteEntryLinks = await page.locator(".workspace-note-entry").evaluateAll((links) => links.map((link) => link.getAttribute("href")));
+if (noteEntryLinks.length !== 4 || !noteEntryLinks.every((href) => href?.includes("/zh/notes/new?type="))) errors.push(`note entries: expected 4 zh note links, got ${JSON.stringify(noteEntryLinks)}`);
+await page.getByRole("button", { name: "我的作品" }).click();
 await page.locator("#work").waitFor();
 await checkNoOverlay(page, "zh home light");
 await checkBannedPhrases(page, "zh home light");
@@ -163,15 +172,43 @@ await page.locator("#work").screenshot({ path: join(output, "selected-works-ligh
 const cardLinks = await page.locator("#work .work-card").evaluateAll((cards) => cards.map((card) => card.getAttribute("href")));
 if (cardLinks.length !== 3 || !cardLinks.every(Boolean)) errors.push(`work cards: expected 3 clickable cards, got ${JSON.stringify(cardLinks)}`);
 await page.locator("#recent").scrollIntoViewIfNeeded();
-await page.locator("#recent").screenshot({ path: join(output, "recent-revisions-light.png") });
+await page.locator("#recent").getByText("02 / 持续更新").waitFor();
+await page.locator("#recent").screenshot({ path: join(output, "ongoing-updates-light.png") });
 await page.locator("#method").scrollIntoViewIfNeeded();
 await page.locator("#method").screenshot({ path: join(output, "method-light.png") });
 await page.locator("#method").getByText("拆清楚", { exact: true }).waitFor();
 await page.locator("#method").getByText("搭页面", { exact: true }).waitFor();
 await page.locator("#about").scrollIntoViewIfNeeded();
 await page.locator("#about").screenshot({ path: join(output, "about-light-desktop.png") });
-await page.getByText("逻辑学硕士在读").waitFor();
+await page.getByText("逻辑训练让我习惯把问题拆成前提、规则、判断和结论。").waitFor();
+await page.locator("#contact").getByRole("link", { name: "zhangjiangmin0902@gmail.com" }).waitFor();
+await page.locator("#contact").screenshot({ path: join(output, "contact-email-light.png") });
 
+await gotoChecked(page, "/zh/notes/new?type=idea", "zh new note");
+await page.getByRole("heading", { name: "记录一个想法" }).waitFor();
+await page.getByPlaceholder("给这个想法起个名字").fill("语音任务整理想法");
+await page.getByLabel("关联项目").selectOption("heard-sheep");
+await page.getByPlaceholder("先随便写").fill("继续整理语音输入后的任务拆分方式，先记录，再慢慢补成项目记录。");
+await page.getByPlaceholder("网页想法、AI 工具").fill("网页想法, AI 工具, 待整理");
+const fixturePath = join(output, "note-attachment-sample.txt");
+await writeFile(fixturePath, "local attachment preview only", "utf8");
+await page.locator("input[type=file]").setInputFiles(fixturePath);
+await page.screenshot({ path: join(output, "notes-new-zh.png"), fullPage: true });
+await page.getByRole("button", { name: "保存草稿" }).click();
+await page.getByText("已保存到当前浏览器").waitFor();
+await page.screenshot({ path: join(output, "notes-save-success-zh.png"), fullPage: true });
+await gotoChecked(page, "/zh/notes", "zh notes list");
+await page.getByText("语音任务整理想法").waitFor();
+await page.screenshot({ path: join(output, "notes-list-zh.png"), fullPage: true });
+await page.getByRole("button", { name: "复制 Markdown" }).click();
+await page.getByText("Markdown 已复制。").waitFor();
+await page.screenshot({ path: join(output, "notes-markdown-copy-zh.png"), fullPage: true });
+await gotoChecked(page, "/en/notes/new?type=learning", "en new note");
+await page.getByRole("heading", { name: "Capture an idea" }).waitFor();
+await page.screenshot({ path: join(output, "notes-new-en.png"), fullPage: true });
+
+await gotoChecked(page, "/zh", "zh home before dark toggle");
+await setTheme(page, "light");
 await page.getByRole("button", { name: "切换到夜间模式" }).click();
 await page.waitForFunction(() => document.documentElement.dataset.theme === "dark");
 await page.screenshot({ path: join(output, "appearance-toggle-dark.png"), fullPage: false });
@@ -182,6 +219,7 @@ await setTheme(page, "light");
 await page.reload({ waitUntil: "networkidle" });
 await page.getByText("I use vibe coding to turn ideas into web pages.").waitFor();
 await page.getByText("AI tool experiments and web pages.").waitFor();
+await page.getByText("Logic training, plus a little web practice.").waitFor();
 await checkNoOverlay(page, "en home light");
 await checkBannedPhrases(page, "en home light");
 await capturePerf(page, "en home desktop light");
@@ -196,11 +234,22 @@ await page.keyboard.press("Escape");
 await gotoChecked(page, "/zh/projects/heard-sheep", "zh heard sheep note");
 await page.getByText("项目记录", { exact: true }).waitFor();
 await page.getByText("复盘", { exact: true }).waitFor();
+await page.evaluate(() => window.scrollTo(0, Math.floor(document.body.scrollHeight * 0.55)));
+await page.waitForTimeout(300);
+if (!(await page.locator(".project-back-fixed .project-back-pill").isVisible())) errors.push("project back: zh desktop sticky back button not visible after scroll");
+await page.locator(".project-back-fixed .project-back-pill").screenshot({ path: join(output, "project-back-sticky-zh.png") });
 await checkBannedPhrases(page, "zh heard sheep note");
 await page.getByRole("button", { name: "Switch to English" }).first().click();
 await page.waitForURL(/\/en\/projects\/heard-sheep$/);
 routeResults.push({ label: "language switch keep path", path: page.url().replace(base, ""), status: 200, ok: page.url().endsWith("/en/projects/heard-sheep") });
 await page.getByText("Project Note", { exact: true }).waitFor();
+await page.getByText("Back to Work").waitFor();
+await page.evaluate(() => window.scrollTo(0, Math.floor(document.body.scrollHeight * 0.55)));
+await page.waitForTimeout(300);
+if (!(await page.locator(".project-back-fixed .project-back-pill").isVisible())) errors.push("project back: en desktop sticky back button not visible after scroll");
+await page.locator(".project-back-fixed .project-back-pill").click();
+await page.waitForURL(/\/en#work$/);
+await gotoChecked(page, "/en/projects/heard-sheep", "en heard sheep after back check");
 await page.screenshot({ path: join(output, "project-heard-sheep.png"), fullPage: true });
 
 for (const slug of ["proddoc-ai", "ai-decision-copilot"]) {
@@ -224,6 +273,11 @@ await checkNoOverlay(mobilePage, "zh home mobile light");
 await checkBannedPhrases(mobilePage, "zh home mobile light");
 await capturePerf(mobilePage, "zh home mobile light");
 await mobilePage.screenshot({ path: join(output, "zh-home-mobile-light.png"), fullPage: true });
+await mobilePage.goto(`${base}/zh/projects/proddoc-ai`, { waitUntil: "networkidle" });
+await mobilePage.locator(".project-back-mobile").getByRole("link", { name: "返回" }).waitFor();
+await mobilePage.locator(".project-back-mobile").screenshot({ path: join(output, "project-back-mobile.png"), fullPage: false });
+await gotoChecked(mobilePage, "/zh", "zh home mobile after project back check");
+await setTheme(mobilePage, "light");
 await mobilePage.getByRole("button", { name: "打开菜单" }).click();
 await mobilePage.getByRole("dialog", { name: "打开菜单" }).waitFor();
 await mobilePage.locator(".mobile-menu-panel nav a").first().waitFor();
@@ -238,7 +292,7 @@ await mobile.close();
 const apiContext = await browser.newContext();
 const apiPage = await apiContext.newPage();
 attachObservers(apiPage, "routes");
-const routePaths = ["/", "/zh", "/en", "/zh/projects/heard-sheep", "/en/projects/heard-sheep", "/zh/projects/proddoc-ai", "/en/projects/proddoc-ai", "/zh/projects/ai-decision-copilot", "/en/projects/ai-decision-copilot"];
+const routePaths = ["/", "/zh", "/en", "/zh/notes/new", "/en/notes/new", "/zh/notes", "/en/notes", "/zh/projects/heard-sheep", "/en/projects/heard-sheep", "/zh/projects/proddoc-ai", "/en/projects/proddoc-ai", "/zh/projects/ai-decision-copilot", "/en/projects/ai-decision-copilot"];
 if (!/127\.0\.0\.1|localhost/.test(base)) routePaths.push("/sheep");
 for (const path of routePaths) {
   try {
