@@ -1,11 +1,11 @@
-import { ArrowUpRight, Check, Code2, Play } from "lucide-react";
+﻿import { ArrowUpRight, Check, Code2, Play } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { LocalizedCaseStudy } from "@/data/case-studies-localized";
 import type { AppLocale } from "@/i18n/routing";
+import { MotionButton } from "@/components/motion/motion-button";
 import { ProjectBackButton } from "@/components/project-back-button";
 import { siteConfig } from "@/data/site-config";
-import { Link } from "@/i18n/navigation";
 
 const decisionScreens = [
   { src: "/screenshots/portfolio/copilot-demo-select.png", alt: "AI Decision Copilot input screen" },
@@ -37,12 +37,10 @@ export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; lo
               <div><dt>{t("status")}</dt><dd>{study.experienceTag}</dd></div>
             </dl>
             <div className="case-actions">
-              {demoHref && (study.slug === "heard-sheep" ? (
-                <a href={demoHref} target="_blank" rel="noopener noreferrer" className="button button-primary"><Play size={15} />{t("tryProduct")}</a>
-              ) : (
-                <Link href={demoHref} className="button button-primary"><Play size={15} />{t("tryProduct")}</Link>
-              ))}
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="button button-secondary"><Code2 size={16} />{t("github")}</a>
+              {demoHref ? (
+                <MotionButton href={demoHref} target={study.slug === "heard-sheep" ? "_blank" : undefined} rel={study.slug === "heard-sheep" ? "noopener noreferrer" : undefined} className="button button-primary"><Play size={15} />{t("tryProduct")}</MotionButton>
+              ) : null}
+              <MotionButton href={project.github} target="_blank" rel="noopener noreferrer" className="button button-secondary"><Code2 size={16} />{t("github")}</MotionButton>
             </div>
           </div>
           <div className="prototype-window case-hero-window">
@@ -139,10 +137,11 @@ export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; lo
       <section className="case-section site-shell case-final">
         <div><p className="section-kicker">11 / {t("demoGithub")}</p><h2>{t("finalTitle")}</h2></div>
         <div className="case-final-actions">
-          {demoHref && (study.slug === "heard-sheep" ? <a href={demoHref} target="_blank" rel="noopener noreferrer" className="button button-primary">{t("openDemo")}<ArrowUpRight size={15} /></a> : <Link href={demoHref} className="button button-primary">{t("openDemo")}<ArrowUpRight size={15} /></Link>)}
-          <a href={project.github} target="_blank" rel="noopener noreferrer" className="button button-secondary">{t("viewGithub")}<Code2 size={15} /></a>
+          {demoHref ? <MotionButton href={demoHref} target={study.slug === "heard-sheep" ? "_blank" : undefined} rel={study.slug === "heard-sheep" ? "noopener noreferrer" : undefined} className="button button-primary">{t("openDemo")}<ArrowUpRight size={15} /></MotionButton> : null}
+          <MotionButton href={project.github} target="_blank" rel="noopener noreferrer" className="button button-secondary">{t("viewGithub")}<Code2 size={15} /></MotionButton>
         </div>
       </section>
     </article>
   );
 }
+

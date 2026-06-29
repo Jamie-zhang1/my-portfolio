@@ -83,7 +83,7 @@ function attachObservers(page, label) {
 }
 
 async function gotoChecked(page, path, label) {
-  const response = await page.goto(`${base}${path}`, { waitUntil: "networkidle" });
+  const response = await page.goto(`${base}${path}`, { waitUntil: "domcontentloaded", timeout: 30000 });
   const status = response?.status() ?? 0;
   routeResults.push({ label, path, status, ok: status >= 200 && status < 400 });
   if (status < 200 || status >= 400) errors.push(`${label}: expected 2xx/3xx for ${path}, got ${status}`);
@@ -152,7 +152,8 @@ async function checkTextareaContains(page, expected, label) {
     const value = await textarea.inputValue();
     errors.push(`${label}: expected textarea to include ${expected}, got ${value}`);
   }
-}await scanHtmlPaths(["/", "/zh", "/en"]);
+}
+await scanHtmlPaths(["/", "/zh", "/en"]);
 
 const desktop = await browser.newContext({ viewport: { width: 1440, height: 1024 }, deviceScaleFactor: 1, reducedMotion: "no-preference", acceptDownloads: true, permissions: ["clipboard-read", "clipboard-write"] });
 const page = await desktop.newPage();
@@ -160,7 +161,7 @@ attachObservers(page, "desktop");
 
 await gotoChecked(page, "/zh", "zh home light");
 await setTheme(page, "light");
-await page.reload({ waitUntil: "networkidle" });
+await page.reload({ waitUntil: "domcontentloaded" });
 await page.getByRole("heading", { name: "Jamie Zhang" }).waitFor();
 await page.getByText("用 vibe coding 把想法做成网页。").waitFor();
 for (const label of ["我的作品", "研究方法", "关于我", "联系我"]) {
@@ -168,7 +169,7 @@ for (const label of ["我的作品", "研究方法", "关于我", "联系我"]) 
 }
 await page.getByRole("link", { name: "写下一个想法" }).waitFor();
 const noteEntryLinks = await page.locator(".workspace-note-entry").evaluateAll((links) => links.map((link) => link.getAttribute("href")));
-if (noteEntryLinks.length !== 4 || !noteEntryLinks.every((href) => href?.includes("/zh/notes/new?type="))) errors.push(`note entries: expected 4 zh note links, got ${JSON.stringify(noteEntryLinks)}`);
+if (noteEntryLinks.length !== 4 || !noteEntryLinks.every((href) => href?.match(/\/zh\/notes\/(idea|draft|review|learning)\/new/))) errors.push(`note entries: expected 4 zh note links, got ${JSON.stringify(noteEntryLinks)}`);
 await page.getByRole("button", { name: "我的作品" }).click();
 await page.locator("#work").waitFor();
 await checkNoOverlay(page, "zh home light");
@@ -202,7 +203,7 @@ await page.getByRole("button", { name: "页面草稿" }).click();
 await page.getByText("这里保存已经开始整理页面结构的记录。").waitFor();
 await page.getByText("还没有页面草稿。可以从一个想法开始，把它整理成页面结构。").waitFor();
 await page.screenshot({ path: join(output, "notes-center-empty-zh.png"), fullPage: true });
-await gotoChecked(page, "/zh/notes/new?type=idea", "zh new note");
+await gotoChecked(page, "/zh/notes/idea/new", "zh new note");
 await page.getByRole("heading", { name: "记录一个想法" }).waitFor();
 await checkTextareaContains(page, "## 原始想法", "zh idea template");
 await page.getByPlaceholder("给这个想法起个名字").fill("语音任务整理想法");
@@ -214,18 +215,18 @@ await writeFile(fixturePath, "local attachment preview only", "utf8");
 await page.locator("input[type=file]").setInputFiles(fixturePath);
 await page.screenshot({ path: join(output, "notes-new-zh.png"), fullPage: true });
 for (const [type, heading, templateText] of [["draft", "整理一个页面草稿", "## 页面目标"], ["review", "写一段项目复盘", "## 做了什么"], ["learning", "保存一条学习笔记", "## 学到的内容"]]) {
-  await gotoChecked(page, `/zh/notes/new?type=${type}`, `zh ${type} note mode`);
+  await gotoChecked(page, `/zh/notes/${type}/new`, `zh ${type} note mode`);
   await page.getByRole("heading", { name: heading }).waitFor();
   await checkTextareaContains(page, templateText, `${type} template`);
 }
-await gotoChecked(page, "/zh/notes/new?type=idea", "zh idea note before save");
+await gotoChecked(page, "/zh/notes/idea/new", "zh idea note before save");
 await page.getByRole("heading", { name: "记录一个想法" }).waitFor();
 await page.getByPlaceholder("给这个想法起个名字").fill("语音任务整理想法");
 await page.getByLabel("关联项目").selectOption("heard-sheep");
 await page.locator("textarea").fill("## 原始想法`n继续整理语音输入后的任务拆分方式。`n`n## 可能用途`n任务卡片整理。`n");
 await page.getByPlaceholder("网页想法、AI 工具").fill("网页想法, AI 工具, 待整理");
 await page.getByRole("button", { name: "保存草稿" }).click();
-await page.getByText("已保存到当前浏览器").waitFor();
+await page.getByText("已保存到当前浏览器。", { exact: true }).waitFor();
 await page.screenshot({ path: join(output, "notes-save-success-zh.png"), fullPage: true });
 await gotoChecked(page, "/zh/notes", "zh notes list");
 await page.getByRole("heading", { name: "记录中心" }).waitFor();
@@ -253,7 +254,7 @@ await checkTextareaContains(page, "来源想法：语音任务整理想法", "zh
 await page.getByPlaceholder("给这个页面草稿起个名字").fill("首页记录入口结构");
 await page.locator("textarea").fill("来源想法：语音任务整理想法\n\n## 页面目标\n把记录入口按想法、草稿、复盘和学习笔记组织起来。\n\n## 页面结构\n入口说明、四类记录和后续动作。\n");
 await page.getByRole("button", { name: "保存草稿" }).click();
-await page.getByText("已保存到当前浏览器").waitFor();
+await page.getByText("已保存到当前浏览器。", { exact: true }).waitFor();
 await gotoChecked(page, "/zh/notes", "zh notes list after draft");
 await page.getByRole("button", { name: "页面草稿" }).click();
 await page.getByText("首页记录入口结构").waitFor();
@@ -268,21 +269,21 @@ const draftId = await page.evaluate(() => {
 });
 if (!draftId) errors.push("notes relation: expected saved draft id");
 if (draftId) {
-  await gotoChecked(page, `/zh/notes/new?type=learning&from=${draftId}`, "zh learning from draft");
+  await gotoChecked(page, `/zh/notes/learning/new?from=${draftId}`, "zh learning from draft");
   await page.getByRole("heading", { name: "保存一条学习笔记" }).waitFor();
   await page.getByText("旁支 / 可以关联任意阶段").waitFor();
   await page.locator(".note-source-box").getByText("首页记录入口结构").waitFor();
   await checkTextareaContains(page, "来源草稿：首页记录入口结构", "zh learning source relation");
 }
-await gotoChecked(page, "/en/notes/new?type=idea", "en new note");
+await gotoChecked(page, "/en/notes/idea/new", "en new note");
 await page.getByRole("heading", { name: "Capture an idea" }).waitFor();
 await checkTextareaContains(page, "## Raw idea", "en idea template");
 for (const [type, heading, templateText] of [["draft", "Draft a page structure", "## Page goal"], ["review", "Write a project review", "## What I did"], ["learning", "Save a learning note", "## What I learned"]]) {
-  await gotoChecked(page, `/en/notes/new?type=${type}`, `en ${type} note mode`);
+  await gotoChecked(page, `/en/notes/${type}/new`, `en ${type} note mode`);
   await page.getByRole("heading", { name: heading }).waitFor();
   await checkTextareaContains(page, templateText, `${type} template`);
 }
-await gotoChecked(page, "/en/notes/new?type=learning", "en learning note screenshot");
+await gotoChecked(page, "/en/notes/learning/new", "en learning note screenshot");
 await page.getByRole("heading", { name: "Save a learning note" }).waitFor();
 await page.screenshot({ path: join(output, "notes-new-en.png"), fullPage: true });
 
@@ -295,7 +296,7 @@ await page.screenshot({ path: join(output, "zh-home-dark-desktop.png"), fullPage
 
 await gotoChecked(page, "/en", "en home light");
 await setTheme(page, "light");
-await page.reload({ waitUntil: "networkidle" });
+await page.reload({ waitUntil: "domcontentloaded" });
 await page.getByText("I use vibe coding to turn ideas into web pages.").waitFor();
 await page.getByText("AI tool experiments and web pages.").waitFor();
 await page.getByText("Logic training, plus a little web practice.").waitFor();
@@ -345,14 +346,14 @@ const mobilePage = await mobile.newPage();
 attachObservers(mobilePage, "mobile");
 await gotoChecked(mobilePage, "/zh", "zh home mobile light");
 await setTheme(mobilePage, "light");
-await mobilePage.reload({ waitUntil: "networkidle" });
+await mobilePage.reload({ waitUntil: "domcontentloaded" });
 await mobilePage.getByText("用 vibe coding 把想法做成网页。").waitFor();
 await checkMobileOverflow(mobilePage, "zh home mobile light");
 await checkNoOverlay(mobilePage, "zh home mobile light");
 await checkBannedPhrases(mobilePage, "zh home mobile light");
 await capturePerf(mobilePage, "zh home mobile light");
 await mobilePage.screenshot({ path: join(output, "zh-home-mobile-light.png"), fullPage: true });
-await mobilePage.goto(`${base}/zh/projects/proddoc-ai`, { waitUntil: "networkidle" });
+await mobilePage.goto(`${base}/zh/projects/proddoc-ai`, { waitUntil: "domcontentloaded" });
 await mobilePage.locator(".project-back-mobile").getByRole("link", { name: "返回" }).waitFor();
 await mobilePage.locator(".project-back-mobile").screenshot({ path: join(output, "project-back-mobile.png"), fullPage: false });
 await gotoChecked(mobilePage, "/zh", "zh home mobile after project back check");
@@ -371,7 +372,7 @@ await mobile.close();
 const apiContext = await browser.newContext();
 const apiPage = await apiContext.newPage();
 attachObservers(apiPage, "routes");
-const routePaths = ["/", "/zh", "/en", "/zh/notes/new", "/en/notes/new", "/zh/notes", "/en/notes", "/zh/projects/heard-sheep", "/en/projects/heard-sheep", "/zh/projects/proddoc-ai", "/en/projects/proddoc-ai", "/zh/projects/ai-decision-copilot", "/en/projects/ai-decision-copilot"];
+const routePaths = ["/", "/zh", "/en", "/zh/notes", "/en/notes", "/zh/notes/new", "/en/notes/new", "/zh/notes/idea/new", "/zh/notes/draft/new", "/zh/notes/review/new", "/zh/notes/learning/new", "/en/notes/idea/new", "/en/notes/draft/new", "/en/notes/review/new", "/en/notes/learning/new", "/zh/projects/heard-sheep", "/en/projects/heard-sheep", "/zh/projects/proddoc-ai", "/en/projects/proddoc-ai", "/zh/projects/ai-decision-copilot", "/en/projects/ai-decision-copilot"];
 if (!/127\.0\.0\.1|localhost/.test(base)) routePaths.push("/sheep");
 for (const path of routePaths) {
   try {

@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
 import { ArrowLeft } from "lucide-react";
+import { MotionButton } from "@/components/motion/motion-button";
 
 type ProjectBackButtonProps = {
   locale: "zh" | "en";
@@ -11,7 +12,7 @@ type ProjectBackButtonProps = {
 };
 
 export function ProjectBackButton({ locale, fallbackHref, label, shortLabel, projectTitle }: ProjectBackButtonProps) {
-  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
     if (typeof window === "undefined") return;
     const referrer = document.referrer;
     const sameOrigin = referrer.startsWith(window.location.origin);
@@ -35,16 +36,16 @@ export function ProjectBackButton({ locale, fallbackHref, label, shortLabel, pro
   return (
     <>
       <div className="project-back-fixed" aria-label={label}>
-        <a href={fallbackHref} onClick={handleClick} className="project-back-pill">
+        <MotionButton href={fallbackHref} onClick={handleClick} className="project-back-pill">
           <ArrowLeft size={15} aria-hidden="true" />
           <span>{label}</span>
-        </a>
+        </MotionButton>
       </div>
       <div className="project-back-mobile" aria-label={label}>
-        <a href={fallbackHref} onClick={handleClick}>
+        <MotionButton href={fallbackHref} onClick={handleClick} className="project-back-mobile-link">
           <ArrowLeft size={15} aria-hidden="true" />
           <span>{shortLabel}</span>
-        </a>
+        </MotionButton>
         {projectTitle ? <strong>{projectTitle}</strong> : null}
       </div>
     </>
