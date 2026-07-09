@@ -12,6 +12,7 @@ export type LocalizedCaseStudy = {
   homepagePositioning: string;
   homepageProblem: string;
   homepageOutcome: string;
+  homepageCapabilities: string[];
   homepageStack: string[];
   overview: string;
   outcome: string;
@@ -42,6 +43,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       homepagePositioning: "面向论文、课题报告、行业研究和竞品分析的资料整理与证据追踪 Agent。",
       homepageProblem: "研究资料经常分散在 PDF、Word、网页文本、Markdown 和临时笔记中。",
       homepageOutcome: "需求拆解、信息架构、页面结构规划、Agent 产品流程和线上部署实践。",
+      homepageCapabilities: ["需求拆解", "研究流程", "证据管理", "信息架构", "原型实践"],
       homepageStack: ["AI Agent", "Research Workflow", "Evidence Management", "Next.js", "Vibe Coding", "Product Design"],
       overview: "ResearchFlow Agent 是我围绕论文、课题报告和行业研究场景做的一次 AI Agent 产品实践。它尝试把分散资料、证据卡片、研究大纲和导出素材拆开管理，让研究过程从资料堆积变成一条更清晰、可追踪的工作流。",
       outcome: "把资料整理、证据追踪和研究大纲放进同一个可访问的工作流原型。",
@@ -76,6 +78,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       homepagePositioning: "一个把语音想法整理成任务卡片的小工具。",
       homepageProblem: "口头交代和会议记录里经常藏着待办事项。",
       homepageOutcome: "语音输入、任务拆分和网页端交互呈现。",
+      homepageCapabilities: ["任务管理", "语音整理", "流程设计", "原型实践"],
       homepageStack: ["Next.js", "TypeScript", "Xiaomi MiMo", "PWA"],
       overview: "Heard Sheep 是我围绕语音记录做的一次网页尝试。它把一段语音或临时文字整理成候选任务，让用户先看清楚内容，再决定是否加入清单。",
       outcome: "把口头想法整理成可以继续修改的任务卡片。",
@@ -110,6 +113,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       homepagePositioning: "一个尝试把项目想法整理成文档的工具。",
       homepageProblem: "项目说明经常散落在输入框、旧文档和临时笔记里。",
       homepageOutcome: "结构化提问、文档生成和页面组织。",
+      homepageCapabilities: ["文档整理", "产品说明", "内容结构", "页面规划"],
       homepageStack: ["Next.js", "React", "shadcn/ui", "docx"],
       overview: "ProdDoc AI 是一次围绕文档整理的网页尝试。页面把项目信息、参考资料和生成结果放在同一个空间里，方便继续修改和导出。",
       outcome: "把零散项目信息整理成可以继续编辑的文档草稿。",
@@ -144,6 +148,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       homepagePositioning: "一个围绕决策辅助场景做的网页实验。",
       homepageProblem: "做选择时，选项、比较标准和风险经常没有放在一起。",
       homepageOutcome: "信息整理、选项比较和辅助判断展示。",
+      homepageCapabilities: ["决策辅助", "信息整理", "页面规划", "交互表达"],
       homepageStack: ["JavaScript", "Express.js", "Xiaomi MiMo", "Nginx"],
       overview: "AI Decision Copilot 是一个把开放问题整理成选项、比较维度和风险提示的网页实验。它不追求给出唯一答案，而是让比较过程更容易查看。",
       outcome: "把一个开放问题整理成可比较的选项、依据和风险。",
@@ -180,6 +185,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       homepagePositioning: "A material organization and evidence-tracking Agent for papers, reports, market research, and competitor analysis.",
       homepageProblem: "Research material often lives across PDFs, Word files, web text, Markdown, and temporary notes.",
       homepageOutcome: "Requirements breakdown, information architecture, page planning, Agent workflow design, and live prototype deployment.",
+      homepageCapabilities: ["Requirements breakdown", "Research workflow", "Evidence management", "Information architecture", "Prototype practice"],
       homepageStack: ["AI Agent", "Research Workflow", "Evidence Management", "Next.js", "Vibe Coding", "Product Design"],
       overview: "ResearchFlow Agent is a personal AI Agent product practice around papers, project reports, and industry research. It separates source material, evidence cards, outlines, and export material so the research process becomes clearer and easier to trace.",
       outcome: "Put material organization, evidence tracking, and research outlining into one accessible workflow prototype.",
@@ -214,6 +220,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       homepagePositioning: "A small tool that turns voice notes into task cards.",
       homepageProblem: "Tasks are often hidden in conversations, meetings, and quick reminders.",
       homepageOutcome: "Voice input, task extraction, and a simple web interaction for review.",
+      homepageCapabilities: ["Task management", "Voice organization", "Flow design", "Prototype practice"],
       homepageStack: ["Next.js", "TypeScript", "Xiaomi MiMo", "PWA"],
       overview: "Heard Sheep is a web page experiment around voice notes. It turns a short recording or text note into draft task cards, so the user can review the content before adding it to a list.",
       outcome: "Turn spoken notes into editable task cards.",
@@ -248,6 +255,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       homepagePositioning: "A tool experiment for turning project ideas into structured documents.",
       homepageProblem: "Project notes often live across forms, old files, and loose drafts.",
       homepageOutcome: "Structured questions, generated drafts, and a cleaner page layout for editing.",
+      homepageCapabilities: ["Document organization", "Product documentation", "Content structure", "Page planning"],
       homepageStack: ["Next.js", "React", "shadcn/ui", "docx"],
       overview: "ProdDoc AI is a web page experiment around documentation. It keeps project context, source material, and generated drafts in one place so the result can still be revised and exported.",
       outcome: "Turn scattered project material into an editable draft.",
@@ -282,6 +290,7 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
       homepagePositioning: "A web experiment around decision support and comparison.",
       homepageProblem: "Options, comparison criteria, and risks are often not shown together.",
       homepageOutcome: "Information organization, option comparison, and a clearer display for assisted decisions.",
+      homepageCapabilities: ["Decision support", "Information organization", "Page planning", "Interaction design"],
       homepageStack: ["JavaScript", "Express.js", "Xiaomi MiMo", "Nginx"],
       overview: "AI Decision Copilot is a web experiment that organizes an open question into options, criteria, and risks. It does not aim to produce a single final answer; it makes the comparison easier to inspect.",
       outcome: "Turn an open question into comparable options, reasons, and risk notes.",

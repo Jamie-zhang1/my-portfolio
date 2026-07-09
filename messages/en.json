@@ -127,13 +127,16 @@
     "work": {
       "kicker": "01 / Work",
       "title": "AI products, Agent workflows, and web prototypes.",
-      "description": "The homepage keeps the signal clear: what each project is, what problem it explores, and which product or technical methods I tried.",
+      "description": "A record of prototype work across AI products, research organization, task management, and decision support, with emphasis on positioning, problem framing, flows, and reflection.",
       "positioning": "Project note",
       "problem": "I wanted to address",
       "built": "I tried",
-      "stack": "Tech tags",
+      "stack": "Capability tags",
       "viewCase": "View project note",
-      "viewProject": "Open project"
+      "viewProject": "Open project",
+      "previous": "View previous project",
+      "next": "View next project",
+      "progress": "Project carousel"
     },
     "process": {
       "kicker": "03 / Method",

@@ -15,6 +15,11 @@ export function CustomCursor() {
   useEffect(() => {
     if (reduceMotion || window.matchMedia("(pointer: coarse)").matches) return;
     const move = (event: PointerEvent) => {
+      if ((event.target as HTMLElement).closest("#work")) {
+        setVisible(false);
+        setActive(false);
+        return;
+      }
       pointerX.set(event.clientX - 8);
       pointerY.set(event.clientY - 8);
       setVisible(true);
