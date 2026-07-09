@@ -1,4 +1,4 @@
-﻿import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { MotionCard } from "@/components/motion/motion-card";
 import { StaggerItem, StaggerList } from "@/components/motion/stagger-list";
@@ -12,8 +12,12 @@ export async function WorksCanvas({ locale }: { locale: AppLocale }) {
   return (
     <StaggerList className="works-grid">
       {studies.map((study, index) => (
-        <StaggerItem key={study.slug}>
-          <MotionCard className="work-card" href={`/projects/${study.slug}`} aria-label={`${t("viewCase")}: ${study.title}`}>
+        <StaggerItem className="work-grid-item" key={study.slug}>
+          <MotionCard
+            className="work-card"
+            href={`/projects/${study.slug}`}
+            aria-label={`${t("viewCase")}: ${study.title}`}
+          >
             <article className="work-card-copy">
               <div className="work-card-heading">
                 <span>{String(index + 1).padStart(2, "0")}</span>

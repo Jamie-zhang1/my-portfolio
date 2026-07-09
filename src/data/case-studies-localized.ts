@@ -2,7 +2,7 @@ import type { AppLocale } from "@/i18n/routing";
 import { projects, type Project } from "@/data/projects";
 
 export type LocalizedCaseStudy = {
-  slug: "heard-sheep" | "proddoc-ai" | "ai-decision-copilot";
+  slug: "heard-sheep" | "researchflow-agent" | "proddoc-ai" | "ai-decision-copilot";
   accent: "violet" | "cyan" | "coral";
   project: Project;
   title: string;
@@ -31,6 +31,40 @@ type LocalizedNarrative = Omit<LocalizedCaseStudy, "project"> & { projectNumber:
 
 const localized: Record<AppLocale, LocalizedNarrative[]> = {
   zh: [
+    {
+      projectNumber: "04",
+      slug: "researchflow-agent",
+      accent: "cyan",
+      title: "ResearchFlow Agent",
+      subtitle: "研究工作流原型",
+      eyebrow: "AI RESEARCH WORKFLOW",
+      experienceTag: "个人 AI Agent 实践",
+      homepagePositioning: "面向论文、课题报告、行业研究和竞品分析的资料整理与证据追踪 Agent。",
+      homepageProblem: "研究资料经常分散在 PDF、Word、网页文本、Markdown 和临时笔记中。",
+      homepageOutcome: "需求拆解、信息架构、页面结构规划、Agent 产品流程和线上部署实践。",
+      homepageStack: ["AI Agent", "Research Workflow", "Evidence Management", "Next.js", "Vibe Coding", "Product Design"],
+      overview: "ResearchFlow Agent 是我围绕论文、课题报告和行业研究场景做的一次 AI Agent 产品实践。它尝试把分散资料、证据卡片、研究大纲和导出素材拆开管理，让研究过程从资料堆积变成一条更清晰、可追踪的工作流。",
+      outcome: "把资料整理、证据追踪和研究大纲放进同一个可访问的工作流原型。",
+      problem: "研究材料通常散落在 PDF、Word、网页文本、Markdown 和临时笔记中。资料、证据、结构和导出素材混在一起时，后续复查和继续写作都会变得困难。",
+      solution: "我把页面拆成项目管理、资料库、证据库、研究大纲、导出中心和使用指引，让资料来源、证据卡片、结构草稿和输出素材分别管理。",
+      role: ["需求拆解", "信息架构设计", "页面结构规划", "UI 分层优化", "Agent 产品流程设计", "与 Codex/OpenClaw 等 AI 编程工具协作", "前端原型迭代与线上部署"],
+      userFlow: ["创建项目", "上传资料", "解析资料", "生成证据", "形成大纲", "导出素材"],
+      keyInteractions: [
+        { title: "资料和证据分开", description: "资料先进入资料库，关键内容再整理成证据卡片，方便后续回看来源。" },
+        { title: "大纲不是终稿", description: "研究大纲承担结构整理作用，不把自动生成内容包装成成熟论文。" },
+        { title: "导出素材", description: "输出的是可继续使用的素材和结构，而不是宣称完成全部研究工作。" }
+      ],
+      aiCapability: "这个项目更像研究工作流原型：AI 和 Agent 流程帮助整理资料、生成候选证据和梳理大纲，最终判断、引用和写作仍需要人工核验。",
+      techStack: [
+        { category: "产品流程", items: ["AI Agent", "Research Workflow", "Evidence Management", "Prompt Engineering"] },
+        { category: "页面", items: ["Next.js", "React", "TypeScript", "Responsive UI"] },
+        { category: "协作方式", items: ["Codex", "OpenClaw", "Vibe Coding", "Frontend iteration"] },
+        { category: "部署", items: ["Live prototype", "Nginx", "Project review", "Smoke checks"] }
+      ],
+      whatIBuilt: ["项目管理", "资料库", "证据库", "研究大纲", "导出中心", "使用指引", "线上访问入口"],
+      reflection: "ResearchFlow 让我把 AI Agent 项目从单个页面效果推进到工作流组织：关键不是把它说成成熟系统，而是把资料、证据、结构和输出的边界拆清楚。",
+      screenCaptions: ["工作流：创建项目", "资料库：管理来源材料", "证据库：沉淀证据卡片", "大纲：整理研究结构"]
+    },
     {
       projectNumber: "01",
       slug: "heard-sheep",
@@ -135,6 +169,40 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
     }
   ],
   en: [
+    {
+      projectNumber: "04",
+      slug: "researchflow-agent",
+      accent: "cyan",
+      title: "ResearchFlow Agent",
+      subtitle: "Research workflow prototype",
+      eyebrow: "AI RESEARCH WORKFLOW",
+      experienceTag: "Personal AI Agent practice",
+      homepagePositioning: "A material organization and evidence-tracking Agent for papers, reports, market research, and competitor analysis.",
+      homepageProblem: "Research material often lives across PDFs, Word files, web text, Markdown, and temporary notes.",
+      homepageOutcome: "Requirements breakdown, information architecture, page planning, Agent workflow design, and live prototype deployment.",
+      homepageStack: ["AI Agent", "Research Workflow", "Evidence Management", "Next.js", "Vibe Coding", "Product Design"],
+      overview: "ResearchFlow Agent is a personal AI Agent product practice around papers, project reports, and industry research. It separates source material, evidence cards, outlines, and export material so the research process becomes clearer and easier to trace.",
+      outcome: "Put material organization, evidence tracking, and research outlining into one accessible workflow prototype.",
+      problem: "Research material tends to scatter across PDFs, Word files, web pages, Markdown, and quick notes. When sources, evidence, structure, and export material are mixed together, later review becomes harder.",
+      solution: "I split the page into project management, source library, evidence library, research outline, export center, and usage guidance so each part has a clearer role.",
+      role: ["Requirements breakdown", "Information architecture", "Page structure planning", "UI hierarchy refinement", "Agent workflow design", "Collaboration with Codex/OpenClaw and AI coding tools", "Front-end prototype iteration and live deployment"],
+      userFlow: ["Create project", "Upload sources", "Parse material", "Create evidence", "Shape outline", "Export material"],
+      keyInteractions: [
+        { title: "Sources and evidence stay separate", description: "Material enters the source library first; key points become evidence cards that keep source context visible." },
+        { title: "Outlines are not final papers", description: "The outline organizes structure without presenting generated text as finished research." },
+        { title: "Export material", description: "The export center prepares reusable material instead of claiming to finish the whole research task." }
+      ],
+      aiCapability: "This is a research workflow prototype: AI and Agent steps help organize sources, draft candidate evidence, and shape outlines, while citation judgment and final writing still require human review.",
+      techStack: [
+        { category: "Product flow", items: ["AI Agent", "Research Workflow", "Evidence Management", "Prompt Engineering"] },
+        { category: "Page", items: ["Next.js", "React", "TypeScript", "Responsive UI"] },
+        { category: "Collaboration", items: ["Codex", "OpenClaw", "Vibe Coding", "Frontend iteration"] },
+        { category: "Deploy", items: ["Live prototype", "Nginx", "Project review", "Smoke checks"] }
+      ],
+      whatIBuilt: ["Project management", "Source library", "Evidence library", "Research outline", "Export center", "Usage guide", "Live access"],
+      reflection: "ResearchFlow moved the work from page-level polish toward workflow organization. The important part is not to oversell it as a mature system, but to keep the boundaries between sources, evidence, structure, and output clear.",
+      screenCaptions: ["Workflow: create project", "Library: manage source material", "Evidence: keep traceable cards", "Outline: organize research structure"]
+    },
     {
       projectNumber: "01",
       slug: "heard-sheep",
@@ -241,11 +309,13 @@ const localized: Record<AppLocale, LocalizedNarrative[]> = {
 };
 
 export function getLocalizedCaseStudies(locale: AppLocale): LocalizedCaseStudy[] {
-  return localized[locale].map((narrative) => {
-    const project = projects.find((item) => item.number === narrative.projectNumber);
-    if (!project) throw new Error(`Missing project data: ${narrative.projectNumber}`);
-    return { ...narrative, project };
-  });
+  return localized[locale]
+    .map((narrative) => {
+      const project = projects.find((item) => item.number === narrative.projectNumber);
+      if (!project) throw new Error(`Missing project data: ${narrative.projectNumber}`);
+      return { ...narrative, project };
+    })
+    .sort((a, b) => b.project.createdAt.localeCompare(a.project.createdAt));
 }
 
 export function getLocalizedCaseStudy(locale: AppLocale, slug: string) {

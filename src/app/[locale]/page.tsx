@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BuildStory } from "@/components/home/build-story";
@@ -14,7 +14,7 @@ import type { AppLocale } from "@/i18n/routing";
 import { localizedAlternates } from "@/lib/seo";
 
 type AboutFocus = string;
-type RecentItem = { date: string; title: string; note: string; slug?: string };
+type RecentItem = { createdAt: string; date: string; title: string; note: string; slug?: string };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: AppLocale }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -39,7 +39,8 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "Home" });
   const focus = t.raw("about.focus") as AboutFocus[];
-  const recent = t.raw("recent.items") as RecentItem[];
+  const recent = (t.raw("recent.items") as RecentItem[])
+    .toSorted((a, b) => b.createdAt.localeCompare(a.createdAt));
 
   return (
     <div className="portfolio-home">
@@ -48,6 +49,7 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
         <SectionHeader kicker={t("work.kicker")} title={t("work.title")} description={t("work.description")} />
         <WorksCanvas locale={locale} />
       </FadeInSection>
+
 
       <FadeInSection id="recent" className="home-section recent-section site-shell">
         <SectionHeader kicker={t("recent.kicker")} title={t("recent.title")} description={t("recent.description")} />
@@ -111,6 +113,7 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
           <p className="section-kicker">{t("contact.kicker")}</p>
           <h2>{t("contact.title")}</h2>
           <p>{t("contact.description")}</p>
+          <p className="contact-researchflow-link">{t("contact.researchFlowIntro")} <MotionButton className="text-link" href="https://researchflow.heard-sheep.cloud/" target="_blank" rel="noopener noreferrer">{t("contact.researchFlowLink")}<ArrowUpRight size={14} /></MotionButton></p>
         </div>
         <div className="contact-actions">
           <MotionButton className="button button-primary" href={`mailto:${siteConfig.email}`}>{t("contact.email")}<ArrowUpRight size={15} /></MotionButton>

@@ -1,13 +1,14 @@
 /* ============================================================
  * 项目数据配置
  * ----------------------------------------------------------
- * 修改项目顺序：调整数组中对象的先后位置即可。
+ * 项目展示顺序由 createdAt 自动计算，不依赖数组位置。
  * 修改项目文案：直接编辑对应字段。
  * 修改截图路径：更新 screenshot / screenshots 字段。
  * ============================================================ */
 
 export interface Project {
   number: string;
+  createdAt: string;
   title: string;
   subtitle: string;
   englishSubtitle: string;
@@ -42,6 +43,7 @@ export const projects: Project[] = [
   /* ─────────────── 01 / 听到了咩 ─────────────── */
   {
     number: "01",
+    createdAt: "2026-05-28",
     title: "听到了咩",
     subtitle: "AI 语音任务助手",
     englishSubtitle: "HEARD SHEEP — AI VOICE TASK ASSISTANT",
@@ -110,6 +112,7 @@ export const projects: Project[] = [
   /* ─────────────── 02 / ProdDoc AI ─────────────── */
   {
     number: "02",
+    createdAt: "2026-05-28",
     title: "ProdDoc AI",
     subtitle: "产品说明书生成工作台",
     englishSubtitle: "PRODUCT DOCUMENTATION GENERATOR",
@@ -176,6 +179,7 @@ export const projects: Project[] = [
   /* ─────────────── 03 / AI Decision Copilot ─────────────── */
   {
     number: "03",
+    createdAt: "2026-05-29",
     title: "AI Decision Copilot",
     subtitle: "MiMo 智能决策分析工具",
     englishSubtitle: "MIMO-POWERED DECISION ANALYSIS TOOL",
@@ -223,6 +227,59 @@ export const projects: Project[] = [
     tryLabel: "体验实验",
     experienceTag: "实验演示",
     experienceDescription: "查看结构化决策输入、方案对比、多维度分析、推荐结论和风险提示的稳定演示版。",
+  },
+
+  /* ─────────────── 04 / ResearchFlow Agent ─────────────── */
+  {
+    number: "04",
+    createdAt: "2026-07-03",
+    title: "ResearchFlow Agent",
+    subtitle: "研究工作流原型",
+    englishSubtitle: "AI RESEARCH WORKFLOW PRACTICE",
+    description: "面向论文、课题报告、行业研究和竞品分析的资料整理与证据追踪 Agent。",
+    longDescription: [
+      "ResearchFlow Agent 是一次围绕论文、课题报告和行业研究场景展开的个人 AI Agent 产品实践。",
+      "它尝试把分散在 PDF、Word、网页文本、Markdown 和临时笔记中的材料拆成资料、证据、研究大纲和导出素材，让研究过程更清晰、可追踪。",
+      "当前定位是研究工作流原型和资料整理与证据追踪工具，不把它包装成成熟商业产品或完整企业级系统。",
+    ],
+    tags: ["AI Agent", "Research Workflow", "Evidence Management", "Next.js", "Vibe Coding", "Product Design", "Prompt Engineering"],
+    href: "/projects/researchflow-agent",
+    github: "https://github.com/Jamie-zhang1",
+    demoUrl: "https://researchflow.heard-sheep.cloud/",
+    screenshot: null,
+    screenshotAlt: "ResearchFlow Agent workflow prototype",
+    screenshots: [],
+    features: [
+      { title: "项目管理", description: "围绕单个研究主题管理资料、证据、大纲和导出素材。" },
+      { title: "资料库", description: "将 PDF、Word、网页文本、Markdown 和临时笔记作为来源材料管理。" },
+      { title: "证据库", description: "把关键内容整理成可追踪证据卡片，保留来源意识。" },
+      { title: "研究大纲", description: "把证据和材料组织成可继续修改的研究结构。" },
+      { title: "导出中心", description: "输出可继续编辑和核验的素材，而不是直接宣称完成研究。" },
+      { title: "使用指引", description: "让页面流程、能力边界和操作顺序更清楚。" },
+    ],
+    techStack: [
+      { category: "产品方法", items: ["需求拆解", "信息架构", "Agent 产品流程", "Prompt Engineering"] },
+      { category: "前端", items: ["Next.js", "React", "TypeScript", "Responsive UI"] },
+      { category: "协作", items: ["Codex", "OpenClaw", "Vibe Coding", "UI iteration"] },
+      { category: "部署", items: ["Live prototype", "Nginx", "Smoke test"] },
+    ],
+    pages: [
+      { path: "/", description: "ResearchFlow 首页与工作台入口" },
+      { path: "/projects", description: "项目管理" },
+      { path: "/sources", description: "资料库" },
+      { path: "/evidence", description: "证据库" },
+      { path: "/outline", description: "研究大纲" },
+      { path: "/export", description: "导出中心" },
+    ],
+    status: "个人 AI Agent 产品实践与研究工作流原型，已作为独立站点上线；本作品集仅做项目展示入口，不复制其官网页面。",
+    displayMode: "secondary",
+    homepageSummary: "面向论文、课题报告、行业研究和竞品分析的资料整理与证据追踪 Agent，强调资料、证据、结构和导出素材分开管理。",
+    homepageImages: [],
+    icon: { src: "/project-icons/proddoc-ai.png", alt: "ResearchFlow Agent 图标" },
+    tryPath: "https://researchflow.heard-sheep.cloud/",
+    tryLabel: "查看项目",
+    experienceTag: "个人 AI Agent 实践",
+    experienceDescription: "查看一个围绕资料整理、证据追踪和研究大纲管理展开的 AI Agent 工作流原型。",
   },
 ];
 

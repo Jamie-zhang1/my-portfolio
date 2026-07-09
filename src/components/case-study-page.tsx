@@ -1,4 +1,4 @@
-﻿import { ArrowUpRight, Check, Code2, Play } from "lucide-react";
+import { ArrowUpRight, Check, Code2, Play } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { LocalizedCaseStudy } from "@/data/case-studies-localized";
@@ -21,6 +21,7 @@ export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; lo
   const { project } = study;
   const heroImage = project.homepageImages[0]?.src ?? (study.slug === "ai-decision-copilot" ? "/screenshots/portfolio/copilot-desktop.png" : project.icon.src);
   const demoHref = study.slug === "heard-sheep" ? siteConfig.heardSheepLiveUrl : project.tryPath;
+  const demoIsExternal = Boolean(demoHref?.startsWith("http"));
   const gallery = project.screenshots?.length ? project.screenshots.slice(0, study.slug === "heard-sheep" ? 5 : 4) : decisionScreens;
 
   return (
@@ -38,7 +39,7 @@ export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; lo
             </dl>
             <div className="case-actions">
               {demoHref ? (
-                <MotionButton href={demoHref} target={study.slug === "heard-sheep" ? "_blank" : undefined} rel={study.slug === "heard-sheep" ? "noopener noreferrer" : undefined} className="button button-primary"><Play size={15} />{t("tryProduct")}</MotionButton>
+                <MotionButton href={demoHref} target={demoIsExternal ? "_blank" : undefined} rel={demoIsExternal ? "noopener noreferrer" : undefined} className="button button-primary"><Play size={15} />{t("tryProduct")}</MotionButton>
               ) : null}
               <MotionButton href={project.github} target="_blank" rel="noopener noreferrer" className="button button-secondary"><Code2 size={16} />{t("github")}</MotionButton>
             </div>
@@ -137,11 +138,10 @@ export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; lo
       <section className="case-section site-shell case-final">
         <div><p className="section-kicker">11 / {t("demoGithub")}</p><h2>{t("finalTitle")}</h2></div>
         <div className="case-final-actions">
-          {demoHref ? <MotionButton href={demoHref} target={study.slug === "heard-sheep" ? "_blank" : undefined} rel={study.slug === "heard-sheep" ? "noopener noreferrer" : undefined} className="button button-primary">{t("openDemo")}<ArrowUpRight size={15} /></MotionButton> : null}
+          {demoHref ? <MotionButton href={demoHref} target={demoIsExternal ? "_blank" : undefined} rel={demoIsExternal ? "noopener noreferrer" : undefined} className="button button-primary">{t("openDemo")}<ArrowUpRight size={15} /></MotionButton> : null}
           <MotionButton href={project.github} target="_blank" rel="noopener noreferrer" className="button button-secondary">{t("viewGithub")}<Code2 size={15} /></MotionButton>
         </div>
       </section>
     </article>
   );
 }
-
