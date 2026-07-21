@@ -1,38 +1,40 @@
 "use client";
 
-import { Code2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { CommandMenu } from "@/components/interaction/command-menu";
+import { ArrowUpRight } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { LanguageSwitcher } from "@/components/interaction/language-switcher";
 import { MobileNav } from "@/components/interaction/mobile-nav";
-import { ThemeSwitcher } from "@/components/interaction/theme-switcher";
 import { siteConfig } from "@/data/site-config";
 import { Link } from "@/i18n/navigation";
 
 export function SiteHeader() {
-  const t = useTranslations("Header");
-  const navigation = [
-    { label: t("work"), href: "/#work" },
-    { label: t("method"), href: "/#method" },
-    { label: t("about"), href: "/#about" },
-    { label: t("contact"), href: "/#contact" },
-  ];
+  const locale = useLocale();
+  const navigation = locale === "zh"
+    ? [
+        { label: "作品", count: "[04]", href: "/#work" },
+        { label: "能力", count: "[04]", href: "/#about" },
+        { label: "经历", count: "[03]", href: "/#experience" },
+        { label: "联系", href: "/#contact" },
+      ]
+    : [
+        { label: "Work", count: "[04]", href: "/#work" },
+        { label: "Capability", count: "[04]", href: "/#about" },
+        { label: "Experience", count: "[03]", href: "/#experience" },
+        { label: "Contact", href: "/#contact" },
+      ];
 
   return (
     <header className="site-header">
       <div className="site-shell header-inner">
-        <Link href="/" className="brand-mark" aria-label="Jamie Zhang portfolio home">
-          <span>JZ</span>
-          <span><strong>Jamie Zhang</strong><small>{t("brandRole")}</small></span>
+        <Link href="/" className="header-availability" aria-label="Jamie Zhang portfolio home">
+          <i aria-hidden="true" />{locale === "zh" ? "可参与新的项目" : "Available for New Project"}
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          {navigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+          {navigation.map((item) => <Link key={`${item.href}-${item.label}`} href={item.href}><span>{item.label}</span>{item.count ? <small>{item.count}</small> : null}</Link>)}
         </nav>
         <div className="header-tools">
-          <CommandMenu />
-          <ThemeSwitcher compact />
           <LanguageSwitcher compact />
-          <a className="header-github" href={siteConfig.github} target="_blank" rel="noopener noreferrer" aria-label={t("githubLabel")}><Code2 size={16} /></a>
+          <a className="header-talk" href={`mailto:${siteConfig.email}`}>{locale === "zh" ? "聊聊项目" : "Let’s Talk"}<ArrowUpRight size={14} /></a>
           <MobileNav />
         </div>
       </div>
@@ -42,12 +44,5 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   const t = useTranslations("Footer");
-  return (
-    <footer className="site-footer site-footer-minimal">
-      <div className="site-shell footer-bottom">
-        <div><span>JZ</span><p>{t("role")}</p></div>
-        <p>© {new Date().getFullYear()} {t("built")}</p>
-      </div>
-    </footer>
-  );
+  return <footer className="site-footer site-footer-minimal"><div className="site-shell footer-bottom"><div><span>JZ</span><p>{t("role")}</p></div><p>© {new Date().getFullYear()} {t("built")}</p></div></footer>;
 }

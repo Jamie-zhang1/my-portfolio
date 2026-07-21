@@ -22,7 +22,7 @@ export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; lo
   const heroImage = project.homepageImages[0]?.src ?? (study.slug === "ai-decision-copilot" ? "/screenshots/portfolio/copilot-desktop.png" : project.icon.src);
   const demoHref = study.slug === "heard-sheep" ? siteConfig.heardSheepLiveUrl : project.tryPath;
   const demoIsExternal = Boolean(demoHref?.startsWith("http"));
-  const gallery = project.screenshots?.length ? project.screenshots.slice(0, study.slug === "heard-sheep" ? 5 : 4) : decisionScreens;
+  const gallery = project.screenshots?.length ? project.screenshots.slice(0, study.slug === "heard-sheep" ? 6 : 4) : decisionScreens;
 
   return (
     <article className="case-study">
@@ -47,7 +47,7 @@ export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; lo
           <div className="prototype-window case-hero-window">
             <div className="prototype-window-bar"><span>{study.eyebrow}</span><span>PAGE VIEW</span></div>
             <div className={`case-hero-image ${study.slug === "heard-sheep" ? "is-mobile-product" : ""}`}>
-              <Image src={heroImage} alt={`${study.title} page screen`} fill priority sizes="(max-width: 900px) 100vw, 50vw" />
+              <Image src={heroImage} alt={`${study.title} page screen`} fill priority quality={95} sizes="(max-width: 900px) 100vw, 50vw" />
             </div>
           </div>
         </div>
@@ -94,8 +94,8 @@ export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; lo
           <div className={`case-gallery ${study.slug === "heard-sheep" ? "is-mobile-gallery" : ""}`}>
             {gallery.map((shot, index) => (
               <figure className="prototype-window" key={shot.src}>
-                <div className="prototype-window-bar"><span>SCREEN {String(index + 1).padStart(2, "0")}</span><span>{study.title}</span></div>
-                <div className="case-gallery-image"><Image src={shot.src} alt={shot.alt} fill loading="lazy" sizes={study.slug === "heard-sheep" ? "(max-width: 700px) 70vw, 220px" : "(max-width: 900px) 100vw, 48vw"} /></div>
+                <div className="prototype-window-bar case-gallery-number"><span>{String(index + 1).padStart(2, "0")}</span></div>
+                <div className="case-gallery-image"><Image src={shot.src} alt={shot.alt} fill loading="lazy" quality={95} sizes={study.slug === "heard-sheep" ? "(max-width: 700px) 70vw, 220px" : "(max-width: 900px) 100vw, 48vw"} /></div>
                 <figcaption>{study.screenCaptions[index] ?? shot.alt}</figcaption>
               </figure>
             ))}

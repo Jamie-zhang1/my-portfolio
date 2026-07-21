@@ -1,14 +1,14 @@
 export const siteConfig = {
   name: "Jamie Zhang",
-  title: "Jamie Zhang｜个人项目记录",
-  description: "Jamie Zhang 的个人主页：记录 AI 工具尝试、网页搭建和学习实践。",
+  title: "Jamie Zhang｜AI 产品个人作品集",
+  description: "Jamie Zhang 的个人作品集：展示 AI 产品、Agent 工作流和可交互原型实践。",
   url: "https://heard-sheep.cloud",
   ogImage: "/screenshots/portfolio/home-desktop.png",
   author: "Jamie Zhang",
   email: "zhangjiangmin0902@gmail.com",
   github: "https://github.com/Jamie-zhang1",
   resume: "/resume-jamie-zhang.pdf",
-  keywords: ["Vibe Coding", "AI 工具", "项目记录", "Next.js", "TypeScript"] as string[],
+  keywords: ["AI 产品", "Agent 工作流", "Vibe Coding", "Next.js", "TypeScript"] as string[],
 
   /* ── Heard Sheep 入口配置 ── */
   // 听到了咩页面地址。

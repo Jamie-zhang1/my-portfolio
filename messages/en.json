@@ -6,25 +6,25 @@
     },
     "projects": {
       "heard-sheep": {
-        "title": "Heard Sheep — Project Note",
+        "title": "Heard Sheep — Case Study",
         "description": "A small tool that turns voice notes into task cards."
       },
       "proddoc-ai": {
-        "title": "ProdDoc AI — Project Note",
+        "title": "ProdDoc AI — Case Study",
         "description": "A documentation experiment for turning project ideas into structured drafts."
       },
       "ai-decision-copilot": {
-        "title": "AI Decision Copilot — Project Note",
+        "title": "AI Decision Copilot — Case Study",
         "description": "A web experiment around decision support and comparison."
       },
       "researchflow-agent": {
-        "title": "ResearchFlow Agent — Project Note",
+        "title": "ResearchFlow Agent — Case Study",
         "description": "A research workflow agent for organizing documents, evidence cards, outlines, and exportable materials."
       }
     }
   },
   "Header": {
-    "brandRole": "Personal project notes",
+    "brandRole": "AI product portfolio",
     "work": "Work",
     "method": "Method",
     "about": "About",
@@ -59,7 +59,7 @@
     "close": "Close command menu",
     "placeholder": "Search pages or actions",
     "work": "View work",
-    "workDetail": "Open three project notes",
+    "workDetail": "Open three portfolio cases",
     "method": "Method",
     "methodDetail": "Clarify, build, iterate, record",
     "about": "About Jamie",
@@ -83,7 +83,7 @@
       "role": "Turning ideas into accessible product prototypes with AI",
       "headline": "I focus on AI products, Agent workflows, and practical LLM applications.",
       "description": "I usually clarify the needs, material, and constraints first, then use vibe coding and AI coding tools to turn ideas into web pages that can be browsed, tested, and iterated.",
-      "availability": "Project notes, requirement breakdowns, iterations, and reviews.",
+      "availability": "Case studys, requirement breakdowns, iterations, and reviews.",
       "openWorkspace": "Capture an idea",
       "viewWork": "View Work",
       "github": "GitHub",
@@ -128,11 +128,11 @@
       "kicker": "01 / Work",
       "title": "AI products, Agent workflows, and web prototypes.",
       "description": "A record of prototype work across AI products, research organization, task management, and decision support, with emphasis on positioning, problem framing, flows, and reflection.",
-      "positioning": "Project note",
+      "positioning": "Case study",
       "problem": "I wanted to address",
       "built": "I tried",
       "stack": "Capability tags",
-      "viewCase": "View project note",
+      "viewCase": "View case study",
       "viewProject": "Open project",
       "previous": "View previous project",
       "next": "View next project",
@@ -166,7 +166,7 @@
           "number": "04",
           "title": "Record",
           "label": "RECORD",
-          "description": "Turn the process into project notes. I document what I made, why I made it, and what still needs work."
+          "description": "Turn the process into portfolio cases. I document what I made, why I made it, and what still needs work."
         }
       ]
     },
@@ -176,7 +176,7 @@
       "title2": "plus a little web practice.",
       "bio1": "I’m Jamie Zhang, a graduate student in logic at China University of Political Science and Law. My background helps me break problems into assumptions, rules, decisions, and conclusions.",
       "bio2": "Recently, I have been using AI coding tools to turn product ideas, research workflows, and page prototypes into accessible work. This site is less a polished gallery, and more a personal space for recording what I build, revise, and learn.",
-      "opportunity": "If you want to browse my project notes or talk about AI tools, web pages, and learning practice, you can reach me below.",
+      "opportunity": "If you want to browse my portfolio cases or talk about AI tools, web pages, and learning practice, you can reach me below.",
       "focusLabel": "Things I keep practicing",
       "focus": [
         "Clarifying problems",
@@ -192,7 +192,7 @@
     "contact": {
       "kicker": "05 / Contact",
       "title": "Open to conversations about AI tools, web pages, and learning practice.",
-      "description": "If you want to browse my project notes or talk about AI tools, web pages, and learning practice, you can reach me below.",
+      "description": "If you want to browse my portfolio cases or talk about AI tools, web pages, and learning practice, you can reach me below.",
       "email": "zhangjiangmin0902@gmail.com",
       "github": "GitHub",
       "resume": "Resume PDF",
@@ -214,7 +214,7 @@
         {
           "date": "2026.06",
           "title": "ProdDoc AI: expanding the document structure",
-          "note": "I split a project idea into background, goals, feature boundaries, and page structure for a more complete project note.",
+          "note": "I split a project idea into background, goals, feature boundaries, and page structure for a more complete case study.",
           "slug": "proddoc-ai",
           "createdAt": "2026-05-28"
         },
@@ -241,7 +241,7 @@
     "status": "Status",
     "tryProduct": "Open Page",
     "github": "GitHub",
-    "overview": "Project Note",
+    "overview": "Case Study",
     "problem": "Background",
     "solution": "What I tried",
     "myRole": "What I worked on",
@@ -259,11 +259,11 @@
     "finalTitle": "Open the page or inspect the code record.",
     "openDemo": "Open Page",
     "viewGithub": "View GitHub",
-    "productDesign": "Project notes / web page / process record",
+    "productDesign": "Case studys / web page / process record",
     "backShort": "Back"
   },
   "Footer": {
-    "role": "Jamie Zhang Personal Project Notes",
+    "role": "Jamie Zhang Personal Case Studys",
     "built": "Organized and maintained by Jamie Zhang."
   },
   "Try": {
@@ -280,7 +280,7 @@
       "local": "Local demo · No external model call",
       "input": "Input",
       "output": "Output",
-      "viewCase": "View project note",
+      "viewCase": "View case study",
       "reset": "Start Over"
     },
     "proddoc": {
@@ -303,7 +303,7 @@
         "AI tool"
       ],
       "docs": [
-        "Project note",
+        "Case study",
         "Operating note",
         "Delivery note"
       ]
@@ -361,7 +361,7 @@
     },
     "new": {
       "heading": "Capture an idea",
-      "description": "Write the idea down first. It does not need to be complete yet. You can later turn it into project notes, page drafts, project reviews, or learning logs.",
+      "description": "Write the idea down first. It does not need to be complete yet. You can later turn it into portfolio cases, page drafts, project reviews, or learning logs.",
       "titlePlaceholder": "Give this idea a title",
       "bodyPlaceholder": "Write freely first. Where did this idea come from? What might it solve? What could it become? What is still unclear?",
       "tagsPlaceholder": "web idea, AI tool, revision, learning, draft"
@@ -410,7 +410,7 @@
       "idea": {
         "kicker": "Idea Notes",
         "heading": "Capture an idea",
-        "description": "Write the idea down first. It does not need to be complete yet. You can later turn it into page drafts, project notes, or learning notes.",
+        "description": "Write the idea down first. It does not need to be complete yet. You can later turn it into page drafts, portfolio cases, or learning notes.",
         "titlePlaceholder": "Give this idea a title",
         "bodyPlaceholder": "Where did this idea come from? What might it solve? What could it become? What is still unclear?",
         "tagsPlaceholder": "web idea, AI tool, draft",

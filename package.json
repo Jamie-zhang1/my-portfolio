@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:e2e": "node scripts/verify-redesign.mjs"
+    "test:e2e": "node scripts/verify-redesign.mjs",
+    "screenshots": "node scripts/capture-reference-v2.mjs && node scripts/capture-motion-videos.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",

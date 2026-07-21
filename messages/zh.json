@@ -6,25 +6,25 @@
     },
     "projects": {
       "heard-sheep": {
-        "title": "Heard Sheep — 项目记录",
+        "title": "Heard Sheep — 项目案例",
         "description": "一个把语音想法整理成任务卡片的小工具记录。"
       },
       "proddoc-ai": {
-        "title": "ProdDoc AI — 项目记录",
+        "title": "ProdDoc AI — 项目案例",
         "description": "一个尝试把项目想法整理成文档的工具记录。"
       },
       "ai-decision-copilot": {
-        "title": "AI Decision Copilot — 项目记录",
+        "title": "AI Decision Copilot — 项目案例",
         "description": "一个围绕决策辅助场景做的网页实验记录。"
       },
       "researchflow-agent": {
-        "title": "ResearchFlow Agent — 项目记录",
-        "description": "围绕论文、报告和行业研究场景的资料整理与证据追踪 Agent 项目记录。"
+        "title": "ResearchFlow Agent — 项目案例",
+        "description": "围绕论文、报告和行业研究场景的资料整理与证据追踪 Agent 项目案例。"
       }
     }
   },
   "Header": {
-    "brandRole": "个人项目记录",
+    "brandRole": "AI 产品作品集",
     "work": "我的作品",
     "method": "研究方法",
     "about": "关于我",
@@ -59,7 +59,7 @@
     "close": "关闭快捷导航",
     "placeholder": "搜索页面或操作",
     "work": "我的作品",
-    "workDetail": "查看三个项目记录",
+    "workDetail": "查看三个项目案例",
     "method": "研究方法",
     "methodDetail": "拆清楚、搭页面、反复改、做记录",
     "about": "关于 Jamie",
@@ -132,7 +132,7 @@
       "problem": "我想解决",
       "built": "我尝试了",
       "stack": "能力标签",
-      "viewCase": "查看项目记录",
+      "viewCase": "查看项目案例",
       "viewProject": "查看项目",
       "previous": "查看上一个项目",
       "next": "查看下一个项目",
@@ -166,7 +166,7 @@
           "number": "04",
           "title": "做记录",
           "label": "RECORD",
-          "description": "把过程整理成项目记录。记录做了什么、为什么这么做、哪里还不成熟，方便后续复盘。"
+          "description": "把过程整理成项目案例。记录做了什么、为什么这么做、哪里还不成熟，方便后续复盘。"
         }
       ]
     },
@@ -176,7 +176,7 @@
       "title2": "加上一点点网页实践。",
       "bio1": "我是 Jamie Zhang，中国政法大学逻辑学硕士在读。逻辑训练让我习惯把问题拆成前提、规则、判断和结论。",
       "bio2": "最近我在通过 AI 编程工具，把产品想法、研究流程和页面原型转化为可以访问的作品。这个网站不是成熟产品合集，更像是我记录项目、调整表达和练习网页搭建的个人空间。",
-      "opportunity": "如果你想看看我的项目记录，或者交流 AI 工具、网页搭建和学习实践，可以通过下面的方式联系我。",
+      "opportunity": "如果你想看看我的项目案例，或者交流 AI 工具、网页搭建和学习实践，可以通过下面的方式联系我。",
       "focusLabel": "我会反复练习的事",
       "focus": [
         "把问题拆清楚",
@@ -191,8 +191,8 @@
     },
     "contact": {
       "kicker": "05 / 联系我",
-      "title": "欢迎交流项目记录、AI 工具和网页搭建。",
-      "description": "如果你想看看我的项目记录，或者交流 AI 工具、网页搭建和学习实践，可以通过下面的方式联系我。",
+      "title": "欢迎交流项目案例、AI 工具和网页搭建。",
+      "description": "如果你想看看我的项目案例，或者交流 AI 工具、网页搭建和学习实践，可以通过下面的方式联系我。",
       "email": "zhangjiangmin0902@gmail.com",
       "github": "GitHub",
       "resume": "简历 PDF",
@@ -241,7 +241,7 @@
     "status": "状态",
     "tryProduct": "打开页面",
     "github": "GitHub",
-    "overview": "项目记录",
+    "overview": "项目案例",
     "problem": "背景",
     "solution": "尝试方式",
     "myRole": "我做了什么",
@@ -263,7 +263,7 @@
     "backShort": "返回"
   },
   "Footer": {
-    "role": "Jamie Zhang 个人项目记录",
+    "role": "Jamie Zhang AI 产品作品集",
     "built": "由 Jamie Zhang 整理和维护。"
   },
   "Try": {
@@ -280,7 +280,7 @@
       "local": "本地演示 · 不调用外部模型",
       "input": "输入",
       "output": "输出",
-      "viewCase": "查看项目记录",
+      "viewCase": "查看项目案例",
       "reset": "重新开始"
     },
     "proddoc": {
@@ -361,7 +361,7 @@
     },
     "new": {
       "heading": "记录一个想法",
-      "description": "先把想法写下来，不需要一开始就整理完整。之后可以再把它变成项目记录、页面草稿、项目复盘或学习笔记。",
+      "description": "先把想法写下来，不需要一开始就整理完整。之后可以再把它变成项目案例、页面草稿、项目复盘或学习笔记。",
       "titlePlaceholder": "给这个想法起个名字",
       "bodyPlaceholder": "先随便写。这个想法从哪里来？想解决什么？可能做成什么页面？还有哪些不确定？",
       "tagsPlaceholder": "网页想法、AI 工具、页面修改、学习记录、待整理"
@@ -410,7 +410,7 @@
       "idea": {
         "kicker": "想法记录",
         "heading": "记录一个想法",
-        "description": "先把想法写下来，不需要一开始就整理完整。之后可以再把它变成页面草稿、项目记录或学习笔记。",
+        "description": "先把想法写下来，不需要一开始就整理完整。之后可以再把它变成页面草稿、项目案例或学习笔记。",
         "titlePlaceholder": "给这个想法起个名字",
         "bodyPlaceholder": "这个想法从哪里来？想解决什么？可能做成什么页面？还有哪些不确定？",
         "tagsPlaceholder": "网页想法、AI 工具、待整理",
