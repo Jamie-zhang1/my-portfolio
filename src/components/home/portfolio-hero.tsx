@@ -1,8 +1,8 @@
 import { ArrowUpRight, BriefcaseBusiness, Code2, FileText, Mail } from "lucide-react";
 import Image from "next/image";
 import { HeroPointerField } from "@/components/home/hero-pointer-field";
+import { SectionLink } from "@/components/interaction/section-link";
 import { siteConfig } from "@/data/site-config";
-import { Link } from "@/i18n/navigation";
 
 type PortfolioHeroProps = {
   locale: "zh" | "en";
@@ -17,13 +17,13 @@ export function PortfolioHero({ locale, statement, description, workLabel }: Por
         { label: "GitHub", href: siteConfig.github, icon: Code2 },
         { label: "Heard Sheep", href: siteConfig.heardSheepLiveUrl, icon: BriefcaseBusiness },
         { label: "简历", href: siteConfig.resume, icon: FileText },
-        { label: "邮箱", href: `mailto:${siteConfig.email}`, icon: Mail },
+        { label: "邮箱", href: siteConfig.gmailComposeUrl, icon: Mail },
       ]
     : [
         { label: "GitHub", href: siteConfig.github, icon: Code2 },
         { label: "Heard Sheep", href: siteConfig.heardSheepLiveUrl, icon: BriefcaseBusiness },
         { label: "Resume", href: siteConfig.resume, icon: FileText },
-        { label: "Email", href: `mailto:${siteConfig.email}`, icon: Mail },
+        { label: "Email", href: siteConfig.gmailComposeUrl, icon: Mail },
       ];
 
   return (
@@ -37,49 +37,49 @@ export function PortfolioHero({ locale, statement, description, workLabel }: Por
         <div className="editorial-portrait">
           <Image
             className="portrait-mono"
-            src="/images/portfolio/jamie-hero-cutout.png"
+            src="/images/portfolio/jamie-hero-cutout-hd.png"
             alt=""
             aria-hidden="true"
             fill
             priority
             quality={95}
-            sizes="(max-width: 600px) 92vw, 720px"
+            sizes="(max-width: 600px) 104vw, (max-width: 900px) 82vw, 820px"
           />
           <Image
             className="portrait-color"
-            src="/images/portfolio/jamie-hero-cutout.png"
+            src="/images/portfolio/jamie-hero-cutout-hd.png"
             alt="Jamie Zhang portrait"
             fill
             priority
             quality={95}
-            sizes="(max-width: 600px) 92vw, 720px"
+            sizes="(max-width: 600px) 104vw, (max-width: 900px) 82vw, 820px"
           />          <Image
             className="portrait-hover-color"
-            src="/images/portfolio/jamie-hero-cutout.png"
+            src="/images/portfolio/jamie-hero-cutout-hd.png"
             alt=""
             aria-hidden="true"
             fill
             priority
             quality={95}
-            sizes="(max-width: 600px) 92vw, 720px"
+            sizes="(max-width: 600px) 104vw, (max-width: 900px) 82vw, 820px"
           />          <Image
             className="portrait-hair-tone"
-            src="/images/portfolio/jamie-hero-cutout.png"
+            src="/images/portfolio/jamie-hero-cutout-hd.png"
             alt=""
             aria-hidden="true"
             fill
             priority
             quality={95}
-            sizes="(max-width: 600px) 92vw, 720px"
+            sizes="(max-width: 600px) 104vw, (max-width: 900px) 82vw, 820px"
           />
         </div>
 
         <div className="editorial-profile">
           <h2>{statement}</h2>
           <p>{description}</p>
-          <Link href="/#work" className="hero-collaborate">
+          <SectionLink section="work" className="hero-collaborate">
             {workLabel}<ArrowUpRight size={15} />
-          </Link>
+          </SectionLink>
         </div>
 
         <nav className="editorial-socials" aria-label={locale === "zh" ? "个人链接" : "Profile links"}>

@@ -23,7 +23,7 @@ function getSystemTheme(): ResolvedTheme {
 function readStoredMode(): ThemeMode {
   if (typeof window === "undefined") return "light";
   const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-  return stored === "dark" || stored === "system" || stored === "light" ? stored : "light";
+  return stored === "dark" || stored === "system" || stored === "light" ? stored : "system";
 }
 
 function resolveTheme(mode: ThemeMode): ResolvedTheme {
@@ -62,7 +62,7 @@ function subscribe(callback: () => void) {
 }
 
 export function ThemeProvider({ children }: Readonly<{ children: React.ReactNode }>) {
-  const snapshot = useSyncExternalStore(subscribe, getSnapshot, () => "light:light");
+  const snapshot = useSyncExternalStore(subscribe, getSnapshot, () => "system:light");
   const [mode, resolvedTheme] = snapshot.split(":") as [ThemeMode, ResolvedTheme];
 
   const setMode = (nextMode: ThemeMode) => {

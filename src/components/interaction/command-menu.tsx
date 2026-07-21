@@ -38,7 +38,7 @@ export function CommandMenu() {
     { label: themeT("set.light"), detail: t("themeDetail"), icon: Sun, theme: "light" },
     { label: themeT("set.dark"), detail: t("themeDetail"), icon: Moon, theme: "dark" },
     { label: themeT("set.system"), detail: t("themeDetail"), icon: Monitor, theme: "system" },
-    { label: t("email"), detail: siteConfig.email ?? "", href: `mailto:${siteConfig.email}`, icon: Mail, external: true },
+    { label: t("email"), detail: siteConfig.email ?? "", href: siteConfig.gmailComposeUrl, icon: Mail, external: true },
     { label: t("github"), detail: "Jamie-zhang1", href: siteConfig.github, icon: Code2, external: true },
     { label: t("resume"), detail: t("resumeDetail"), href: siteConfig.resume, icon: FileText, external: true },
     { label: nextLocale === "en" ? t("switchEnglish") : t("switchChinese"), detail: t("languageDetail"), href: pathname, icon: Languages, locale: nextLocale },
@@ -68,7 +68,7 @@ export function CommandMenu() {
     setQuery("");
     if (item.theme) setMode(item.theme);
     else if (item.locale) router.replace(pathname, { locale: item.locale, scroll: false });
-    else if (item.external && item.href) window.open(item.href, item.href.startsWith("mailto:") ? "_self" : "_blank", "noopener,noreferrer");
+    else if (item.external && item.href) window.open(item.href, "_blank", "noopener,noreferrer");
     else if (item.href) router.push(item.href);
   };
 

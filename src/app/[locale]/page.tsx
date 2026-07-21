@@ -139,7 +139,7 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
           <p className="ref-watermark" aria-hidden="true">PORTFOLIO</p>
           <header className="ref-section-head">
             <h2>{c.work.title}</h2>
-            <a href="#contact">{c.work.all}<ArrowUpRight size={15} /></a>
+            <a href="#project-list">{c.work.all}<ArrowUpRight size={15} /></a>
           </header>
           <ProjectRail label={locale === "zh" ? "项目切换" : "Project navigation"}>
             {studies.map((study, index) => (
@@ -184,7 +184,7 @@ export default async function Home({ params }: { params: Promise<{ locale: AppLo
           <p className="ref-contact-status"><i aria-hidden="true" />{c.contact.status}</p>
           <h2>{c.contact.title}</h2>
           <p>{c.contact.body}</p>
-          <a href={`mailto:${siteConfig.email}`}>{c.contact.action}<ArrowUpRight size={17} /></a>
+          <a href={siteConfig.gmailComposeUrl} target="_blank" rel="noopener noreferrer">{c.contact.action}<ArrowUpRight size={17} /></a>
         </div>
       </FadeInSection>
     </div>

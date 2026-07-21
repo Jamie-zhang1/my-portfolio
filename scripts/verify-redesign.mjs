@@ -71,12 +71,16 @@ const desktopAudit = await page.evaluate(() => {
     socials: rectOf(".editorial-socials"),
     projectTrack: track ? { clientWidth: track.clientWidth, scrollWidth: track.scrollWidth } : null,
     experienceAnchor: Boolean(document.querySelector("#experience")),
+    contactCanvas: rectOf(".ref-contact-canvas"),
+    navHrefs: Array.from(document.querySelectorAll(".desktop-nav a")).map((item) => item.getAttribute("href")),
+    projectHrefs: Array.from(document.querySelectorAll(".ref-project-card")).map((item) => item.getAttribute("href")),
+    gmailHrefs: Array.from(document.querySelectorAll(`a[href^="https://mail.google.com/mail/"]`)).map((item) => item.getAttribute("href")),
   };
 });
 if (desktopAudit.scrollWidth > desktopAudit.viewportWidth + 1) errors.push(`desktop overflow: ${desktopAudit.scrollWidth}/${desktopAudit.viewportWidth}`);
 if (desktopAudit.h1Count !== 1 || desktopAudit.h1Text !== "JAMIEZHANG") errors.push(`desktop h1: ${desktopAudit.h1Count}/${desktopAudit.h1Text}`);
 if (desktopAudit.bodyText.includes("????")) errors.push("Chinese copy contains replacement question marks");
-if (!desktopAudit.portraitSrc?.includes("jamie-hero-cutout.png") || !desktopAudit.portraitSrc.includes("q=95")) errors.push(`portrait source: ${desktopAudit.portraitSrc}`);
+if (!desktopAudit.portraitSrc?.includes("jamie-hero-cutout-hd.png") || !desktopAudit.portraitSrc.includes("q=95")) errors.push(`portrait source: ${desktopAudit.portraitSrc}`);
 if (!desktopAudit.portraitFilter?.includes("saturate(1.2)") || !desktopAudit.monoPortraitFilter?.includes("contrast(1.12)")) errors.push(`portrait treatment: ${desktopAudit.portraitFilter}/${desktopAudit.monoPortraitFilter}`);
 if (desktopAudit.hoverPortraitMask === "none") errors.push(`portrait hover mask: ${desktopAudit.hoverPortraitMask}`);
 if (!desktopAudit.hairPortraitFilter?.includes("brightness(0.42)") || Number(desktopAudit.hairPortraitOpacity) < .6) errors.push(`portrait hair tone: ${desktopAudit.hairPortraitFilter}/${desktopAudit.hairPortraitOpacity}`);
@@ -85,7 +89,11 @@ if (desktopAudit.projectArtworkCount !== 8) errors.push(`project artwork count: 
 if (desktopAudit.heardScreenCount !== 6) errors.push(`heard sheep screen count: ${desktopAudit.heardScreenCount}`);
 if (!desktopAudit.projectTrack || desktopAudit.projectTrack.scrollWidth <= desktopAudit.projectTrack.clientWidth) errors.push("project track is not horizontally scrollable");
 if (!desktopAudit.experienceAnchor) errors.push("experience anchor missing");
-if (!desktopAudit.canvas || Math.abs(desktopAudit.canvas.x - 123) > 2 || Math.abs(desktopAudit.canvas.y - 96) > 2 || Math.abs(desktopAudit.canvas.width - 1320) > 2) errors.push(`hero canvas geometry: ${JSON.stringify(desktopAudit.canvas)}`);
+if (!desktopAudit.canvas || desktopAudit.canvas.x > 22 || desktopAudit.canvas.y > 36 || desktopAudit.canvas.width < desktopAudit.viewportWidth - 44) errors.push(`hero canvas geometry: ${JSON.stringify(desktopAudit.canvas)}`);
+if (!desktopAudit.contactCanvas || Math.abs(desktopAudit.contactCanvas.width - desktopAudit.canvas.width) > 2) errors.push(`contact canvas width: ${JSON.stringify(desktopAudit.contactCanvas)}`);
+if (desktopAudit.navHrefs?.join("|") !== "/zh#work|/zh#about|/zh#experience|/zh#contact") errors.push(`navigation hrefs: ${desktopAudit.navHrefs}`);
+if (desktopAudit.projectHrefs?.length !== 4 || desktopAudit.projectHrefs.some((href) => !href?.startsWith("/zh/projects/"))) errors.push(`project hrefs: ${desktopAudit.projectHrefs}`);
+if (!desktopAudit.gmailHrefs?.length || desktopAudit.gmailHrefs.some((href) => !href?.includes("to=zhangjiangmin0902%40gmail.com"))) errors.push(`gmail hrefs: ${desktopAudit.gmailHrefs}`);
 const portraitBox = await page.locator(".editorial-portrait").boundingBox();
 if (!portraitBox) {
   errors.push("portrait hover target missing");
@@ -120,6 +128,33 @@ const capabilityAudit = await page.locator(".ref-capability-list article").evalu
 })));
 if (!capabilityAudit[1]?.active || capabilityAudit[1]?.expanded !== "true") errors.push(`capability interaction: ${JSON.stringify(capabilityAudit)}`);
 await page.locator(".ref-experience-canvas").screenshot({ path: join(output, "experience.png") });
+
+const casePage = await desktop.newPage();
+observe(casePage, "heard-sheep-case");
+await casePage.goto(`${base}/zh/projects/heard-sheep`, { waitUntil: "domcontentloaded" });
+const caseAudit = await casePage.evaluate(() => {
+  const header = document.querySelector(".site-header")?.getBoundingClientRect();
+  const hero = document.querySelector(".case-hero-window")?.getBoundingClientRect();
+  const gallery = Array.from(document.querySelectorAll(".case-gallery.is-mobile-gallery figure")).map((item) => item.getBoundingClientRect());
+  const demo = document.querySelector('.case-actions a[href="/sheep"]');
+  const heroImage = document.querySelector(".case-hero-image.is-mobile-product img");
+  return {
+    headerHeroOverlap: header && hero ? Math.max(0, header.bottom - hero.top) : null,
+    galleryCount: gallery.length,
+    galleryRows: new Set(gallery.map((item) => Math.round(item.y))).size,
+    demoHref: demo?.getAttribute("href") ?? null,
+    demoTarget: demo?.getAttribute("target") ?? null,
+    heroObjectPosition: heroImage ? getComputedStyle(heroImage).objectPosition : null,
+  };
+});
+if (caseAudit.headerHeroOverlap !== 0) errors.push(`case header overlap: ${caseAudit.headerHeroOverlap}`);
+if (caseAudit.galleryCount !== 6 || caseAudit.galleryRows !== 1) errors.push(`case gallery layout: ${JSON.stringify(caseAudit)}`);
+if (caseAudit.demoHref !== "/sheep" || caseAudit.demoTarget !== "_blank") errors.push(`heard sheep demo link: ${JSON.stringify(caseAudit)}`);
+if (caseAudit.heroObjectPosition !== "50% 0%") errors.push(`heard sheep hero position: ${caseAudit.heroObjectPosition}`);
+const legacySheep = await desktop.request.get(`${base}/zh/sheep`, { maxRedirects: 0 });
+if (legacySheep.status() !== 308 || legacySheep.headers().location !== "/sheep") errors.push(`legacy sheep redirect: ${legacySheep.status()}/${legacySheep.headers().location}`);
+await casePage.screenshot({ path: join(output, "heard-sheep-detail-fixed.png"), fullPage: false });
+await casePage.close();
 await desktop.close();
 
 const reduced = await browser.newContext({ viewport: { width: 1200, height: 800 }, reducedMotion: "reduce" });
@@ -155,9 +190,42 @@ await mobilePage.getByRole("dialog", { name: "打开菜单" }).waitFor();
 await mobilePage.screenshot({ path: join(output, "mobile-menu.png") });
 await mobile.close();
 
+
+const darkMobile = await browser.newContext({ viewport: { width: 360, height: 800 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, colorScheme: "dark" });
+await darkMobile.addInitScript(() => localStorage.setItem("jamie-theme-mode", "dark"));
+const darkPage = await darkMobile.newPage();
+observe(darkPage, "dark-mobile");
+await darkPage.goto(`${base}/zh`, { waitUntil: "domcontentloaded" });
+await darkPage.locator(".editorial-portrait img.portrait-mono").waitFor();
+await darkPage.waitForTimeout(800);
+const darkAudit = await darkPage.evaluate(() => {
+  const portrait = document.querySelector(".editorial-portrait")?.getBoundingClientRect();
+  const mono = document.querySelector(".portrait-mono");
+  const canvas = document.querySelector(".ref-hero-canvas");
+  const profile = document.querySelector(".editorial-profile")?.getBoundingClientRect();
+  const socials = document.querySelector(".editorial-socials")?.getBoundingClientRect();
+  return {
+    theme: document.documentElement.dataset.theme,
+    viewportWidth: innerWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+    canvasBackground: canvas ? getComputedStyle(canvas).backgroundColor : null,
+    portraitFilter: mono ? getComputedStyle(mono).filter : null,
+    portrait: portrait ? { x: portrait.x, y: portrait.y, width: portrait.width, height: portrait.height } : null,
+    profile: profile ? { x: profile.x, y: profile.y, width: profile.width, height: profile.height } : null,
+    profileContentRight: Math.max(...Array.from(document.querySelectorAll(".editorial-profile h2, .editorial-profile .hero-collaborate")).map((item) => item.getBoundingClientRect().right)),
+    socials: socials ? { x: socials.x, y: socials.y, width: socials.width, height: socials.height } : null,
+  };
+});
+if (darkAudit.theme !== "dark") errors.push(`dark theme state: ${darkAudit.theme}`);
+if (darkAudit.scrollWidth > darkAudit.viewportWidth + 1) errors.push(`dark mobile overflow: ${darkAudit.scrollWidth}/${darkAudit.viewportWidth}`);
+if (!darkAudit.portraitFilter?.includes("contrast(1.22)") || !darkAudit.portraitFilter.includes("brightness(1.08)")) errors.push(`dark portrait treatment: ${darkAudit.portraitFilter}`);
+if (!darkAudit.portrait || darkAudit.portrait.x < -30 || darkAudit.portrait.x + darkAudit.portrait.width > darkAudit.viewportWidth + 30) errors.push(`dark portrait geometry: ${JSON.stringify(darkAudit.portrait)}`);
+if (darkAudit.socials && darkAudit.profileContentRight > darkAudit.socials.x - 6) errors.push(`dark mobile controls overlap: ${JSON.stringify({ profileContentRight: darkAudit.profileContentRight, socials: darkAudit.socials })}`);
+await darkPage.screenshot({ path: join(output, "mobile-dark-cover.png"), fullPage: true });
+await darkMobile.close();
 await browser.close();
 errors.push(...consoleErrors.filter((item) => !item.includes("webpack-hmr")));
-const report = { base, generatedAt: new Date().toISOString(), routes, desktopAudit, hoverAudit, capabilityAudit, mobileAudit, reducedOpacity, consoleErrors, errors };
+const report = { base, generatedAt: new Date().toISOString(), routes, desktopAudit, hoverAudit, capabilityAudit, mobileAudit, darkAudit, caseAudit, reducedOpacity, consoleErrors, errors };
 await writeFile(join(output, "qa-report.json"), JSON.stringify(report, null, 2));
 if (errors.length) { console.error(errors.join("\n")); process.exit(1); }
-console.log(JSON.stringify({ status: "passed", output, routes, desktopAudit, hoverAudit, capabilityAudit, mobileAudit, reducedOpacity }, null, 2));
+console.log(JSON.stringify({ status: "passed", output, routes, desktopAudit, hoverAudit, capabilityAudit, mobileAudit, darkAudit, caseAudit, reducedOpacity }, null, 2));

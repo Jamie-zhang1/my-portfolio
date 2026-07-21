@@ -21,7 +21,7 @@ export function CaseStudyPage({ study, locale }: { study: LocalizedCaseStudy; lo
   const { project } = study;
   const heroImage = project.homepageImages[0]?.src ?? (study.slug === "ai-decision-copilot" ? "/screenshots/portfolio/copilot-desktop.png" : project.icon.src);
   const demoHref = study.slug === "heard-sheep" ? siteConfig.heardSheepLiveUrl : project.tryPath;
-  const demoIsExternal = Boolean(demoHref?.startsWith("http"));
+  const demoIsExternal = study.slug === "heard-sheep" || Boolean(demoHref?.startsWith("http"));
   const gallery = project.screenshots?.length ? project.screenshots.slice(0, study.slug === "heard-sheep" ? 6 : 4) : decisionScreens;
 
   return (

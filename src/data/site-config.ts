@@ -1,3 +1,5 @@
+const publicEmail = "zhangjiangmin0902@gmail.com";
+
 export const siteConfig = {
   name: "Jamie Zhang",
   title: "Jamie Zhang｜AI 产品个人作品集",
@@ -5,7 +7,8 @@ export const siteConfig = {
   url: "https://heard-sheep.cloud",
   ogImage: "/screenshots/portfolio/home-desktop.png",
   author: "Jamie Zhang",
-  email: "zhangjiangmin0902@gmail.com",
+  email: publicEmail,
+  gmailComposeUrl: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(publicEmail)}`,
   github: "https://github.com/Jamie-zhang1",
   resume: "/resume-jamie-zhang.pdf",
   keywords: ["AI 产品", "Agent 工作流", "Vibe Coding", "Next.js", "TypeScript"] as string[],

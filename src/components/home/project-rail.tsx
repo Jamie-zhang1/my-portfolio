@@ -42,7 +42,7 @@ export function ProjectRail({ children, label }: ProjectRailProps) {
   };
 
   return (
-    <div className="ref-project-rail-shell">
+    <div className="ref-project-rail-shell" id="project-list">
       <div className="ref-project-grid" ref={railRef}>{children}</div>
       <div className="ref-project-rail-controls" aria-label={label}>
         <p><strong>{String(active + 1).padStart(2, "0")}</strong><span>/ {String(total).padStart(2, "0")}</span></p>
