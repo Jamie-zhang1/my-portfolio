@@ -56,7 +56,7 @@ const desktopAudit = await page.evaluate(() => {
     bodyText: document.body.innerText,
     projectArtworkCount: document.querySelectorAll(".project-artwork").length,
     heardScreenCount: document.querySelectorAll(".heard-sheep-art-screen").length,
-    portraitSrc: portrait instanceof HTMLImageElement ? portrait.currentSrc : null,
+    portraitSrc: portrait instanceof HTMLImageElement ? portrait.currentSrc || portrait.src : null,
     portraitFilter: portrait ? getComputedStyle(portrait).filter : null,
     portraitAnimation: portrait ? getComputedStyle(portrait).animationName : null,
     portraitMask: portrait ? getComputedStyle(portrait).maskImage : null,
@@ -117,6 +117,17 @@ if (!hoverAudit.active || Number(hoverAudit.opacity) < .95 || !hoverAudit.reveal
 await page.screenshot({ path: join(output, "desktop-hover-reveal.png") });
 await page.screenshot({ path: join(output, "desktop-cover.png") });
 await page.locator("#work").scrollIntoViewIfNeeded();
+const centeredCard = page.locator(".ref-project-card").nth(1);
+await centeredCard.hover();
+await page.waitForTimeout(900);
+const cardCenterAudit = await page.evaluate(() => {
+  const rail = document.querySelector(".ref-project-grid")?.getBoundingClientRect();
+  const card = document.querySelectorAll(".ref-project-card")[1]?.getBoundingClientRect();
+  return rail && card ? { railCenter: rail.left + rail.width / 2, cardCenter: card.left + card.width / 2, difference: Math.abs(rail.left + rail.width / 2 - (card.left + card.width / 2)) } : null;
+});
+if (!cardCenterAudit || cardCenterAudit.difference > 32) errors.push(`desktop card centering: ${JSON.stringify(cardCenterAudit)}`);
+await page.locator("#work").screenshot({ path: join(output, "selected-work-centered.png") });
+await page.locator("#work").scrollIntoViewIfNeeded();
 await page.waitForTimeout(500);
 await page.locator("#work").screenshot({ path: join(output, "selected-work.png") });
 await page.locator(".ref-capability-canvas").screenshot({ path: join(output, "capability.png") });
@@ -174,16 +185,28 @@ await mobilePage.waitForTimeout(1200);
 const mobileAudit = await mobilePage.evaluate(() => {
   const tools = document.querySelector(".header-tools")?.getBoundingClientRect();
   const portrait = document.querySelector(".editorial-portrait img.portrait-color");
+  const mono = document.querySelector(".editorial-portrait img.portrait-mono");
+  const hover = document.querySelector(".editorial-portrait img.portrait-hover-color");
+  const hair = document.querySelector(".editorial-portrait img.portrait-hair-tone");
+  const colorStyle = portrait ? getComputedStyle(portrait) : null;
   return {
     scrollWidth: document.documentElement.scrollWidth,
     viewportWidth: innerWidth,
     headerToolsX: tools?.x ?? null,
-    portraitSrc: portrait instanceof HTMLImageElement ? portrait.currentSrc : null,
+    portraitSrc: portrait instanceof HTMLImageElement ? portrait.currentSrc || portrait.src : null,
+    colorOpacity: colorStyle?.opacity ?? null,
+    colorAnimation: colorStyle?.animationName ?? null,
+    colorMask: colorStyle?.maskImage ?? null,
+    monoDisplay: mono ? getComputedStyle(mono).display : null,
+    hoverDisplay: hover ? getComputedStyle(hover).display : null,
+    hairDisplay: hair ? getComputedStyle(hair).display : null,
   };
 });
 if (mobileAudit.scrollWidth > mobileAudit.viewportWidth + 1) errors.push(`mobile overflow: ${mobileAudit.scrollWidth}/${mobileAudit.viewportWidth}`);
 if ((mobileAudit.headerToolsX ?? 0) < 300) errors.push(`mobile menu is not right aligned: ${mobileAudit.headerToolsX}`);
 if (!mobileAudit.portraitSrc?.includes("q=95")) errors.push(`mobile portrait source: ${mobileAudit.portraitSrc}`);
+if (mobileAudit.colorOpacity !== "1" || mobileAudit.colorAnimation !== "none" || mobileAudit.colorMask !== "none") errors.push(`mobile color portrait state: ${JSON.stringify(mobileAudit)}`);
+if ([mobileAudit.monoDisplay, mobileAudit.hoverDisplay, mobileAudit.hairDisplay].some((value) => value !== "none")) errors.push(`mobile effect layers: ${JSON.stringify(mobileAudit)}`);
 await mobilePage.screenshot({ path: join(output, "mobile-cover.png") });
 await mobilePage.getByRole("button", { name: "打开菜单" }).click();
 await mobilePage.getByRole("dialog", { name: "打开菜单" }).waitFor();
@@ -196,11 +219,14 @@ await darkMobile.addInitScript(() => localStorage.setItem("jamie-theme-mode", "d
 const darkPage = await darkMobile.newPage();
 observe(darkPage, "dark-mobile");
 await darkPage.goto(`${base}/zh`, { waitUntil: "domcontentloaded" });
-await darkPage.locator(".editorial-portrait img.portrait-mono").waitFor();
+await darkPage.locator(".editorial-portrait img.portrait-color").waitFor();
 await darkPage.waitForTimeout(800);
 const darkAudit = await darkPage.evaluate(() => {
   const portrait = document.querySelector(".editorial-portrait")?.getBoundingClientRect();
+  const color = document.querySelector(".portrait-color");
   const mono = document.querySelector(".portrait-mono");
+  const hover = document.querySelector(".portrait-hover-color");
+  const hair = document.querySelector(".portrait-hair-tone");
   const canvas = document.querySelector(".ref-hero-canvas");
   const profile = document.querySelector(".editorial-profile")?.getBoundingClientRect();
   const socials = document.querySelector(".editorial-socials")?.getBoundingClientRect();
@@ -209,7 +235,12 @@ const darkAudit = await darkPage.evaluate(() => {
     viewportWidth: innerWidth,
     scrollWidth: document.documentElement.scrollWidth,
     canvasBackground: canvas ? getComputedStyle(canvas).backgroundColor : null,
-    portraitFilter: mono ? getComputedStyle(mono).filter : null,
+    portraitFilter: color ? getComputedStyle(color).filter : null,
+    portraitOpacity: color ? getComputedStyle(color).opacity : null,
+    portraitAnimation: color ? getComputedStyle(color).animationName : null,
+    portraitMask: color ? getComputedStyle(color).maskImage : null,
+    effectDisplays: [mono, hover, hair].map((item) => item ? getComputedStyle(item).display : null),
+    surfaceBackgrounds: Array.from(document.querySelectorAll(".ref-work-canvas, .ref-capability-canvas, .ref-experience-canvas, .ref-contact-canvas")).map((item) => getComputedStyle(item).backgroundColor),
     portrait: portrait ? { x: portrait.x, y: portrait.y, width: portrait.width, height: portrait.height } : null,
     profile: profile ? { x: profile.x, y: profile.y, width: profile.width, height: profile.height } : null,
     profileContentRight: Math.max(...Array.from(document.querySelectorAll(".editorial-profile h2, .editorial-profile .hero-collaborate")).map((item) => item.getBoundingClientRect().right)),
@@ -218,14 +249,32 @@ const darkAudit = await darkPage.evaluate(() => {
 });
 if (darkAudit.theme !== "dark") errors.push(`dark theme state: ${darkAudit.theme}`);
 if (darkAudit.scrollWidth > darkAudit.viewportWidth + 1) errors.push(`dark mobile overflow: ${darkAudit.scrollWidth}/${darkAudit.viewportWidth}`);
-if (!darkAudit.portraitFilter?.includes("contrast(1.22)") || !darkAudit.portraitFilter.includes("brightness(1.08)")) errors.push(`dark portrait treatment: ${darkAudit.portraitFilter}`);
+if (darkAudit.portraitFilter !== "none" || darkAudit.portraitOpacity !== "1" || darkAudit.portraitAnimation !== "none" || darkAudit.portraitMask !== "none") errors.push(`dark mobile color portrait: ${JSON.stringify(darkAudit)}`);
+if (darkAudit.effectDisplays.some((value) => value !== "none")) errors.push(`dark mobile effect layers: ${JSON.stringify(darkAudit.effectDisplays)}`);
+if (darkAudit.surfaceBackgrounds.some((value) => value === "rgba(0, 0, 0, 0)" || value === "rgb(255, 255, 255)")) errors.push(`dark home surfaces: ${JSON.stringify(darkAudit.surfaceBackgrounds)}`);
 if (!darkAudit.portrait || darkAudit.portrait.x < -30 || darkAudit.portrait.x + darkAudit.portrait.width > darkAudit.viewportWidth + 30) errors.push(`dark portrait geometry: ${JSON.stringify(darkAudit.portrait)}`);
 if (darkAudit.socials && darkAudit.profileContentRight > darkAudit.socials.x - 6) errors.push(`dark mobile controls overlap: ${JSON.stringify({ profileContentRight: darkAudit.profileContentRight, socials: darkAudit.socials })}`);
 await darkPage.screenshot({ path: join(output, "mobile-dark-cover.png"), fullPage: true });
+await darkPage.goto(`${base}/zh/projects/heard-sheep`, { waitUntil: "domcontentloaded" });
+await darkPage.getByRole("heading", { name: /Heard Sheep/ }).waitFor();
+await darkPage.waitForTimeout(500);
+const darkCaseAudit = await darkPage.evaluate(() => {
+  const selectors = [".case-study", ".case-problem-solution", ".case-gallery-section", ".prototype-window", ".case-final"];
+  return {
+    theme: document.documentElement.dataset.theme,
+    backgrounds: selectors.map((selector) => ({ selector, value: getComputedStyle(document.querySelector(selector)).backgroundColor })),
+    headingColor: getComputedStyle(document.querySelector(".case-header-copy h1")).color,
+    menuBackground: getComputedStyle(document.querySelector(".site-header")).backgroundColor,
+  };
+});
+if (darkCaseAudit.theme !== "dark") errors.push(`dark case theme state: ${darkCaseAudit.theme}`);
+if (darkCaseAudit.backgrounds.some(({ value }) => value === "rgba(0, 0, 0, 0)" || value === "rgb(255, 255, 255)")) errors.push(`dark case surfaces: ${JSON.stringify(darkCaseAudit.backgrounds)}`);
+if (darkCaseAudit.headingColor === "rgb(0, 0, 0)") errors.push(`dark case heading: ${darkCaseAudit.headingColor}`);
+await darkPage.screenshot({ path: join(output, "mobile-dark-case-detail.png"), fullPage: true });
 await darkMobile.close();
 await browser.close();
 errors.push(...consoleErrors.filter((item) => !item.includes("webpack-hmr")));
-const report = { base, generatedAt: new Date().toISOString(), routes, desktopAudit, hoverAudit, capabilityAudit, mobileAudit, darkAudit, caseAudit, reducedOpacity, consoleErrors, errors };
+const report = { base, generatedAt: new Date().toISOString(), routes, desktopAudit, hoverAudit, cardCenterAudit, capabilityAudit, mobileAudit, darkAudit, darkCaseAudit, caseAudit, reducedOpacity, consoleErrors, errors };
 await writeFile(join(output, "qa-report.json"), JSON.stringify(report, null, 2));
 if (errors.length) { console.error(errors.join("\n")); process.exit(1); }
-console.log(JSON.stringify({ status: "passed", output, routes, desktopAudit, hoverAudit, capabilityAudit, mobileAudit, darkAudit, caseAudit, reducedOpacity }, null, 2));
+console.log(JSON.stringify({ status: "passed", output, routes, desktopAudit, hoverAudit, cardCenterAudit, capabilityAudit, mobileAudit, darkAudit, darkCaseAudit, caseAudit, reducedOpacity }, null, 2));

@@ -10,26 +10,64 @@ type ProjectRailProps = {
 
 export function ProjectRail({ children, label }: ProjectRailProps) {
   const railRef = useRef<HTMLDivElement>(null);
+  const autoCenterLockRef = useRef(false);
+  const unlockTimerRef = useRef<number | null>(null);
   const [active, setActive] = useState(0);
   const total = 4;
+
+  const centerCard = (card: HTMLElement, index: number) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const target = card.offsetLeft + card.offsetWidth / 2 - rail.clientWidth / 2;
+    autoCenterLockRef.current = true;
+    if (unlockTimerRef.current !== null) window.clearTimeout(unlockTimerRef.current);
+    rail.scrollTo({
+      left: Math.max(0, Math.min(target, rail.scrollWidth - rail.clientWidth)),
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+    unlockTimerRef.current = window.setTimeout(() => { autoCenterLockRef.current = false; }, prefersReducedMotion ? 0 : 760);
+    setActive(index);
+  };
 
   useEffect(() => {
     const rail = railRef.current;
     if (!rail) return;
 
+    const cards = () => Array.from(rail.querySelectorAll<HTMLElement>(".ref-project-card"));
     const update = () => {
-      const cards = Array.from(rail.querySelectorAll<HTMLElement>(".ref-project-card"));
-      const railLeft = rail.getBoundingClientRect().left;
-      const next = cards.reduce((best, card, index) => {
-        const distance = Math.abs(card.getBoundingClientRect().left - railLeft);
+      const railCenter = rail.getBoundingClientRect().left + rail.clientWidth / 2;
+      const next = cards().reduce((best, card, index) => {
+        const rect = card.getBoundingClientRect();
+        const distance = Math.abs(rect.left + rect.width / 2 - railCenter);
         return distance < best.distance ? { index, distance } : best;
       }, { index: 0, distance: Number.POSITIVE_INFINITY }).index;
       setActive(next);
     };
+    const autoCenter = (event: Event) => {
+      if (autoCenterLockRef.current) return;
+      if (!window.matchMedia("(min-width: 901px) and (hover: hover) and (pointer: fine)").matches) return;
+      const target = event.target instanceof Element ? event.target.closest<HTMLElement>(".ref-project-card") : null;
+      if (!target || !rail.contains(target)) return;
+      const index = cards().indexOf(target);
+      if (index >= 0) centerCard(target, index);
+    };
+    const handleMouseOver = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target.closest<HTMLElement>(".ref-project-card") : null;
+      if (target && event.relatedTarget instanceof Node && target.contains(event.relatedTarget)) return;
+      autoCenter(event);
+    };
 
     rail.addEventListener("scroll", update, { passive: true });
+    rail.addEventListener("mouseover", handleMouseOver);
+    rail.addEventListener("focusin", autoCenter);
     update();
-    return () => rail.removeEventListener("scroll", update);
+    return () => {
+      rail.removeEventListener("scroll", update);
+      rail.removeEventListener("mouseover", handleMouseOver);
+      rail.removeEventListener("focusin", autoCenter);
+      if (unlockTimerRef.current !== null) window.clearTimeout(unlockTimerRef.current);
+    };
   }, []);
 
   const move = (direction: -1 | 1) => {
@@ -37,8 +75,8 @@ export function ProjectRail({ children, label }: ProjectRailProps) {
     if (!rail) return;
     const cards = Array.from(rail.querySelectorAll<HTMLElement>(".ref-project-card"));
     const next = Math.max(0, Math.min(cards.length - 1, active + direction));
-    cards[next]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-    setActive(next);
+    const card = cards[next];
+    if (card) centerCard(card, next);
   };
 
   return (

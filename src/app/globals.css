@@ -3940,3 +3940,110 @@ html[data-theme="dark"] .case-hero-image.is-mobile-product {
     min-width: 0;
   }
 }
+
+/* Portfolio v5: mobile portraits stay in full color; dark mode covers every portfolio surface. */
+@media (max-width: 760px) {
+  .editorial-portrait img.portrait-mono,
+  .editorial-portrait img.portrait-hover-color,
+  .editorial-portrait img.portrait-hair-tone {
+    display: none !important;
+  }
+
+  .editorial-portrait img.portrait-color,
+  .ref-hero-canvas[data-portrait-hover] .portrait-color {
+    z-index: 2;
+    display: block;
+    opacity: 1 !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    will-change: auto;
+  }
+}
+
+html[data-theme="dark"] .mobile-menu-panel {
+  border-color: rgba(255,255,255,.13);
+  background: #1b1c19 !important;
+  color: #f2f0eb;
+}
+html[data-theme="dark"] .mobile-menu-panel nav a {
+  border-color: rgba(255,255,255,.13);
+  color: #f2f0eb !important;
+}
+html[data-theme="dark"] .mobile-menu-head,
+html[data-theme="dark"] .mobile-preferences {
+  border-color: rgba(255,255,255,.13);
+  color: #aaa59f;
+}
+html[data-theme="dark"] .mobile-menu-head button,
+html[data-theme="dark"] .mobile-command-link,
+html[data-theme="dark"] .mobile-menu-panel .theme-switcher,
+html[data-theme="dark"] .mobile-menu-panel .language-switcher {
+  border-color: rgba(255,255,255,.14);
+  background: #22231f;
+  color: #f2f0eb;
+}
+
+html[data-theme="dark"] .case-study,
+html[data-theme="dark"] .case-header,
+html[data-theme="dark"] .case-overview,
+html[data-theme="dark"] .case-role,
+html[data-theme="dark"] .case-interactions,
+html[data-theme="dark"] .case-ai,
+html[data-theme="dark"] .case-built {
+  background: #10110f;
+  color: #f2f0eb;
+}
+html[data-theme="dark"] .case-problem-solution,
+html[data-theme="dark"] .case-flow-section,
+html[data-theme="dark"] .case-gallery-section,
+html[data-theme="dark"] .case-tech,
+html[data-theme="dark"] .case-reflection {
+  border-color: rgba(255,255,255,.13);
+  background: #171815;
+}
+html[data-theme="dark"] .case-split {
+  background: rgba(255,255,255,.13);
+}
+html[data-theme="dark"] .case-split article,
+html[data-theme="dark"] .prototype-window,
+html[data-theme="dark"] .task-sheet,
+html[data-theme="dark"] .tech-table,
+html[data-theme="dark"] .case-final {
+  border-color: rgba(255,255,255,.13);
+  background: #1b1c19;
+  color: #f2f0eb;
+}
+html[data-theme="dark"] .prototype-window-bar,
+html[data-theme="dark"] .case-gallery figcaption,
+html[data-theme="dark"] .tech-table > div,
+html[data-theme="dark"] .case-header-meta {
+  border-color: rgba(255,255,255,.13);
+}
+html[data-theme="dark"] .case-gallery-image {
+  background: #22231f;
+}
+html[data-theme="dark"] .case-flow-rail span {
+  background: #171815;
+}
+html[data-theme="dark"] .project-back-pill,
+html[data-theme="dark"] .project-back-mobile {
+  border-color: rgba(255,255,255,.14);
+  background: rgba(27,28,25,.94);
+  color: #f2f0eb;
+}
+
+/* Desktop project rail: hovered or focused cards settle at the visual center. */
+@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+  .ref-project-grid::before,
+  .ref-project-grid::after {
+    content: "";
+    flex: 0 0 calc(21% - 13px);
+    pointer-events: none;
+  }
+  .ref-project-grid::after { flex-basis: calc(29% - 13px); }
+  .ref-project-card { scroll-snap-align: center; }
+}
