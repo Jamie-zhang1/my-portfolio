@@ -4254,3 +4254,11 @@ html[data-theme="dark"] .mobile-menu-panel .language-switcher button.is-active {
     filter: saturate(1.3) contrast(1.04) brightness(1.08) !important;
   }
 }
+/* Portfolio v8: keep the desktop hero description on one line when space allows. */
+@media (min-width: 1200px) {
+  .editorial-profile { width: min(470px, 34%); }
+  .editorial-profile > p {
+    max-width: none;
+    white-space: nowrap;
+  }
+}

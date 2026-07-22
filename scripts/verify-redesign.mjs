@@ -69,6 +69,12 @@ const desktopAudit = await page.evaluate(() => {
     name: rectOf(".editorial-name"),
     portrait: rectOf(".editorial-portrait"),
     profile: rectOf(".editorial-profile"),
+    profileCopy: rectOf(".editorial-profile > p"),
+    profileCopyWhiteSpace: getComputedStyle(document.querySelector(".editorial-profile > p")).whiteSpace,
+    profileCopyOverflow: (() => {
+      const copy = document.querySelector(".editorial-profile > p");
+      return copy ? copy.scrollWidth - copy.clientWidth : null;
+    })(),
     socials: rectOf(".editorial-socials"),
     projectTrack: track ? { clientWidth: track.clientWidth, scrollWidth: track.scrollWidth } : null,
     experienceAnchor: Boolean(document.querySelector("#experience")),
@@ -79,6 +85,7 @@ const desktopAudit = await page.evaluate(() => {
   };
 });
 if (desktopAudit.scrollWidth > desktopAudit.viewportWidth + 1) errors.push(`desktop overflow: ${desktopAudit.scrollWidth}/${desktopAudit.viewportWidth}`);
+if (desktopAudit.profileCopyWhiteSpace !== "nowrap" || !desktopAudit.profileCopy || desktopAudit.profileCopy.height > 24 || Number(desktopAudit.profileCopyOverflow) > 1) errors.push(`desktop profile copy wrapping: ${JSON.stringify({ profileCopy: desktopAudit.profileCopy, whiteSpace: desktopAudit.profileCopyWhiteSpace, overflow: desktopAudit.profileCopyOverflow })}`);
 if (desktopAudit.h1Count !== 1 || desktopAudit.h1Text !== "JAMIEZHANG") errors.push(`desktop h1: ${desktopAudit.h1Count}/${desktopAudit.h1Text}`);
 if (desktopAudit.bodyText.includes("????")) errors.push("Chinese copy contains replacement question marks");
 if (!desktopAudit.portraitSrc?.includes("jamie-hero-cutout-hd.png") || !desktopAudit.portraitSrc.includes("q=95")) errors.push(`portrait source: ${desktopAudit.portraitSrc}`);
