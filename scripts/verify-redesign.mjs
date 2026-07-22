@@ -62,10 +62,10 @@ const desktopAudit = await page.evaluate(() => {
     portraitOpacity: portrait ? getComputedStyle(portrait).opacity : null,
     portraitAnimation: portrait ? getComputedStyle(portrait).animationName : null,
     portraitMask: portrait ? getComputedStyle(portrait).maskImage : null,
-    monoPortraitFilter: monoPortrait ? getComputedStyle(monoPortrait).filter : null,
-    hoverPortraitMask: hoverPortrait ? getComputedStyle(hoverPortrait).maskImage : null,
-    hairPortraitFilter: hairPortrait ? getComputedStyle(hairPortrait).filter : null,
-    hairPortraitOpacity: hairPortrait ? getComputedStyle(hairPortrait).opacity : null,
+    monoPortraitDisplay: monoPortrait ? getComputedStyle(monoPortrait).display : null,
+    hoverPortraitDisplay: hoverPortrait ? getComputedStyle(hoverPortrait).display : null,
+    hairPortraitDisplay: hairPortrait ? getComputedStyle(hairPortrait).display : null,
+    portraitTransform: portrait ? getComputedStyle(portrait).transform : null,
     canvas: rectOf(".ref-hero-canvas"),
     name: rectOf(".editorial-name"),
     portrait: rectOf(".editorial-portrait"),
@@ -90,10 +90,9 @@ if (desktopAudit.profileCopyWhiteSpace !== "nowrap" || !desktopAudit.profileCopy
 if (desktopAudit.h1Count !== 1 || desktopAudit.h1Text !== "JAMIEZHANG") errors.push(`desktop h1: ${desktopAudit.h1Count}/${desktopAudit.h1Text}`);
 if (desktopAudit.bodyText.includes("????")) errors.push("Chinese copy contains replacement question marks");
 if (!desktopAudit.portraitSrc?.includes("jamie-hero-cutout-v9.png") || !desktopAudit.portraitSrc.includes("q=95")) errors.push(`portrait source: ${desktopAudit.portraitSrc}`);
-if (!desktopAudit.portraitFilter?.includes("saturate(0.88)") || !desktopAudit.hoverPortraitFilter?.includes("saturate(0.68)") || !desktopAudit.monoPortraitFilter?.includes("grayscale(0.78)")) errors.push(`portrait treatment: ${desktopAudit.portraitFilter}/${desktopAudit.hoverPortraitFilter}/${desktopAudit.monoPortraitFilter}`);
-if (desktopAudit.hoverPortraitMask === "none") errors.push(`portrait hover mask: ${desktopAudit.hoverPortraitMask}`);
-if (!desktopAudit.hairPortraitFilter?.includes("brightness(0.42)") || Number(desktopAudit.hairPortraitOpacity) < .5) errors.push(`portrait hair tone: ${desktopAudit.hairPortraitFilter}/${desktopAudit.hairPortraitOpacity}`);
-if (desktopAudit.portraitOpacity !== "1" || desktopAudit.portraitAnimation !== "none" || desktopAudit.portraitMask === "none") errors.push(`persistent face color: ${desktopAudit.portraitOpacity}/${desktopAudit.portraitAnimation}/${desktopAudit.portraitMask}`);
+if (!desktopAudit.portraitFilter?.includes("saturate(0.96)") || !desktopAudit.portraitFilter.includes("brightness(1.015)")) errors.push(`portrait treatment: ${desktopAudit.portraitFilter}`);
+if ([desktopAudit.monoPortraitDisplay, desktopAudit.hoverPortraitDisplay, desktopAudit.hairPortraitDisplay].some((value) => value !== "none")) errors.push(`desktop portrait effect layers: ${JSON.stringify(desktopAudit)}`);
+if (desktopAudit.portraitOpacity !== "1" || desktopAudit.portraitAnimation !== "none" || desktopAudit.portraitMask !== "none" || !["none", "matrix(1, 0, 0, 1, 0, 0)"].includes(desktopAudit.portraitTransform)) errors.push(`stable portrait state: ${desktopAudit.portraitOpacity}/${desktopAudit.portraitAnimation}/${desktopAudit.portraitMask}/${desktopAudit.portraitTransform}`);
 if (desktopAudit.projectArtworkCount !== 8) errors.push(`project artwork count: ${desktopAudit.projectArtworkCount}`);
 if (desktopAudit.heardScreenCount !== 6) errors.push(`heard sheep screen count: ${desktopAudit.heardScreenCount}`);
 if (!desktopAudit.projectTrack || desktopAudit.projectTrack.scrollWidth <= desktopAudit.projectTrack.clientWidth) errors.push("project track is not horizontally scrollable");
@@ -118,11 +117,12 @@ const hoverAudit = await page.evaluate(() => {
   return {
     active: canvas?.hasAttribute("data-portrait-hover") ?? false,
     opacity: style?.opacity ?? null,
+    display: style?.display ?? null,
     revealX: canvas instanceof HTMLElement ? canvas.style.getPropertyValue("--portrait-reveal-x") : null,
     revealY: canvas instanceof HTMLElement ? canvas.style.getPropertyValue("--portrait-reveal-y") : null,
   };
 });
-if (!hoverAudit.active || Number(hoverAudit.opacity) < .95 || !hoverAudit.revealX || !hoverAudit.revealY) errors.push(`portrait hover interaction: ${JSON.stringify(hoverAudit)}`);
+if (!hoverAudit.active || hoverAudit.display !== "none") errors.push(`portrait hover disabled state: ${JSON.stringify(hoverAudit)}`);
 await page.screenshot({ path: join(output, "desktop-hover-reveal.png") });
 await page.screenshot({ path: join(output, "desktop-cover.png") });
 await page.locator("#work").scrollIntoViewIfNeeded();
@@ -222,7 +222,7 @@ const mobileAudit = await mobilePage.evaluate(() => {
 if (mobileAudit.scrollWidth > mobileAudit.viewportWidth + 1) errors.push(`mobile overflow: ${mobileAudit.scrollWidth}/${mobileAudit.viewportWidth}`);
 if ((mobileAudit.headerToolsX ?? 0) < 300) errors.push(`mobile menu is not right aligned: ${mobileAudit.headerToolsX}`);
 if (!mobileAudit.portraitSrc?.includes("jamie-hero-cutout-v9.png") || !mobileAudit.portraitSrc.includes("q=95")) errors.push(`mobile portrait source: ${mobileAudit.portraitSrc}`);
-if (mobileAudit.colorOpacity !== "1" || !mobileAudit.colorFilter?.includes("saturate(0.95)") || !mobileAudit.colorFilter.includes("brightness(1.02)") || mobileAudit.colorAnimation !== "none" || mobileAudit.colorMask !== "none") errors.push(`mobile color portrait state: ${JSON.stringify(mobileAudit)}`);
+if (mobileAudit.colorOpacity !== "1" || !mobileAudit.colorFilter?.includes("saturate(0.96)") || !mobileAudit.colorFilter.includes("brightness(1.015)") || mobileAudit.colorAnimation !== "none" || mobileAudit.colorMask !== "none") errors.push(`mobile color portrait state: ${JSON.stringify(mobileAudit)}`);
 if (mobileAudit.nameBlend !== "normal" || mobileAudit.nameOpacity !== "1" || mobileAudit.nameColor !== "rgb(36, 35, 33)") errors.push(`mobile name visibility: ${JSON.stringify(mobileAudit)}`);
 if ([mobileAudit.monoDisplay, mobileAudit.hoverDisplay, mobileAudit.hairDisplay].some((value) => value !== "none")) errors.push(`mobile effect layers: ${JSON.stringify(mobileAudit)}`);
 await mobilePage.screenshot({ path: join(output, "mobile-cover.png") });
@@ -299,7 +299,7 @@ const darkAudit = await darkPage.evaluate(() => {
 });
 if (darkAudit.theme !== "dark") errors.push(`dark theme state: ${darkAudit.theme}`);
 if (darkAudit.scrollWidth > darkAudit.viewportWidth + 1) errors.push(`dark mobile overflow: ${darkAudit.scrollWidth}/${darkAudit.viewportWidth}`);
-if (!darkAudit.portraitFilter?.includes("saturate(0.95)") || !darkAudit.portraitFilter.includes("brightness(1.02)") || darkAudit.portraitOpacity !== "1" || darkAudit.portraitAnimation !== "none" || darkAudit.portraitMask !== "none" || darkAudit.portraitBlend !== "normal" || darkAudit.portraitBeforeDisplay !== "none" || darkAudit.portraitBeforeContent !== "none") errors.push(`dark mobile color portrait: ${JSON.stringify(darkAudit)}`);
+if (!darkAudit.portraitFilter?.includes("saturate(0.96)") || !darkAudit.portraitFilter.includes("brightness(1.015)") || darkAudit.portraitOpacity !== "1" || darkAudit.portraitAnimation !== "none" || darkAudit.portraitMask !== "none" || darkAudit.portraitBlend !== "normal" || darkAudit.portraitBeforeDisplay !== "none" || darkAudit.portraitBeforeContent !== "none") errors.push(`dark mobile color portrait: ${JSON.stringify(darkAudit)}`);
 if (darkAudit.nameBlend !== "normal" || darkAudit.nameOpacity !== "1" || darkAudit.nameColor !== "rgb(243, 239, 233)" || darkAudit.nameFill !== "rgb(243, 239, 233)" || darkAudit.nameStroke !== "rgb(243, 239, 233)" || !darkAudit.name || darkAudit.name.height < 100) errors.push(`dark mobile name visibility: ${JSON.stringify(darkAudit)}`);
 if (darkAudit.effectDisplays.some((value) => value !== "none")) errors.push(`dark mobile effect layers: ${JSON.stringify(darkAudit.effectDisplays)}`);
 if (darkAudit.surfaceBackgrounds.some((value) => value === "rgba(0, 0, 0, 0)" || value === "rgb(255, 255, 255)")) errors.push(`dark home surfaces: ${JSON.stringify(darkAudit.surfaceBackgrounds)}`);

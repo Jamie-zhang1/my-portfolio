@@ -4296,3 +4296,32 @@ html[data-theme="dark"] .editorial-portrait img.portrait-hover-color {
   .ref-project-card:hover,
   .ref-project-card:focus-visible { z-index: 4; }
 }
+
+/* Portfolio v10: stable portrait only. Removes forehead darkening and wave-like layered reveals. */
+.editorial-portrait {
+  opacity: 1 !important;
+  animation: none !important;
+}
+.editorial-portrait img.portrait-mono,
+.editorial-portrait img.portrait-hover-color,
+.editorial-portrait img.portrait-hair-tone {
+  display: none !important;
+}
+.editorial-portrait img.portrait-color,
+.ref-hero-canvas[data-portrait-hover] .portrait-color,
+html[data-theme="dark"] .editorial-portrait img.portrait-color,
+html[data-theme="dark"] .ref-hero-canvas[data-portrait-hover] .portrait-color {
+  z-index: 2;
+  opacity: 1 !important;
+  filter: saturate(.96) contrast(1.005) brightness(1.015) !important;
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  translate: none !important;
+  mix-blend-mode: normal !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .editorial-portrait img { transform: none !important; transition: none !important; }
+}
