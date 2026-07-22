@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { LanguageSwitcher } from "@/components/interaction/language-switcher";
 import { MobileNav } from "@/components/interaction/mobile-nav";
 import { SectionLink } from "@/components/interaction/section-link";
+import { ThemeSwitcher } from "@/components/interaction/theme-switcher";
 import { siteConfig } from "@/data/site-config";
 import { Link } from "@/i18n/navigation";
 
@@ -34,6 +35,7 @@ export function SiteHeader() {
           {navigation.map((item) => <SectionLink key={`${item.section}-${item.label}`} section={item.section}><span>{item.label}</span>{item.count ? <small>{item.count}</small> : null}</SectionLink>)}
         </nav>
         <div className="header-tools">
+          <ThemeSwitcher compact />
           <LanguageSwitcher compact />
           <a className="header-talk" href={siteConfig.gmailComposeUrl} target="_blank" rel="noopener noreferrer">{locale === "zh" ? "聊聊项目" : "Let’s Talk"}<ArrowUpRight size={14} /></a>
           <MobileNav />

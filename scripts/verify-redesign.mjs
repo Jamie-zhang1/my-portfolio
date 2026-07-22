@@ -58,6 +58,7 @@ const desktopAudit = await page.evaluate(() => {
     heardScreenCount: document.querySelectorAll(".heard-sheep-art-screen").length,
     portraitSrc: portrait instanceof HTMLImageElement ? portrait.currentSrc || portrait.src : null,
     portraitFilter: portrait ? getComputedStyle(portrait).filter : null,
+    portraitOpacity: portrait ? getComputedStyle(portrait).opacity : null,
     portraitAnimation: portrait ? getComputedStyle(portrait).animationName : null,
     portraitMask: portrait ? getComputedStyle(portrait).maskImage : null,
     monoPortraitFilter: monoPortrait ? getComputedStyle(monoPortrait).filter : null,
@@ -81,10 +82,10 @@ if (desktopAudit.scrollWidth > desktopAudit.viewportWidth + 1) errors.push(`desk
 if (desktopAudit.h1Count !== 1 || desktopAudit.h1Text !== "JAMIEZHANG") errors.push(`desktop h1: ${desktopAudit.h1Count}/${desktopAudit.h1Text}`);
 if (desktopAudit.bodyText.includes("????")) errors.push("Chinese copy contains replacement question marks");
 if (!desktopAudit.portraitSrc?.includes("jamie-hero-cutout-hd.png") || !desktopAudit.portraitSrc.includes("q=95")) errors.push(`portrait source: ${desktopAudit.portraitSrc}`);
-if (!desktopAudit.portraitFilter?.includes("saturate(1.2)") || !desktopAudit.monoPortraitFilter?.includes("contrast(1.12)")) errors.push(`portrait treatment: ${desktopAudit.portraitFilter}/${desktopAudit.monoPortraitFilter}`);
+if (!desktopAudit.portraitFilter?.includes("saturate(1.24)") || !desktopAudit.monoPortraitFilter?.includes("grayscale(0.78)")) errors.push(`portrait treatment: ${desktopAudit.portraitFilter}/${desktopAudit.monoPortraitFilter}`);
 if (desktopAudit.hoverPortraitMask === "none") errors.push(`portrait hover mask: ${desktopAudit.hoverPortraitMask}`);
-if (!desktopAudit.hairPortraitFilter?.includes("brightness(0.42)") || Number(desktopAudit.hairPortraitOpacity) < .6) errors.push(`portrait hair tone: ${desktopAudit.hairPortraitFilter}/${desktopAudit.hairPortraitOpacity}`);
-if (desktopAudit.portraitAnimation !== "ref-face-color-reveal" || desktopAudit.portraitMask === "none") errors.push(`portrait reveal: ${desktopAudit.portraitAnimation}/${desktopAudit.portraitMask}`);
+if (!desktopAudit.hairPortraitFilter?.includes("brightness(0.42)") || Number(desktopAudit.hairPortraitOpacity) < .5) errors.push(`portrait hair tone: ${desktopAudit.hairPortraitFilter}/${desktopAudit.hairPortraitOpacity}`);
+if (desktopAudit.portraitOpacity !== "1" || desktopAudit.portraitAnimation !== "none" || desktopAudit.portraitMask === "none") errors.push(`persistent face color: ${desktopAudit.portraitOpacity}/${desktopAudit.portraitAnimation}/${desktopAudit.portraitMask}`);
 if (desktopAudit.projectArtworkCount !== 8) errors.push(`project artwork count: ${desktopAudit.projectArtworkCount}`);
 if (desktopAudit.heardScreenCount !== 6) errors.push(`heard sheep screen count: ${desktopAudit.heardScreenCount}`);
 if (!desktopAudit.projectTrack || desktopAudit.projectTrack.scrollWidth <= desktopAudit.projectTrack.clientWidth) errors.push("project track is not horizontally scrollable");
@@ -195,6 +196,7 @@ const mobileAudit = await mobilePage.evaluate(() => {
     headerToolsX: tools?.x ?? null,
     portraitSrc: portrait instanceof HTMLImageElement ? portrait.currentSrc || portrait.src : null,
     colorOpacity: colorStyle?.opacity ?? null,
+    colorFilter: colorStyle?.filter ?? null,
     colorAnimation: colorStyle?.animationName ?? null,
     colorMask: colorStyle?.maskImage ?? null,
     monoDisplay: mono ? getComputedStyle(mono).display : null,
@@ -205,12 +207,29 @@ const mobileAudit = await mobilePage.evaluate(() => {
 if (mobileAudit.scrollWidth > mobileAudit.viewportWidth + 1) errors.push(`mobile overflow: ${mobileAudit.scrollWidth}/${mobileAudit.viewportWidth}`);
 if ((mobileAudit.headerToolsX ?? 0) < 300) errors.push(`mobile menu is not right aligned: ${mobileAudit.headerToolsX}`);
 if (!mobileAudit.portraitSrc?.includes("q=95")) errors.push(`mobile portrait source: ${mobileAudit.portraitSrc}`);
-if (mobileAudit.colorOpacity !== "1" || mobileAudit.colorAnimation !== "none" || mobileAudit.colorMask !== "none") errors.push(`mobile color portrait state: ${JSON.stringify(mobileAudit)}`);
+if (mobileAudit.colorOpacity !== "1" || !mobileAudit.colorFilter?.includes("saturate(1.28)") || mobileAudit.colorAnimation !== "none" || mobileAudit.colorMask !== "none") errors.push(`mobile color portrait state: ${JSON.stringify(mobileAudit)}`);
 if ([mobileAudit.monoDisplay, mobileAudit.hoverDisplay, mobileAudit.hairDisplay].some((value) => value !== "none")) errors.push(`mobile effect layers: ${JSON.stringify(mobileAudit)}`);
 await mobilePage.screenshot({ path: join(output, "mobile-cover.png") });
 await mobilePage.getByRole("button", { name: "打开菜单" }).click();
 await mobilePage.getByRole("dialog", { name: "打开菜单" }).waitFor();
 await mobilePage.screenshot({ path: join(output, "mobile-menu.png") });
+const mobileMenuAudit = await mobilePage.evaluate(() => {
+  const panel = document.querySelector(".mobile-menu-panel");
+  const link = document.querySelector(".mobile-menu-panel nav a");
+  const panelStyle = panel ? getComputedStyle(panel) : null;
+  const linkStyle = link ? getComputedStyle(link) : null;
+  return {
+    background: panelStyle?.backgroundColor ?? null,
+    backgroundImage: panelStyle?.backgroundImage ?? null,
+    opacity: panelStyle?.opacity ?? null,
+    linkColor: linkStyle?.color ?? null,
+    linkWeight: linkStyle?.fontWeight ?? null,
+    themeButtons: document.querySelectorAll(".mobile-menu-panel .theme-switcher button").length,
+    bodyOverflow: document.body.style.overflow,
+  };
+});
+if (mobileMenuAudit.background !== "rgb(250, 248, 245)" || mobileMenuAudit.backgroundImage !== "none" || mobileMenuAudit.opacity !== "1") errors.push(`mobile menu surface: ${JSON.stringify(mobileMenuAudit)}`);
+if (mobileMenuAudit.linkColor !== "rgb(23, 20, 18)" || Number(mobileMenuAudit.linkWeight) < 700 || mobileMenuAudit.themeButtons !== 3 || mobileMenuAudit.bodyOverflow !== "hidden") errors.push(`mobile menu legibility: ${JSON.stringify(mobileMenuAudit)}`);
 await mobile.close();
 
 
@@ -249,12 +268,32 @@ const darkAudit = await darkPage.evaluate(() => {
 });
 if (darkAudit.theme !== "dark") errors.push(`dark theme state: ${darkAudit.theme}`);
 if (darkAudit.scrollWidth > darkAudit.viewportWidth + 1) errors.push(`dark mobile overflow: ${darkAudit.scrollWidth}/${darkAudit.viewportWidth}`);
-if (darkAudit.portraitFilter !== "none" || darkAudit.portraitOpacity !== "1" || darkAudit.portraitAnimation !== "none" || darkAudit.portraitMask !== "none") errors.push(`dark mobile color portrait: ${JSON.stringify(darkAudit)}`);
+if (!darkAudit.portraitFilter?.includes("saturate(1.22)") || !darkAudit.portraitFilter.includes("brightness(0.94)") || darkAudit.portraitOpacity !== "1" || darkAudit.portraitAnimation !== "none" || darkAudit.portraitMask !== "none") errors.push(`dark mobile color portrait: ${JSON.stringify(darkAudit)}`);
 if (darkAudit.effectDisplays.some((value) => value !== "none")) errors.push(`dark mobile effect layers: ${JSON.stringify(darkAudit.effectDisplays)}`);
 if (darkAudit.surfaceBackgrounds.some((value) => value === "rgba(0, 0, 0, 0)" || value === "rgb(255, 255, 255)")) errors.push(`dark home surfaces: ${JSON.stringify(darkAudit.surfaceBackgrounds)}`);
 if (!darkAudit.portrait || darkAudit.portrait.x < -30 || darkAudit.portrait.x + darkAudit.portrait.width > darkAudit.viewportWidth + 30) errors.push(`dark portrait geometry: ${JSON.stringify(darkAudit.portrait)}`);
 if (darkAudit.socials && darkAudit.profileContentRight > darkAudit.socials.x - 6) errors.push(`dark mobile controls overlap: ${JSON.stringify({ profileContentRight: darkAudit.profileContentRight, socials: darkAudit.socials })}`);
 await darkPage.screenshot({ path: join(output, "mobile-dark-cover.png"), fullPage: true });
+await darkPage.getByRole("button", { name: "打开菜单" }).click();
+await darkPage.getByRole("dialog", { name: "打开菜单" }).waitFor();
+const darkMenuAudit = await darkPage.evaluate(() => {
+  const panel = document.querySelector(".mobile-menu-panel");
+  const link = document.querySelector(".mobile-menu-panel nav a");
+  const panelStyle = panel ? getComputedStyle(panel) : null;
+  const linkStyle = link ? getComputedStyle(link) : null;
+  return {
+    background: panelStyle?.backgroundColor ?? null,
+    backgroundImage: panelStyle?.backgroundImage ?? null,
+    opacity: panelStyle?.opacity ?? null,
+    linkColor: linkStyle?.color ?? null,
+    linkWeight: linkStyle?.fontWeight ?? null,
+    themeButtons: document.querySelectorAll(".mobile-menu-panel .theme-switcher button").length,
+  };
+});
+if (darkMenuAudit.background !== "rgb(21, 22, 20)" || darkMenuAudit.backgroundImage !== "none" || darkMenuAudit.opacity !== "1") errors.push(`dark menu surface: ${JSON.stringify(darkMenuAudit)}`);
+if (darkMenuAudit.linkColor !== "rgb(247, 244, 239)" || Number(darkMenuAudit.linkWeight) < 700 || darkMenuAudit.themeButtons !== 3) errors.push(`dark menu legibility: ${JSON.stringify(darkMenuAudit)}`);
+await darkPage.screenshot({ path: join(output, "mobile-dark-menu.png") });
+await darkPage.getByRole("button", { name: "关闭菜单" }).click();
 await darkPage.goto(`${base}/zh/projects/heard-sheep`, { waitUntil: "domcontentloaded" });
 await darkPage.getByRole("heading", { name: /Heard Sheep/ }).waitFor();
 await darkPage.waitForTimeout(500);
@@ -274,7 +313,7 @@ await darkPage.screenshot({ path: join(output, "mobile-dark-case-detail.png"), f
 await darkMobile.close();
 await browser.close();
 errors.push(...consoleErrors.filter((item) => !item.includes("webpack-hmr")));
-const report = { base, generatedAt: new Date().toISOString(), routes, desktopAudit, hoverAudit, cardCenterAudit, capabilityAudit, mobileAudit, darkAudit, darkCaseAudit, caseAudit, reducedOpacity, consoleErrors, errors };
+const report = { base, generatedAt: new Date().toISOString(), routes, desktopAudit, hoverAudit, cardCenterAudit, capabilityAudit, mobileAudit, mobileMenuAudit, darkAudit, darkMenuAudit, darkCaseAudit, caseAudit, reducedOpacity, consoleErrors, errors };
 await writeFile(join(output, "qa-report.json"), JSON.stringify(report, null, 2));
 if (errors.length) { console.error(errors.join("\n")); process.exit(1); }
-console.log(JSON.stringify({ status: "passed", output, routes, desktopAudit, hoverAudit, cardCenterAudit, capabilityAudit, mobileAudit, darkAudit, darkCaseAudit, caseAudit, reducedOpacity }, null, 2));
+console.log(JSON.stringify({ status: "passed", output, routes, desktopAudit, hoverAudit, cardCenterAudit, capabilityAudit, mobileAudit, mobileMenuAudit, darkAudit, darkMenuAudit, darkCaseAudit, caseAudit, reducedOpacity }, null, 2));
