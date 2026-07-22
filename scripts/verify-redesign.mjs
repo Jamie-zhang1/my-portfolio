@@ -190,6 +190,10 @@ const mobileAudit = await mobilePage.evaluate(() => {
   const hover = document.querySelector(".editorial-portrait img.portrait-hover-color");
   const hair = document.querySelector(".editorial-portrait img.portrait-hair-tone");
   const colorStyle = portrait ? getComputedStyle(portrait) : null;
+  const name = document.querySelector(".editorial-name");
+  const nameSolid = document.querySelector(".editorial-name-solid");
+  const nameStyle = name ? getComputedStyle(name) : null;
+  const nameSolidStyle = nameSolid ? getComputedStyle(nameSolid) : null;
   return {
     scrollWidth: document.documentElement.scrollWidth,
     viewportWidth: innerWidth,
@@ -202,12 +206,16 @@ const mobileAudit = await mobilePage.evaluate(() => {
     monoDisplay: mono ? getComputedStyle(mono).display : null,
     hoverDisplay: hover ? getComputedStyle(hover).display : null,
     hairDisplay: hair ? getComputedStyle(hair).display : null,
+    nameBlend: nameStyle?.mixBlendMode ?? null,
+    nameOpacity: nameStyle?.opacity ?? null,
+    nameColor: nameSolidStyle?.color ?? null,
   };
 });
 if (mobileAudit.scrollWidth > mobileAudit.viewportWidth + 1) errors.push(`mobile overflow: ${mobileAudit.scrollWidth}/${mobileAudit.viewportWidth}`);
 if ((mobileAudit.headerToolsX ?? 0) < 300) errors.push(`mobile menu is not right aligned: ${mobileAudit.headerToolsX}`);
 if (!mobileAudit.portraitSrc?.includes("q=95")) errors.push(`mobile portrait source: ${mobileAudit.portraitSrc}`);
 if (mobileAudit.colorOpacity !== "1" || !mobileAudit.colorFilter?.includes("saturate(1.28)") || mobileAudit.colorAnimation !== "none" || mobileAudit.colorMask !== "none") errors.push(`mobile color portrait state: ${JSON.stringify(mobileAudit)}`);
+if (mobileAudit.nameBlend !== "normal" || mobileAudit.nameOpacity !== "1" || mobileAudit.nameColor !== "rgb(36, 35, 33)") errors.push(`mobile name visibility: ${JSON.stringify(mobileAudit)}`);
 if ([mobileAudit.monoDisplay, mobileAudit.hoverDisplay, mobileAudit.hairDisplay].some((value) => value !== "none")) errors.push(`mobile effect layers: ${JSON.stringify(mobileAudit)}`);
 await mobilePage.screenshot({ path: join(output, "mobile-cover.png") });
 await mobilePage.getByRole("button", { name: "打开菜单" }).click();
@@ -249,6 +257,10 @@ const darkAudit = await darkPage.evaluate(() => {
   const canvas = document.querySelector(".ref-hero-canvas");
   const profile = document.querySelector(".editorial-profile")?.getBoundingClientRect();
   const socials = document.querySelector(".editorial-socials")?.getBoundingClientRect();
+  const name = document.querySelector(".editorial-name");
+  const nameSolid = document.querySelector(".editorial-name-solid");
+  const nameOutline = document.querySelector(".editorial-name-outline");
+  const nameRect = name?.getBoundingClientRect();
   return {
     theme: document.documentElement.dataset.theme,
     viewportWidth: innerWidth,
@@ -264,11 +276,19 @@ const darkAudit = await darkPage.evaluate(() => {
     profile: profile ? { x: profile.x, y: profile.y, width: profile.width, height: profile.height } : null,
     profileContentRight: Math.max(...Array.from(document.querySelectorAll(".editorial-profile h2, .editorial-profile .hero-collaborate")).map((item) => item.getBoundingClientRect().right)),
     socials: socials ? { x: socials.x, y: socials.y, width: socials.width, height: socials.height } : null,
+    name: nameRect ? { x: nameRect.x, y: nameRect.y, width: nameRect.width, height: nameRect.height } : null,
+    nameBlend: name ? getComputedStyle(name).mixBlendMode : null,
+    nameOpacity: name ? getComputedStyle(name).opacity : null,
+    nameColor: nameSolid ? getComputedStyle(nameSolid).color : null,
+    nameFill: nameSolid ? getComputedStyle(nameSolid).webkitTextFillColor : null,
+    nameStroke: nameOutline ? getComputedStyle(nameOutline).webkitTextStrokeColor : null,
+    portraitBlend: color ? getComputedStyle(color).mixBlendMode : null,
   };
 });
 if (darkAudit.theme !== "dark") errors.push(`dark theme state: ${darkAudit.theme}`);
 if (darkAudit.scrollWidth > darkAudit.viewportWidth + 1) errors.push(`dark mobile overflow: ${darkAudit.scrollWidth}/${darkAudit.viewportWidth}`);
-if (!darkAudit.portraitFilter?.includes("saturate(1.22)") || !darkAudit.portraitFilter.includes("brightness(0.94)") || darkAudit.portraitOpacity !== "1" || darkAudit.portraitAnimation !== "none" || darkAudit.portraitMask !== "none") errors.push(`dark mobile color portrait: ${JSON.stringify(darkAudit)}`);
+if (!darkAudit.portraitFilter?.includes("saturate(1.3)") || !darkAudit.portraitFilter.includes("brightness(1.08)") || darkAudit.portraitOpacity !== "1" || darkAudit.portraitAnimation !== "none" || darkAudit.portraitMask !== "none" || darkAudit.portraitBlend !== "normal") errors.push(`dark mobile color portrait: ${JSON.stringify(darkAudit)}`);
+if (darkAudit.nameBlend !== "normal" || darkAudit.nameOpacity !== "1" || darkAudit.nameColor !== "rgb(243, 239, 233)" || darkAudit.nameFill !== "rgb(243, 239, 233)" || darkAudit.nameStroke !== "rgb(243, 239, 233)" || !darkAudit.name || darkAudit.name.height < 100) errors.push(`dark mobile name visibility: ${JSON.stringify(darkAudit)}`);
 if (darkAudit.effectDisplays.some((value) => value !== "none")) errors.push(`dark mobile effect layers: ${JSON.stringify(darkAudit.effectDisplays)}`);
 if (darkAudit.surfaceBackgrounds.some((value) => value === "rgba(0, 0, 0, 0)" || value === "rgb(255, 255, 255)")) errors.push(`dark home surfaces: ${JSON.stringify(darkAudit.surfaceBackgrounds)}`);
 if (!darkAudit.portrait || darkAudit.portrait.x < -30 || darkAudit.portrait.x + darkAudit.portrait.width > darkAudit.viewportWidth + 30) errors.push(`dark portrait geometry: ${JSON.stringify(darkAudit.portrait)}`);
