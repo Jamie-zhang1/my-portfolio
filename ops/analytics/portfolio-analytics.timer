@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh the Heard Sheep traffic dashboard every five minutes
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=5min
+AccuracySec=30s
+Persistent=true
+
+[Install]
+WantedBy=timers.target
