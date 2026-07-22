@@ -43,6 +43,7 @@ const desktopAudit = await page.evaluate(() => {
     const rect = document.querySelector(selector)?.getBoundingClientRect();
     return rect ? { x: rect.x, y: rect.y, width: rect.width, height: rect.height } : null;
   };
+  const portraitWrap = document.querySelector(".editorial-portrait");
   const portrait = document.querySelector(".editorial-portrait img.portrait-color");
   const monoPortrait = document.querySelector(".editorial-portrait img.portrait-mono");
   const hoverPortrait = document.querySelector(".editorial-portrait img.portrait-hover-color");
@@ -66,6 +67,8 @@ const desktopAudit = await page.evaluate(() => {
     hoverPortraitDisplay: hoverPortrait ? getComputedStyle(hoverPortrait).display : null,
     hairPortraitDisplay: hairPortrait ? getComputedStyle(hairPortrait).display : null,
     portraitTransform: portrait ? getComputedStyle(portrait).transform : null,
+    portraitWrapAnimation: portraitWrap ? getComputedStyle(portraitWrap).animationName : null,
+    portraitWrapDuration: portraitWrap ? getComputedStyle(portraitWrap).animationDuration : null,
     canvas: rectOf(".ref-hero-canvas"),
     name: rectOf(".editorial-name"),
     portrait: rectOf(".editorial-portrait"),
@@ -93,6 +96,7 @@ if (!desktopAudit.portraitSrc?.includes("jamie-hero-cutout-v9.png") || !desktopA
 if (!desktopAudit.portraitFilter?.includes("saturate(0.96)") || !desktopAudit.portraitFilter.includes("brightness(1.015)")) errors.push(`portrait treatment: ${desktopAudit.portraitFilter}`);
 if ([desktopAudit.monoPortraitDisplay, desktopAudit.hoverPortraitDisplay, desktopAudit.hairPortraitDisplay].some((value) => value !== "none")) errors.push(`desktop portrait effect layers: ${JSON.stringify(desktopAudit)}`);
 if (desktopAudit.portraitOpacity !== "1" || desktopAudit.portraitAnimation !== "none" || desktopAudit.portraitMask !== "none" || !["none", "matrix(1, 0, 0, 1, 0, 0)"].includes(desktopAudit.portraitTransform)) errors.push(`stable portrait state: ${desktopAudit.portraitOpacity}/${desktopAudit.portraitAnimation}/${desktopAudit.portraitMask}/${desktopAudit.portraitTransform}`);
+if (desktopAudit.portraitWrapAnimation !== "stable-portrait-enter" || desktopAudit.portraitWrapDuration !== "0.98s") errors.push(`portrait entrance animation: ${desktopAudit.portraitWrapAnimation}/${desktopAudit.portraitWrapDuration}`);
 if (desktopAudit.projectArtworkCount !== 8) errors.push(`project artwork count: ${desktopAudit.projectArtworkCount}`);
 if (desktopAudit.heardScreenCount !== 6) errors.push(`heard sheep screen count: ${desktopAudit.heardScreenCount}`);
 if (!desktopAudit.projectTrack || desktopAudit.projectTrack.scrollWidth <= desktopAudit.projectTrack.clientWidth) errors.push("project track is not horizontally scrollable");
@@ -193,6 +197,7 @@ await mobilePage.locator(".editorial-portrait img.portrait-color").waitFor();
 await mobilePage.waitForTimeout(1200);
 const mobileAudit = await mobilePage.evaluate(() => {
   const tools = document.querySelector(".header-tools")?.getBoundingClientRect();
+  const portraitWrap = document.querySelector(".editorial-portrait");
   const portrait = document.querySelector(".editorial-portrait img.portrait-color");
   const mono = document.querySelector(".editorial-portrait img.portrait-mono");
   const hover = document.querySelector(".editorial-portrait img.portrait-hover-color");

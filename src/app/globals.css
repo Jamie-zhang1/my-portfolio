@@ -4325,3 +4325,21 @@ html[data-theme="dark"] .ref-hero-canvas[data-portrait-hover] .portrait-color {
 @media (hover: hover) and (pointer: fine) {
   .editorial-portrait img { transform: none !important; transition: none !important; }
 }
+/* Portfolio v11: one-shot portrait entrance. Keeps the image single-layer and stable after landing. */
+@keyframes stable-portrait-enter {
+  0% { transform: translate3d(0, 30px, 0) scale(.985); filter: blur(6px) brightness(1.045); }
+  58% { transform: translate3d(0, -4px, 0) scale(1.004); filter: blur(1px) brightness(1.018); }
+  100% { transform: translate3d(0, 0, 0) scale(1); filter: blur(0) brightness(1); }
+}
+.editorial-portrait {
+  transform-origin: 50% 100%;
+  will-change: transform, filter;
+  animation: stable-portrait-enter 980ms cubic-bezier(.22, 1, .36, 1) .32s both !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .editorial-portrait {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
