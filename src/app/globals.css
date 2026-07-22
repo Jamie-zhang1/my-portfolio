@@ -4262,3 +4262,37 @@ html[data-theme="dark"] .mobile-menu-panel .language-switcher button.is-active {
     white-space: nowrap;
   }
 }
+/* Portfolio v9: fully opaque natural portrait, with no mobile dark halo. */
+.editorial-portrait img.portrait-color {
+  filter: saturate(.88) contrast(1.01) brightness(1.01);
+}
+.editorial-portrait img.portrait-hover-color {
+  filter: saturate(.68) contrast(1) brightness(1.015);
+}
+
+html[data-theme="dark"] .editorial-portrait img.portrait-color {
+  filter: saturate(.88) contrast(1.01) brightness(1.015);
+}
+html[data-theme="dark"] .editorial-portrait img.portrait-hover-color {
+  filter: saturate(.68) contrast(1) brightness(1.015);
+}
+
+@media (max-width: 760px) {
+  .editorial-portrait img.portrait-color,
+  .ref-hero-canvas[data-portrait-hover] .portrait-color,
+  html[data-theme="dark"] .editorial-portrait img.portrait-color,
+  html[data-theme="dark"] .ref-hero-canvas[data-portrait-hover] .portrait-color {
+    filter: saturate(.95) contrast(1.01) brightness(1.02) !important;
+  }
+  html[data-theme="dark"] .editorial-portrait::before {
+    display: none !important;
+    content: none !important;
+  }
+}
+/* Portfolio v9: keep desktop rail hover hit-testing stable while card artwork animates. */
+@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+  .ref-project-card { isolation: isolate; }
+  .ref-project-card > * { pointer-events: none; }
+  .ref-project-card:hover,
+  .ref-project-card:focus-visible { z-index: 4; }
+}

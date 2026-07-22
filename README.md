@@ -11,6 +11,11 @@ AI 产品交互型个人品牌站，展示 Jamie Zhang 如何把真实需求转�
 
 根路径会根据 `NEXT_LOCALE` cookie 和浏览器语言跳转到 `/zh` 或 `/en`。`/sheep` 由同域下的独立 Heard Sheep 服务继续承载。
 
+## Design reference and attribution
+
+The homepage composition, selected-work structure, and portrait interaction were studied with reference to Dymas Alfin's Dribbble shot [Personal Portfolio Website - Animations](https://dribbble.com/shots/26995447-Personal-Portfolio-Website-Animations) for Mikan Team.
+
+This site is not an official implementation of that work. The content, code, personal information, case studies, resume, and project imagery are redesigned and produced for Jamie Zhang's portfolio; the reference link is included to disclose the visual research source, and the original design rights remain with its author.
 ## Featured products
 
 - Heard Sheep — multimodal AI task assistant

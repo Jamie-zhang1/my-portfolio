@@ -58,6 +58,7 @@ const desktopAudit = await page.evaluate(() => {
     heardScreenCount: document.querySelectorAll(".heard-sheep-art-screen").length,
     portraitSrc: portrait instanceof HTMLImageElement ? portrait.currentSrc || portrait.src : null,
     portraitFilter: portrait ? getComputedStyle(portrait).filter : null,
+    hoverPortraitFilter: hoverPortrait ? getComputedStyle(hoverPortrait).filter : null,
     portraitOpacity: portrait ? getComputedStyle(portrait).opacity : null,
     portraitAnimation: portrait ? getComputedStyle(portrait).animationName : null,
     portraitMask: portrait ? getComputedStyle(portrait).maskImage : null,
@@ -88,8 +89,8 @@ if (desktopAudit.scrollWidth > desktopAudit.viewportWidth + 1) errors.push(`desk
 if (desktopAudit.profileCopyWhiteSpace !== "nowrap" || !desktopAudit.profileCopy || desktopAudit.profileCopy.height > 24 || Number(desktopAudit.profileCopyOverflow) > 1) errors.push(`desktop profile copy wrapping: ${JSON.stringify({ profileCopy: desktopAudit.profileCopy, whiteSpace: desktopAudit.profileCopyWhiteSpace, overflow: desktopAudit.profileCopyOverflow })}`);
 if (desktopAudit.h1Count !== 1 || desktopAudit.h1Text !== "JAMIEZHANG") errors.push(`desktop h1: ${desktopAudit.h1Count}/${desktopAudit.h1Text}`);
 if (desktopAudit.bodyText.includes("????")) errors.push("Chinese copy contains replacement question marks");
-if (!desktopAudit.portraitSrc?.includes("jamie-hero-cutout-hd.png") || !desktopAudit.portraitSrc.includes("q=95")) errors.push(`portrait source: ${desktopAudit.portraitSrc}`);
-if (!desktopAudit.portraitFilter?.includes("saturate(1.24)") || !desktopAudit.monoPortraitFilter?.includes("grayscale(0.78)")) errors.push(`portrait treatment: ${desktopAudit.portraitFilter}/${desktopAudit.monoPortraitFilter}`);
+if (!desktopAudit.portraitSrc?.includes("jamie-hero-cutout-v9.png") || !desktopAudit.portraitSrc.includes("q=95")) errors.push(`portrait source: ${desktopAudit.portraitSrc}`);
+if (!desktopAudit.portraitFilter?.includes("saturate(0.88)") || !desktopAudit.hoverPortraitFilter?.includes("saturate(0.68)") || !desktopAudit.monoPortraitFilter?.includes("grayscale(0.78)")) errors.push(`portrait treatment: ${desktopAudit.portraitFilter}/${desktopAudit.hoverPortraitFilter}/${desktopAudit.monoPortraitFilter}`);
 if (desktopAudit.hoverPortraitMask === "none") errors.push(`portrait hover mask: ${desktopAudit.hoverPortraitMask}`);
 if (!desktopAudit.hairPortraitFilter?.includes("brightness(0.42)") || Number(desktopAudit.hairPortraitOpacity) < .5) errors.push(`portrait hair tone: ${desktopAudit.hairPortraitFilter}/${desktopAudit.hairPortraitOpacity}`);
 if (desktopAudit.portraitOpacity !== "1" || desktopAudit.portraitAnimation !== "none" || desktopAudit.portraitMask === "none") errors.push(`persistent face color: ${desktopAudit.portraitOpacity}/${desktopAudit.portraitAnimation}/${desktopAudit.portraitMask}`);
@@ -220,8 +221,8 @@ const mobileAudit = await mobilePage.evaluate(() => {
 });
 if (mobileAudit.scrollWidth > mobileAudit.viewportWidth + 1) errors.push(`mobile overflow: ${mobileAudit.scrollWidth}/${mobileAudit.viewportWidth}`);
 if ((mobileAudit.headerToolsX ?? 0) < 300) errors.push(`mobile menu is not right aligned: ${mobileAudit.headerToolsX}`);
-if (!mobileAudit.portraitSrc?.includes("q=95")) errors.push(`mobile portrait source: ${mobileAudit.portraitSrc}`);
-if (mobileAudit.colorOpacity !== "1" || !mobileAudit.colorFilter?.includes("saturate(1.28)") || mobileAudit.colorAnimation !== "none" || mobileAudit.colorMask !== "none") errors.push(`mobile color portrait state: ${JSON.stringify(mobileAudit)}`);
+if (!mobileAudit.portraitSrc?.includes("jamie-hero-cutout-v9.png") || !mobileAudit.portraitSrc.includes("q=95")) errors.push(`mobile portrait source: ${mobileAudit.portraitSrc}`);
+if (mobileAudit.colorOpacity !== "1" || !mobileAudit.colorFilter?.includes("saturate(0.95)") || !mobileAudit.colorFilter.includes("brightness(1.02)") || mobileAudit.colorAnimation !== "none" || mobileAudit.colorMask !== "none") errors.push(`mobile color portrait state: ${JSON.stringify(mobileAudit)}`);
 if (mobileAudit.nameBlend !== "normal" || mobileAudit.nameOpacity !== "1" || mobileAudit.nameColor !== "rgb(36, 35, 33)") errors.push(`mobile name visibility: ${JSON.stringify(mobileAudit)}`);
 if ([mobileAudit.monoDisplay, mobileAudit.hoverDisplay, mobileAudit.hairDisplay].some((value) => value !== "none")) errors.push(`mobile effect layers: ${JSON.stringify(mobileAudit)}`);
 await mobilePage.screenshot({ path: join(output, "mobile-cover.png") });
@@ -262,6 +263,8 @@ const darkAudit = await darkPage.evaluate(() => {
   const hover = document.querySelector(".portrait-hover-color");
   const hair = document.querySelector(".portrait-hair-tone");
   const canvas = document.querySelector(".ref-hero-canvas");
+  const portraitWrap = document.querySelector(".editorial-portrait");
+  const portraitBefore = portraitWrap ? getComputedStyle(portraitWrap, "::before") : null;
   const profile = document.querySelector(".editorial-profile")?.getBoundingClientRect();
   const socials = document.querySelector(".editorial-socials")?.getBoundingClientRect();
   const name = document.querySelector(".editorial-name");
@@ -290,11 +293,13 @@ const darkAudit = await darkPage.evaluate(() => {
     nameFill: nameSolid ? getComputedStyle(nameSolid).webkitTextFillColor : null,
     nameStroke: nameOutline ? getComputedStyle(nameOutline).webkitTextStrokeColor : null,
     portraitBlend: color ? getComputedStyle(color).mixBlendMode : null,
+    portraitBeforeDisplay: portraitBefore?.display ?? null,
+    portraitBeforeContent: portraitBefore?.content ?? null,
   };
 });
 if (darkAudit.theme !== "dark") errors.push(`dark theme state: ${darkAudit.theme}`);
 if (darkAudit.scrollWidth > darkAudit.viewportWidth + 1) errors.push(`dark mobile overflow: ${darkAudit.scrollWidth}/${darkAudit.viewportWidth}`);
-if (!darkAudit.portraitFilter?.includes("saturate(1.3)") || !darkAudit.portraitFilter.includes("brightness(1.08)") || darkAudit.portraitOpacity !== "1" || darkAudit.portraitAnimation !== "none" || darkAudit.portraitMask !== "none" || darkAudit.portraitBlend !== "normal") errors.push(`dark mobile color portrait: ${JSON.stringify(darkAudit)}`);
+if (!darkAudit.portraitFilter?.includes("saturate(0.95)") || !darkAudit.portraitFilter.includes("brightness(1.02)") || darkAudit.portraitOpacity !== "1" || darkAudit.portraitAnimation !== "none" || darkAudit.portraitMask !== "none" || darkAudit.portraitBlend !== "normal" || darkAudit.portraitBeforeDisplay !== "none" || darkAudit.portraitBeforeContent !== "none") errors.push(`dark mobile color portrait: ${JSON.stringify(darkAudit)}`);
 if (darkAudit.nameBlend !== "normal" || darkAudit.nameOpacity !== "1" || darkAudit.nameColor !== "rgb(243, 239, 233)" || darkAudit.nameFill !== "rgb(243, 239, 233)" || darkAudit.nameStroke !== "rgb(243, 239, 233)" || !darkAudit.name || darkAudit.name.height < 100) errors.push(`dark mobile name visibility: ${JSON.stringify(darkAudit)}`);
 if (darkAudit.effectDisplays.some((value) => value !== "none")) errors.push(`dark mobile effect layers: ${JSON.stringify(darkAudit.effectDisplays)}`);
 if (darkAudit.surfaceBackgrounds.some((value) => value === "rgba(0, 0, 0, 0)" || value === "rgb(255, 255, 255)")) errors.push(`dark home surfaces: ${JSON.stringify(darkAudit.surfaceBackgrounds)}`);

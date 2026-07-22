@@ -37,7 +37,7 @@ export function PortfolioHero({ locale, statement, description, workLabel }: Por
         <div className="editorial-portrait">
           <Image
             className="portrait-mono"
-            src="/images/portfolio/jamie-hero-cutout-hd.png"
+            src="/images/portfolio/jamie-hero-cutout-v9.png"
             alt=""
             aria-hidden="true"
             fill
@@ -47,7 +47,7 @@ export function PortfolioHero({ locale, statement, description, workLabel }: Por
           />
           <Image
             className="portrait-color"
-            src="/images/portfolio/jamie-hero-cutout-hd.png"
+            src="/images/portfolio/jamie-hero-cutout-v9.png"
             alt="Jamie Zhang portrait"
             fill
             priority
@@ -55,7 +55,7 @@ export function PortfolioHero({ locale, statement, description, workLabel }: Por
             sizes="(max-width: 600px) 104vw, (max-width: 900px) 82vw, 820px"
           />          <Image
             className="portrait-hover-color"
-            src="/images/portfolio/jamie-hero-cutout-hd.png"
+            src="/images/portfolio/jamie-hero-cutout-v9.png"
             alt=""
             aria-hidden="true"
             fill
@@ -64,7 +64,7 @@ export function PortfolioHero({ locale, statement, description, workLabel }: Por
             sizes="(max-width: 600px) 104vw, (max-width: 900px) 82vw, 820px"
           />          <Image
             className="portrait-hair-tone"
-            src="/images/portfolio/jamie-hero-cutout-hd.png"
+            src="/images/portfolio/jamie-hero-cutout-v9.png"
             alt=""
             aria-hidden="true"
             fill
